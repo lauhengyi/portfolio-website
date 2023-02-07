@@ -14,6 +14,7 @@ const Home: NextPage = () => {
         height: '100vh',
         overflow: 'hidden',
       }}
+      shadows
     >
       <Experience />
     </Canvas>
