@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { Canvas } from '@react-three/fiber';
 import Experience from '../components/webGL/Experience';
 import styles from '../styles/Home.module.css';
+import { Perf } from 'r3f-perf';
 
 const Home: NextPage = () => {
   return (
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
       }}
       shadows
     >
+      <Perf position={'top-right'} />
       <Experience />
     </Canvas>
   );

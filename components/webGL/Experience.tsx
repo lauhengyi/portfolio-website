@@ -1,11 +1,11 @@
-import { OrbitControls, Text3D, Center } from '@react-three/drei';
+import { OrbitControls, Text3D, Center, Sky } from '@react-three/drei';
 import LEDScreen from './LEDScreen';
 
 export default function Experience() {
   return (
     <>
+      <Sky />
       <OrbitControls />
-      <color attach="background" args={['black']} />
       {/* <directionalLight position={[0, 10, 0]} intensity={1.5} />
       <ambientLight intensity={0.3} /> */}
       <LEDScreen />
