@@ -7,6 +7,7 @@ import { Perf } from 'r3f-perf';
 const Home: NextPage = () => {
   return (
     <Canvas
+      flat
       style={{
         position: 'fixed',
         top: 0,
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
         height: '100vh',
         overflow: 'hidden',
       }}
-      shadows
+      camera={{ fov: 50 }}
     >
       <Perf position={'top-right'} />
       <Experience />
