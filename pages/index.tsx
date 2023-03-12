@@ -3,8 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import Experience from '../components/webGL/Experience';
 import styles from '../styles/Home.module.css';
 import { Perf } from 'r3f-perf';
-import handleOrbit from '../components/webGL/handleOrbit';
-import * as THREE from 'three';
 
 const Home: NextPage = () => {
   return (
