@@ -1,7 +1,8 @@
-import { PointerEvent } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect } from 'react';
 
-export default function handleOrbit(e: PointerEvent<HTMLDivElement>) {
-  const amountX = (e.clientX / window.innerWidth) * 2 - 1;
-  const amountY = -(e.clientY / window.innerHeight) * 2 + 1;
-  //   console.log(amountX, amountY);
+export default function handleOrbit() {
+  useFrame((state, delta) => {
+    const { camera, pointer } = state;
+  });
 }

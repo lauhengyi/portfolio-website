@@ -13,10 +13,11 @@ export default function handleResize() {
 
   useEffect(() => {
     // As the aspect ratio gets bigger, the camera needs to be moved closer to the origin
-    const scaleAmount = Math.max(multiplier / aspect, 7);
+    const distanceFromOrigin = Math.max(multiplier / aspect, 7);
 
-    const newPosition = normalizedVector.multiplyScalar(scaleAmount);
+    const newPosition = normalizedVector.multiplyScalar(distanceFromOrigin);
+    console.log('newPosition', newPosition);
     camera.position.set(newPosition.x, newPosition.y, newPosition.z);
-    camera.lookAt(0.3, 0, 0);
+    camera.lookAt(aspect * 0.2, 0, 0);
   }, [aspect]);
 }

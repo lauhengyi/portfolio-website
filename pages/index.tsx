@@ -9,11 +9,8 @@ import * as THREE from 'three';
 const Home: NextPage = () => {
   return (
     <Canvas
-      onPointerMove={handleOrbit}
       camera={{
         fov: 45,
-        position: [1.39, 3.69, 6.51],
-        rotation: [-0.516, 0.144, 0.081],
       }}
       flat
       style={{
