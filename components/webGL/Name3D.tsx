@@ -11,6 +11,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 type GLTFResult = GLTF & {
   nodes: {
     windows: THREE.Mesh;
+    waters: THREE.Mesh;
     buildings: THREE.Mesh;
   };
   materials: {};
@@ -19,8 +20,10 @@ type GLTFResult = GLTF & {
 export default function Name3D() {
   const { nodes } = useGLTF('/name3D.glb') as GLTFResult;
   const bakedTexture = useTexture('/bakedTexture.jpg');
-  const windowTexture = useTexture('/matcap.png');
+  const waterTexture = useTexture('/bakedWater.png');
+  const windowTexture = useTexture('/matcap.jpg');
   bakedTexture.flipY = false;
+  waterTexture.flipY = false;
 
   // useFrame((state) => {
   //   console.log(state.camera.position);
@@ -29,8 +32,11 @@ export default function Name3D() {
 
   return (
     <group dispose={null}>
-      <mesh geometry={nodes.windows.geometry} position={[-0.03, 0.45, 0.23]}>
+      <mesh geometry={nodes.windows.geometry}>
         <meshMatcapMaterial matcap={windowTexture} />
+      </mesh>
+      <mesh geometry={nodes.waters.geometry}>
+        <meshBasicMaterial map={waterTexture} transparent />
       </mesh>
       <mesh geometry={nodes.buildings.geometry}>
         <meshBasicMaterial map={bakedTexture} />
