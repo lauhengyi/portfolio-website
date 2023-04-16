@@ -3,6 +3,7 @@ import Floor from './Floor';
 import Name3D from './Name3D';
 import CameraHandler from './handlers/CameraHandler';
 import { useThree } from '@react-three/fiber';
+import Cars from './Cars';
 
 export default function Experience() {
   const camera = useThree((state) => state.camera);
@@ -17,6 +18,7 @@ export default function Experience() {
       {/* <OrbitConstrols /> */}
       <Sky />
       <Name3D />
+      <Cars />
       <Floor />
     </>
   );
