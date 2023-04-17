@@ -115,6 +115,9 @@ export default function Cars() {
   }, []);
 
   useFrame(({ clock }, delta) => {
+    // Check if carRef is initialized
+    if (!carRef.current) return;
+
     // Move cars
     for (let i = 0; i < carsPerLane * 2; i++) {
       const carSpeed = carRecord.current[i].speed;
@@ -158,7 +161,7 @@ export default function Cars() {
 
         if (carBefore.speed === 0) {
           // No car in front, so no speed cap
-          maxSpeed = isFrontLane ? Infinity : -Infinity;
+          maxSpeed = Infinity;
         } else {
           // Calculate time for car infront to reach the end
           const distanceToCarBefore = Math.abs(
