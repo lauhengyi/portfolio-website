@@ -57,10 +57,10 @@ export default function Cars() {
   */
   const carRef = useRef<THREE.InstancedMesh>(null!);
   const carsPerLane = 3;
-  const carSpeedMin = 0.5;
+  const carSpeedMin = 1;
   const carSpeedRange = 1;
   const carDurationMin = 2;
-  const carDurationRange = 4;
+  const carDurationRange = 3;
   const travelDistFromOrigin = 7;
   // Initialize car speeds as 0;
   const carRecord = useRef<
@@ -129,59 +129,85 @@ export default function Cars() {
     }
 
     // Deploy cars
-    // Front lane
-    for (let i = 0; i < carsPerLane; i++) {
+    // Function to handle deployment, returns true if car is deployed
+    const handleCarDeployment = (
+      index: number,
+      isFrontLane: boolean,
+    ): boolean => {
       if (
-        carRecord.current[i].deployTime && // Make sure car is next to be deployed
-        clock.elapsedTime > carRecord.current[i].deployTime! && // Make sure it is time to deploy
-        carRecord.current[i].speed === 0 // Make sure car is not already deployed
+        carRecord.current[index].deployTime && // Make sure car is next to be deployed
+        clock.elapsedTime > carRecord.current[index].deployTime! && // Make sure it is time to deploy
+        carRecord.current[index].speed === 0 // Make sure car is not already deployed
       ) {
         // Calculate new speed
+        // Setting a max speed to prevent the deployed car from overtaking the car in front
         let maxSpeed;
-        const carBeforeIndex = i === 0 ? carsPerLane - 1 : i - 1;
-        const carBefore = carRecord.current[carBeforeIndex];
-        if (carBefore.speed === 0) {
-          maxSpeed = 10000;
+
+        let carBeforeIndex;
+        if (isFrontLane) {
+          carBeforeIndex = index === 0 ? carsPerLane - 1 : index - 1;
         } else {
-          const distanceToCarBefore =
-            carBefore.carObject.position.x -
-            carRecord.current[i].carObject.position.x;
-          let distanceLeft = travelDistFromOrigin * 2 - distanceToCarBefore;
-          // Add additional space to distanceLeft to compensate for size of car
-          distanceLeft += 2;
-          const timeToCatchUp = distanceLeft / carBefore.speed;
-          const additionalSpeed = distanceToCarBefore / timeToCatchUp;
-          maxSpeed = carBefore.speed + additionalSpeed;
+          carBeforeIndex =
+            index === carsPerLane ? carsPerLane * 2 - 1 : index - 1;
         }
-        carRecord.current[i].speed = Math.min(
+        const carBefore = carRecord.current[carBeforeIndex];
+
+        if (carBefore.speed === 0) {
+          // No car in front, so no speed cap
+          maxSpeed = isFrontLane ? Infinity : -Infinity;
+        } else {
+          // Calculate time for car infront to reach the end
+          const distanceToCarBefore = Math.abs(
+            carBefore.carObject.position.x -
+              carRecord.current[index].carObject.position.x,
+          );
+          let distanceLeft = travelDistFromOrigin * 2 - distanceToCarBefore;
+          const timeToCatchUp = distanceLeft / Math.abs(carBefore.speed);
+          // Added less distance to compensate for length of car
+          const additionalSpeed = (distanceToCarBefore - 1.5) / timeToCatchUp;
+          maxSpeed = Math.abs(carBefore.speed) + additionalSpeed;
+        }
+
+        console.log(maxSpeed);
+        // Set speed
+        carRecord.current[index].speed = Math.min(
           carSpeedMin + Math.random() * carSpeedRange,
           maxSpeed,
         );
-        carRecord.current[i].deployTime = null;
+        if (!isFrontLane) carRecord.current[index].speed *= -1;
 
-        carRecord.current[(i + 1) % carsPerLane].deployTime =
+        // Reset deploy time
+        carRecord.current[index].deployTime = null;
+
+        // Set next car to deploy
+        let carAfterIndex = (index + 1) % carsPerLane;
+        if (!isFrontLane) carAfterIndex += carsPerLane;
+        const carAfter = carRecord.current[carAfterIndex];
+        carAfter.deployTime =
           clock.elapsedTime + carDurationMin + Math.random() * carDurationRange;
+        // Add extra time if the carAfter is still being deployed
+        let extraTime = 0;
+        if (carAfter.speed !== 0) {
+          const extraDistance = Math.abs(
+            carAfter.carObject.position.x -
+              carRecord.current[index].carObject.position.x,
+          );
+          extraTime = extraDistance / Math.abs(carAfter.speed);
+        }
+        carAfter.deployTime += extraTime;
 
-        break;
+        return true;
       }
+      return false;
+    };
+
+    // Front lane
+    for (let i = 0; i < carsPerLane; i++) {
+      if (handleCarDeployment(i, true)) break;
     }
     // Back lane
-    for (let i = 0; i < carsPerLane; i++) {
-      if (
-        carRecord.current[i + carsPerLane].deployTime && // Make sure car is next to be deployed
-        clock.elapsedTime > carRecord.current[i + carsPerLane].deployTime! && // Make sure it is time to deploy
-        carRecord.current[i + carsPerLane].speed === 0 // Make sure car is not already deployed
-      ) {
-        carRecord.current[i + carsPerLane].speed = -(
-          carSpeedMin +
-          Math.random() * carSpeedRange
-        );
-        carRecord.current[i + carsPerLane].deployTime = null;
-
-        carRecord.current[((i + 1) % carsPerLane) + carsPerLane].deployTime =
-          clock.elapsedTime + carDurationMin + Math.random() * carDurationRange;
-        break;
-      }
+    for (let i = carsPerLane; i < carsPerLane * 2; i++) {
+      if (handleCarDeployment(i, false)) break;
     }
     carRef.current.instanceMatrix.needsUpdate = true;
   });
