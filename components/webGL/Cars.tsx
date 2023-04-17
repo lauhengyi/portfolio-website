@@ -168,7 +168,6 @@ export default function Cars() {
           maxSpeed = Math.abs(carBefore.speed) + additionalSpeed;
         }
 
-        console.log(maxSpeed);
         // Set speed
         carRecord.current[index].speed = Math.min(
           carSpeedMin + Math.random() * carSpeedRange,
@@ -189,8 +188,9 @@ export default function Cars() {
         let extraTime = 0;
         if (carAfter.speed !== 0) {
           const extraDistance = Math.abs(
-            carAfter.carObject.position.x -
-              carRecord.current[index].carObject.position.x,
+            carAfter.speed > 0
+              ? travelDistFromOrigin - carAfter.carObject.position.x
+              : -travelDistFromOrigin - carAfter.carObject.position.x,
           );
           extraTime = extraDistance / Math.abs(carAfter.speed);
         }
