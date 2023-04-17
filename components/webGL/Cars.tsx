@@ -15,12 +15,16 @@ type GLTFResult = GLTF & {
   };
 };
 
+type iUv = THREE.InstancedBufferAttribute & {
+  array: Float32Array;
+};
+
 export default function Cars() {
   const { nodes } = useGLTF('/car.glb') as GLTFResult;
   const bakedCarAtlas = useTexture('/bakedCarAtlas.jpg');
   bakedCarAtlas.flipY = false;
 
-  const atlasSize = 2;
+  const atlasSize = 4;
   const texStep = 1 / atlasSize;
 
   /*
@@ -174,6 +178,13 @@ export default function Cars() {
           maxSpeed,
         );
         if (!isFrontLane) carRecord.current[index].speed *= -1;
+
+        // Change car color
+        const newUV = getRandomAtlasUV(atlasSize, isFrontLane);
+        const currentIUV = nodes.car.geometry.attributes.iUv as iUv;
+        currentIUV.array[index * 2] = newUV[0];
+        currentIUV.array[index * 2 + 1] = newUV[1];
+        currentIUV.needsUpdate = true;
 
         // Reset deploy time
         carRecord.current[index].deployTime = null;
