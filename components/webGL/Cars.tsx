@@ -56,20 +56,23 @@ export default function Cars() {
   / Animating cars
   */
   const carRef = useRef<THREE.InstancedMesh>(null!);
-  const carsPerLane = 1;
+  const carsPerLane = 4;
   const carSpeedMin = 0.5;
   const carSpeedRange = 1;
-  const carDurationMin = 1;
-  const carDurationRange = 3;
+  const carDurationMin = 2;
+  const carDurationRange = 4;
   // Initialize car speeds as 0;
-  const carRecord = useRef<{ speed: number; carObject: THREE.Object3D }[]>(
-    new Array(carsPerLane * 2),
-  );
-  const lastCar = useRef<[number, number]>([0, 0]);
+  const carRecord = useRef<
+    { speed: number; deployTime: number | null; carObject: THREE.Object3D }[]
+  >(new Array(carsPerLane * 2));
 
   useEffect(() => {
     for (let i = 0; i < carsPerLane * 2; i++) {
-      carRecord.current[i] = { speed: 0, carObject: new THREE.Object3D() };
+      carRecord.current[i] = {
+        speed: 0,
+        deployTime: null,
+        carObject: new THREE.Object3D(),
+      };
     }
     // Move first cars
     carRecord.current[0].speed = carSpeedMin + Math.random() * carSpeedRange;
@@ -77,18 +80,22 @@ export default function Cars() {
       carSpeedMin +
       Math.random() * carSpeedRange
     );
+    carRecord.current[1].deployTime =
+      carDurationMin + Math.random() * carDurationRange;
+    carRecord.current[carsPerLane + 1].deployTime =
+      carDurationMin + Math.random() * carDurationRange;
 
     const uvs = [];
     for (let i = 0; i < carsPerLane; i++) {
       const carObject = carRecord.current[i].carObject;
-      carObject.position.set(-5, 0.04, 1.56);
+      carObject.position.set(-7, 0.04, 1.56);
       carObject.updateMatrix();
       uvs.push(...getRandomAtlasUV(atlasSize, true));
       carRef.current.setMatrixAt(i, carObject.matrix);
     }
     for (let i = carsPerLane; i < carsPerLane * 2; i++) {
       const carObject = carRecord.current[i].carObject;
-      carObject.position.set(5, 0.04, 1.97);
+      carObject.position.set(7, 0.04, 1.97);
       carObject.rotation.set(0, Math.PI, 0);
       carObject.updateMatrix();
       uvs.push(...getRandomAtlasUV(atlasSize, false));
@@ -102,20 +109,57 @@ export default function Cars() {
     );
   }, []);
 
-  useFrame((_, delta) => {
-    // Move front lane cars
+  useFrame(({ clock }, delta) => {
+    // Move cars
     for (let i = 0; i < carsPerLane * 2; i++) {
       const carSpeed = carRecord.current[i].speed;
       if (carSpeed === 0) continue;
       const carObject = carRecord.current[i].carObject;
       carObject.position.x += carSpeed * delta;
-      if (carObject.position.x > 6) {
-        carObject.position.x = -6;
-      } else if (carObject.position.x < -6) {
-        carObject.position.x = 6;
+      if (carObject.position.x > 7) {
+        carObject.position.x = -7;
+        carRecord.current[i].speed = 0;
+      } else if (carObject.position.x < -7) {
+        carObject.position.x = 7;
+        carRecord.current[i].speed = 0;
       }
       carObject.updateMatrix();
       carRef.current.setMatrixAt(i, carObject.matrix);
+    }
+
+    // Deploy cars
+    // Front lane
+    for (let i = 0; i < carsPerLane; i++) {
+      if (
+        carRecord.current[i].deployTime &&
+        clock.elapsedTime > carRecord.current[i].deployTime!
+      ) {
+        carRecord.current[i].speed =
+          carSpeedMin + Math.random() * carSpeedRange;
+        carRecord.current[i].deployTime = null;
+
+        carRecord.current[(i + 1) % carsPerLane].deployTime =
+          clock.elapsedTime + carDurationMin + Math.random() * carDurationRange;
+
+        break;
+      }
+    }
+    // Back lane
+    for (let i = 0; i < carsPerLane; i++) {
+      if (
+        carRecord.current[i + carsPerLane].deployTime &&
+        clock.elapsedTime > carRecord.current[i].deployTime!
+      ) {
+        carRecord.current[i + carsPerLane].speed = -(
+          carSpeedMin +
+          Math.random() * carSpeedRange
+        );
+        carRecord.current[i + carsPerLane].deployTime = null;
+
+        carRecord.current[((i + 1) % carsPerLane) + carsPerLane].deployTime =
+          clock.elapsedTime + carDurationMin + Math.random() * carDurationRange;
+        break;
+      }
     }
     carRef.current.instanceMatrix.needsUpdate = true;
   });
