@@ -7,7 +7,7 @@ import React, { useRef, useEffect } from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
-import getRandomAtlasUV from './handlers/getRandomAtlasUV';
+import getRandomAtlasUV from './handlers/cars/getRandomAtlasUV';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -56,11 +56,12 @@ export default function Cars() {
   / Animating cars
   */
   const carRef = useRef<THREE.InstancedMesh>(null!);
-  const carsPerLane = 4;
+  const carsPerLane = 3;
   const carSpeedMin = 0.5;
   const carSpeedRange = 1;
   const carDurationMin = 2;
   const carDurationRange = 4;
+  const travelDistFromOrigin = 7;
   // Initialize car speeds as 0;
   const carRecord = useRef<
     { speed: number; deployTime: number | null; carObject: THREE.Object3D }[]
@@ -88,14 +89,14 @@ export default function Cars() {
     const uvs = [];
     for (let i = 0; i < carsPerLane; i++) {
       const carObject = carRecord.current[i].carObject;
-      carObject.position.set(-7, 0.04, 1.56);
+      carObject.position.set(-travelDistFromOrigin, 0.04, 1.56);
       carObject.updateMatrix();
       uvs.push(...getRandomAtlasUV(atlasSize, true));
       carRef.current.setMatrixAt(i, carObject.matrix);
     }
     for (let i = carsPerLane; i < carsPerLane * 2; i++) {
       const carObject = carRecord.current[i].carObject;
-      carObject.position.set(7, 0.04, 1.97);
+      carObject.position.set(travelDistFromOrigin, 0.04, 1.97);
       carObject.rotation.set(0, Math.PI, 0);
       carObject.updateMatrix();
       uvs.push(...getRandomAtlasUV(atlasSize, false));
@@ -116,11 +117,11 @@ export default function Cars() {
       if (carSpeed === 0) continue;
       const carObject = carRecord.current[i].carObject;
       carObject.position.x += carSpeed * delta;
-      if (carObject.position.x > 7) {
-        carObject.position.x = -7;
+      if (carObject.position.x > travelDistFromOrigin) {
+        carObject.position.x = -travelDistFromOrigin;
         carRecord.current[i].speed = 0;
-      } else if (carObject.position.x < -7) {
-        carObject.position.x = 7;
+      } else if (carObject.position.x < -travelDistFromOrigin) {
+        carObject.position.x = travelDistFromOrigin;
         carRecord.current[i].speed = 0;
       }
       carObject.updateMatrix();
@@ -131,11 +132,31 @@ export default function Cars() {
     // Front lane
     for (let i = 0; i < carsPerLane; i++) {
       if (
-        carRecord.current[i].deployTime &&
-        clock.elapsedTime > carRecord.current[i].deployTime!
+        carRecord.current[i].deployTime && // Make sure car is next to be deployed
+        clock.elapsedTime > carRecord.current[i].deployTime! && // Make sure it is time to deploy
+        carRecord.current[i].speed === 0 // Make sure car is not already deployed
       ) {
-        carRecord.current[i].speed =
-          carSpeedMin + Math.random() * carSpeedRange;
+        // Calculate new speed
+        let maxSpeed;
+        const carBeforeIndex = i === 0 ? carsPerLane - 1 : i - 1;
+        const carBefore = carRecord.current[carBeforeIndex];
+        if (carBefore.speed === 0) {
+          maxSpeed = 10000;
+        } else {
+          const distanceToCarBefore =
+            carBefore.carObject.position.x -
+            carRecord.current[i].carObject.position.x;
+          let distanceLeft = travelDistFromOrigin * 2 - distanceToCarBefore;
+          // Add additional space to distanceLeft to compensate for size of car
+          distanceLeft += 2;
+          const timeToCatchUp = distanceLeft / carBefore.speed;
+          const additionalSpeed = distanceToCarBefore / timeToCatchUp;
+          maxSpeed = carBefore.speed + additionalSpeed;
+        }
+        carRecord.current[i].speed = Math.min(
+          carSpeedMin + Math.random() * carSpeedRange,
+          maxSpeed,
+        );
         carRecord.current[i].deployTime = null;
 
         carRecord.current[(i + 1) % carsPerLane].deployTime =
@@ -147,8 +168,9 @@ export default function Cars() {
     // Back lane
     for (let i = 0; i < carsPerLane; i++) {
       if (
-        carRecord.current[i + carsPerLane].deployTime &&
-        clock.elapsedTime > carRecord.current[i].deployTime!
+        carRecord.current[i + carsPerLane].deployTime && // Make sure car is next to be deployed
+        clock.elapsedTime > carRecord.current[i + carsPerLane].deployTime! && // Make sure it is time to deploy
+        carRecord.current[i + carsPerLane].speed === 0 // Make sure car is not already deployed
       ) {
         carRecord.current[i + carsPerLane].speed = -(
           carSpeedMin +
