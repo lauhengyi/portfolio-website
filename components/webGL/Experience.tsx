@@ -10,12 +10,12 @@ export default function Experience() {
   const size = useThree((state) => state.size);
   const cameraHandler = new CameraHandler(camera, size);
 
-  // cameraHandler.handleResize();
-  // cameraHandler.handleOrbit();
+  cameraHandler.handleResize();
+  cameraHandler.handleOrbit();
 
   return (
     <>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <Sky />
       <Name3D />
       <Cars />
