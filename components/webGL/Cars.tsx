@@ -7,6 +7,7 @@ import React, { useRef, useEffect } from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
+import getRandomAtlasUV from './handlers/getRandomAtlasUV';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -17,12 +18,14 @@ type GLTFResult = GLTF & {
 export default function Cars() {
   const { nodes } = useGLTF('/car.glb') as GLTFResult;
   const bakedCarAtlas = useTexture('/bakedCarAtlas.jpg');
-  const carRef = useRef<THREE.InstancedMesh>(null!);
   bakedCarAtlas.flipY = false;
 
-  const size = 2;
-  const texStep = 1 / size;
+  const atlasSize = 2;
+  const texStep = 1 / atlasSize;
 
+  /*
+  / Modifying shader to use atlas
+  */
   const modifyShader = (shader: THREE.Shader) => {
     shader.vertexShader = `
     	attribute vec2 iUv;
@@ -41,7 +44,7 @@ export default function Cars() {
       `#include <map_fragment>`,
       `
       #ifdef USE_MAP
-        vec4 sampledDiffuseColor = texture2D( map, vUv * 0.5 );
+        vec4 sampledDiffuseColor = texture2D( map, instUv + vUv * ${texStep} );
 
         diffuseColor *= sampledDiffuseColor;
       #endif
@@ -49,17 +52,81 @@ export default function Cars() {
     );
   };
 
-  useFrame(({ clock }) => {
-    carRef.current.position.x += 0.01;
+  /*
+  / Animating cars
+  */
+  const carRef = useRef<THREE.InstancedMesh>(null!);
+  const carsPerLane = 1;
+  const carSpeedMin = 0.5;
+  const carSpeedRange = 1;
+  const carDurationMin = 1;
+  const carDurationRange = 3;
+  // Initialize car speeds as 0;
+  const carRecord = useRef<{ speed: number; carObject: THREE.Object3D }[]>(
+    new Array(carsPerLane * 2),
+  );
+  const lastCar = useRef<[number, number]>([0, 0]);
+
+  useEffect(() => {
+    for (let i = 0; i < carsPerLane * 2; i++) {
+      carRecord.current[i] = { speed: 0, carObject: new THREE.Object3D() };
+    }
+    // Move first cars
+    carRecord.current[0].speed = carSpeedMin + Math.random() * carSpeedRange;
+    carRecord.current[carsPerLane].speed = -(
+      carSpeedMin +
+      Math.random() * carSpeedRange
+    );
+
+    const uvs = [];
+    for (let i = 0; i < carsPerLane; i++) {
+      const carObject = carRecord.current[i].carObject;
+      carObject.position.set(-5, 0.04, 1.56);
+      carObject.updateMatrix();
+      uvs.push(...getRandomAtlasUV(atlasSize, true));
+      carRef.current.setMatrixAt(i, carObject.matrix);
+    }
+    for (let i = carsPerLane; i < carsPerLane * 2; i++) {
+      const carObject = carRecord.current[i].carObject;
+      carObject.position.set(5, 0.04, 1.97);
+      carObject.rotation.set(0, Math.PI, 0);
+      carObject.updateMatrix();
+      uvs.push(...getRandomAtlasUV(atlasSize, false));
+      carRef.current.setMatrixAt(i, carObject.matrix);
+    }
+    carRef.current.instanceMatrix.needsUpdate = true;
+
+    nodes.car.geometry.setAttribute(
+      'iUv',
+      new THREE.InstancedBufferAttribute(new Float32Array(uvs), 2),
+    );
+  }, []);
+
+  useFrame((_, delta) => {
+    // Move front lane cars
+    for (let i = 0; i < carsPerLane * 2; i++) {
+      const carSpeed = carRecord.current[i].speed;
+      if (carSpeed === 0) continue;
+      const carObject = carRecord.current[i].carObject;
+      carObject.position.x += carSpeed * delta;
+      if (carObject.position.x > 6) {
+        carObject.position.x = -6;
+      } else if (carObject.position.x < -6) {
+        carObject.position.x = 6;
+      }
+      carObject.updateMatrix();
+      carRef.current.setMatrixAt(i, carObject.matrix);
+    }
+    carRef.current.instanceMatrix.needsUpdate = true;
   });
 
   return (
     <group dispose={null}>
       <instancedMesh
         ref={carRef}
-        args={[undefined, undefined, 1]}
+        args={[undefined, undefined, carsPerLane * 2]}
         geometry={nodes.car.geometry}
-        position={[-5, 0.04, 1.56]}
+        // position={[-5, 0.04, 1.56]}
       >
         <meshBasicMaterial map={bakedCarAtlas} onBeforeCompile={modifyShader} />
       </instancedMesh>
