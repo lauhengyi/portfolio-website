@@ -54,6 +54,8 @@ export default class CameraHandler {
   handleOrbit() {
     useFrame((state, delta) => {
       const { pointer } = state;
+      // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
+      const clampDelta = Math.min(delta, 0.1);
 
       const newLookAtPoint = this.lookAtPoint.clone();
 
@@ -69,10 +71,12 @@ export default class CameraHandler {
       // Update look at point
       newLookAtPoint.x += pointer.x * 1.5;
 
-      this.camera.position.lerp(newPosition, delta * 3);
+      this.camera.position.lerp(newPosition, clampDelta * 3);
 
       // Update looking location
-      this.camera.lookAt(this.oldLookAtPoint.lerp(newLookAtPoint, delta * 3));
+      this.camera.lookAt(
+        this.oldLookAtPoint.lerp(newLookAtPoint, clampDelta * 3),
+      );
     });
   }
 }
