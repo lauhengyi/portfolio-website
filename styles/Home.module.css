@@ -4,6 +4,32 @@
   z-index: 1;
 }
 
+.landing {
+  position: absolute;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.overview {
+  grid-row: 3;
+  align-items: start;
+}
+
 .title {
+  margin: 0;
+  color: white;
+  font-family: 'Rampart One', cursive;
+  font-weight: 100;
   font-size: 100px;
+}
+
+.caption {
+  margin: 0;
+  color: white;
+  font-family: 'Oswald';
+  font-size: 50px;
 }
