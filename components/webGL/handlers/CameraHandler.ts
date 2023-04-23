@@ -58,7 +58,7 @@ export default class CameraHandler {
   handleOrbit() {
     addEventListener('mousemove', (e) => {
       this.pointer.x = (e.clientX / this.size.width - 0.5) * 2;
-      this.pointer.y = -(e.clientY / this.size.width - 0.5) * 2;
+      this.pointer.y = -(e.clientY / this.size.height - 0.5) * 2;
     });
     useFrame((_, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
