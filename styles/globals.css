@@ -11,6 +11,18 @@ a {
   text-decoration: none;
 }
 
+.container {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  justify-content: center;
+}
+
+.wrapper {
+  width: min(90vw, 180vh);
+}
+
 * {
   box-sizing: border-box;
 }

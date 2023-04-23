@@ -16,14 +16,14 @@ export default function HTML() {
           rel="stylesheet"
         />
       </Head>
-      <main className={styles.container}>
-        <NavBar />
-        <article className={styles.landing}>
-          <div className={styles.overview}>
+      <main className="container">
+        {/* <NavBar /> */}
+        <div className="wrapper">
+          <article className={styles.landing}>
             <h1 className={styles.title}>Web Developer</h1>
             <p className={styles.caption}>I like to build nice things.</p>
-          </div>
-        </article>
+          </article>
+        </div>
       </main>
     </div>
   );

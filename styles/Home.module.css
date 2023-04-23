@@ -1,35 +1,24 @@
-.container {
-  display: flex;
-  position: relative;
-  z-index: 1;
-}
-
 .landing {
-  position: absolute;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  top: 0;
-  left: 0;
-  width: 100vw;
   height: 100vh;
-}
-
-.overview {
-  grid-row: 3;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .title {
   margin: 0;
+  margin-bottom: 3rem;
   color: white;
   font-family: 'Rampart One', cursive;
   font-weight: 100;
-  font-size: 100px;
+  line-height: 1ch;
+  font-size: clamp(5.5rem, 10vw, 10rem);
 }
 
 .caption {
   margin: 0;
   color: white;
   font-family: 'Oswald';
-  font-size: 50px;
+  font-size: clamp(3rem, 5vw, 5rem);
+  margin-bottom: 5rem;
 }
