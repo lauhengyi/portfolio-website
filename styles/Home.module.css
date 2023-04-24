@@ -7,18 +7,18 @@
 
 .title {
   margin: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: white;
   font-family: 'Rampart One', cursive;
   font-weight: 100;
   line-height: 1ch;
-  font-size: clamp(5.5rem, 10vw, 10rem);
+  font-size: clamp(4rem, 10vw, 10rem);
 }
 
 .caption {
   margin: 0;
   color: white;
   font-family: 'Oswald';
-  font-size: clamp(3rem, 5vw, 5rem);
+  font-size: clamp(2rem, 5vw, 5rem);
   margin-bottom: 5rem;
 }
