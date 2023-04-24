@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import { Size, useFrame } from '@react-three/fiber';
 import { QuadraticBezierCurve3 } from 'three';
+import { useScroll, useTransform } from 'framer-motion';
 
 export default class CameraHandler {
   camera: THREE.Camera;
   size: Size;
   aspect: number;
   pointer: { x: number; y: number };
-  neutralPosition: THREE.Vector3;
   neutralDistanceFromOrigin: number;
   lookAtPoint: THREE.Vector3;
   oldLookAtPoint: THREE.Vector3;
@@ -20,7 +20,6 @@ export default class CameraHandler {
 
     // Setting up default camera position and orientation
     this.pointer = { x: 0, y: 0 };
-    this.neutralPosition = new THREE.Vector3(2.44, 6.46, 11.4);
     this.lookAtPoint = new THREE.Vector3(0, 0, 0);
     this.oldLookAtPoint = new THREE.Vector3(0, 0, 0);
     this.neutralDistanceFromOrigin = 5;
@@ -46,8 +45,6 @@ export default class CameraHandler {
     const right = normRight.multiplyScalar(this.neutralDistanceFromOrigin);
     const left = normLeft.multiplyScalar(this.neutralDistanceFromOrigin);
 
-    this.neutralPosition.set(center.x, center.y, center.z);
-
     this.quadCurve.v0 = left;
     this.quadCurve.v1 = center;
     this.quadCurve.v2 = right;
@@ -55,35 +52,46 @@ export default class CameraHandler {
     // this.lookAtPoint.set(this.aspect * 0.2, 0, 0);
   }
 
-  handleOrbit() {
+  private handleLandingPhase(delta: number, position: number) {
+    const newLookAtPoint = this.lookAtPoint.clone();
+
+    const multiplier = this.neutralDistanceFromOrigin * 0.1;
+
+    // For pointerX
+    const newPosition = this.quadCurve.getPoint(this.pointer.x / 2 + 0.5);
+
+    // For pointerY
+    newPosition.y += this.pointer.y * multiplier * 2;
+    newPosition.z -= Math.abs(this.pointer.y) * multiplier * 1;
+
+    // Update look at point
+    newLookAtPoint.x += this.pointer.x * 1.5;
+
+    // Transition to sky
+    const upAmount = multiplier * position * 10;
+    const lookUpAmount = multiplier * position * 20;
+    newPosition.y += upAmount;
+    newLookAtPoint.y += lookUpAmount;
+
+    // Update camera position
+    this.camera.position.lerp(newPosition, delta * 3);
+
+    // Update looking location
+    this.camera.lookAt(this.oldLookAtPoint.lerp(newLookAtPoint, delta * 3));
+  }
+
+  handleCameraMove() {
     addEventListener('mousemove', (e) => {
       this.pointer.x = (e.clientX / this.size.width - 0.5) * 2;
       this.pointer.y = -(e.clientY / this.size.height - 0.5) * 2;
     });
+    const { scrollY } = useScroll();
+    const landingPhase = useTransform(scrollY, [0, 1500], [0, 1]);
     useFrame((_, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-
-      const newLookAtPoint = this.lookAtPoint.clone();
-
-      const multiplier = this.neutralDistanceFromOrigin * 0.1;
-
-      // For pointerX
-      const newPosition = this.quadCurve.getPoint(this.pointer.x / 2 + 0.5);
-
-      // For pointerY
-      newPosition.y += this.pointer.y * multiplier * 2;
-      newPosition.z -= Math.abs(this.pointer.y) * multiplier * 1;
-
-      // Update look at point
-      newLookAtPoint.x += this.pointer.x * 1.5;
-
-      this.camera.position.lerp(newPosition, clampDelta * 3);
-
-      // Update looking location
-      this.camera.lookAt(
-        this.oldLookAtPoint.lerp(newLookAtPoint, clampDelta * 3),
-      );
+      console.log(landingPhase.get());
+      this.handleLandingPhase(clampDelta, landingPhase.get());
     });
   }
 }
