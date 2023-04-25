@@ -68,8 +68,8 @@ export default class CameraHandler {
     newLookAtPoint.x += this.pointer.x * 1.5;
 
     // Transition to sky
-    const upAmount = multiplier * position * 10;
-    const lookUpAmount = multiplier * position * 20;
+    const upAmount = multiplier * position * 7;
+    const lookUpAmount = multiplier * position * 14;
     newPosition.y += upAmount;
     newLookAtPoint.y += lookUpAmount;
 
@@ -90,7 +90,6 @@ export default class CameraHandler {
     useFrame((_, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-      console.log(landingPhase.get());
       this.handleLandingPhase(clampDelta, landingPhase.get());
     });
   }

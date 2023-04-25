@@ -1,10 +1,7 @@
-import { OrbitControls, Sky } from '@react-three/drei';
-import Floor from './Floor';
-import Name3D from './Name3D';
+import { Environment, OrbitControls, Sky } from '@react-three/drei';
 import CameraHandler from './handlers/CameraHandler';
 import { useThree } from '@react-three/fiber';
-import Cars from './Cars';
-import { useScroll } from 'framer-motion';
+import LandingPhase from './LandingPhase';
 
 export default function Experience() {
   const camera = useThree((state) => state.camera);
@@ -18,10 +15,8 @@ export default function Experience() {
   return (
     <>
       {/* <OrbitControls /> */}
-      <Sky />
-      <Name3D />
-      <Cars />
-      <Floor />
+      <Sky sunPosition={[10, 5, 10]} rayleigh={1.5} />
+      <LandingPhase />
     </>
   );
 }
