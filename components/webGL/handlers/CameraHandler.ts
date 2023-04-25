@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { Size, useFrame } from '@react-three/fiber';
 import { QuadraticBezierCurve3 } from 'three';
 import { useScroll, useTransform } from 'framer-motion';
+import { MutableRefObject } from 'react';
+import getPhasePositions from '../utils/getPhasePositions';
 
 export default class CameraHandler {
   camera: THREE.Camera;
@@ -85,12 +87,13 @@ export default class CameraHandler {
       this.pointer.x = (e.clientX / this.size.width - 0.5) * 2;
       this.pointer.y = -(e.clientY / this.size.height - 0.5) * 2;
     });
-    const { scrollY } = useScroll();
-    const landingPhase = useTransform(scrollY, [0, 1500], [0, 1]);
+
+    const phases = getPhasePositions();
+
     useFrame((_, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-      this.handleLandingPhase(clampDelta, landingPhase.get());
+      this.handleLandingPhase(clampDelta, phases.landing.get());
     });
   }
 }
