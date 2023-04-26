@@ -70,15 +70,15 @@ export default function Cars() {
   const carRecord = useRef<
     { speed: number; deployTime: number | null; carObject: THREE.Object3D }[]
   >(new Array(carsPerLane * 2));
+  for (let i = 0; i < carsPerLane * 2; i++) {
+    carRecord.current[i] = {
+      speed: 0,
+      deployTime: null,
+      carObject: new THREE.Object3D(),
+    };
+  }
 
   useEffect(() => {
-    for (let i = 0; i < carsPerLane * 2; i++) {
-      carRecord.current[i] = {
-        speed: 0,
-        deployTime: null,
-        carObject: new THREE.Object3D(),
-      };
-    }
     // Move first cars
     carRecord.current[0].speed = carSpeedMin + Math.random() * carSpeedRange;
     carRecord.current[carsPerLane].speed = -(
@@ -232,7 +232,6 @@ export default function Cars() {
         ref={carRef}
         args={[undefined, undefined, carsPerLane * 2]}
         geometry={nodes.car.geometry}
-        // position={[-5, 0.04, 1.56]}
       >
         <meshBasicMaterial map={bakedCarAtlas} onBeforeCompile={modifyShader} />
       </instancedMesh>
