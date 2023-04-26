@@ -9,31 +9,53 @@ export default class CameraHandler {
   camera: THREE.Camera;
   size: Size;
   aspect: number;
+
+  // Camera position variables
   pointer: { x: number; y: number };
+  oldLookAtPoint: THREE.Vector3;
+  cameraPosition: THREE.Vector3;
+  cameraLookAtPoint: THREE.Vector3;
 
   // Land variables
-  landNeutalDistFromOrigin: number;
+  landPosition: THREE.Vector3;
   landLookAtPoint: THREE.Vector3;
-  landOldLookAtPoint: THREE.Vector3;
+  landNeutralLookAtPoint: THREE.Vector3;
+  landNeutalDistFromOrigin: number;
   landQuadCurve: QuadraticBezierCurve3;
 
   // Sky variables
+  skyPosition: THREE.Vector3;
+  skyLookAtPoint: THREE.Vector3;
+  skyNeutralPosition: THREE.Vector3;
+  skyNeutralLookAtPoint: THREE.Vector3;
 
   constructor(camera: THREE.Camera, size: Size) {
     this.camera = camera;
     this.size = size;
     this.aspect = size.width / size.height;
 
-    // Setting up default camera position and orientation
+    // Setting up camera position variables
     this.pointer = { x: 0, y: 0 };
+    this.cameraPosition = new THREE.Vector3(0, 0, 0);
+    this.cameraLookAtPoint = new THREE.Vector3(0, 0, 0);
+    this.oldLookAtPoint = new THREE.Vector3(0, 0, 0);
+
+    // Setting up land variables
+    this.landPosition = new THREE.Vector3(0, 0, 0);
     this.landLookAtPoint = new THREE.Vector3(0, 0, 0);
-    this.landOldLookAtPoint = new THREE.Vector3(0, 0, 0);
+    this.landNeutralLookAtPoint = new THREE.Vector3(0, 0, 0);
     this.landNeutalDistFromOrigin = 5;
     this.landQuadCurve = new QuadraticBezierCurve3(
       new THREE.Vector3(0, 0, 0),
       new THREE.Vector3(0, 0, 0),
       new THREE.Vector3(0, 0, 0),
     );
+
+    // Setting up sky variables
+    this.skyPosition = new THREE.Vector3(0, 35, 15);
+    this.skyLookAtPoint = new THREE.Vector3(0, 35, 0);
+    this.skyNeutralPosition = new THREE.Vector3(0, 35, 15);
+    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, 0);
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -58,8 +80,8 @@ export default class CameraHandler {
     // this.lookAtPoint.set(this.aspect * 0.2, 0, 0);
   }
 
-  private handleLandingPhase(delta: number, position: number) {
-    const newLookAtPoint = this.landLookAtPoint.clone();
+  private handleLandingPhase() {
+    const newLookAtPoint = this.landNeutralLookAtPoint.clone();
 
     const multiplier = this.landNeutalDistFromOrigin * 0.1;
 
@@ -73,17 +95,46 @@ export default class CameraHandler {
     // Update look at point
     newLookAtPoint.x += this.pointer.x * 1.5;
 
-    // Transition to sky
-    const upAmount = multiplier * position * 35;
-    const lookUpAmount = multiplier * position * 40;
-    newPosition.y += upAmount;
-    newLookAtPoint.y += lookUpAmount;
+    this.landPosition.set(newPosition.x, newPosition.y, newPosition.z);
+    this.landLookAtPoint.set(
+      newLookAtPoint.x,
+      newLookAtPoint.y,
+      newLookAtPoint.z,
+    );
+  }
 
-    // Update camera position
-    this.camera.position.lerp(newPosition, delta * 3);
+  private mixCameraPositionVariables(
+    target: THREE.Vector3,
+    start: THREE.Vector3,
+    end: THREE.Vector3,
+    mix: number,
+  ) {
+    target.set(
+      start.x * (1 - mix) + end.x * mix,
+      start.y * (1 - mix) + end.y * mix,
+      start.z * (1 - mix) + end.z * mix,
+    );
+  }
 
-    // Update looking location
-    this.camera.lookAt(this.landOldLookAtPoint.lerp(newLookAtPoint, delta * 3));
+  private updateCameraVariables(
+    startPosition: THREE.Vector3,
+    startLookAt: THREE.Vector3,
+    endPosition: THREE.Vector3,
+    endLookAt: THREE.Vector3,
+    mix: number,
+  ) {
+    this.mixCameraPositionVariables(
+      this.cameraPosition,
+      startPosition,
+      endPosition,
+      mix,
+    );
+    this.mixCameraPositionVariables(
+      this.cameraLookAtPoint,
+      startLookAt,
+      endLookAt,
+      mix,
+    );
   }
 
   handleCameraMove() {
@@ -97,7 +148,25 @@ export default class CameraHandler {
     useFrame((_, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-      this.handleLandingPhase(clampDelta, phases.land.get());
+      this.handleLandingPhase();
+
+      const mix = phases.land.get();
+
+      this.updateCameraVariables(
+        this.landPosition,
+        this.landLookAtPoint,
+        this.skyPosition,
+        this.skyLookAtPoint,
+        mix,
+      );
+
+      // Update camera position
+      this.camera.position.lerp(this.cameraPosition, clampDelta * 3);
+
+      // Update looking location
+      this.camera.lookAt(
+        this.oldLookAtPoint.lerp(this.cameraLookAtPoint, clampDelta * 3),
+      );
     });
   }
 }
