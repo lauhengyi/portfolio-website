@@ -70,15 +70,15 @@ export default function Cars() {
   const carRecord = useRef<
     { speed: number; deployTime: number | null; carObject: THREE.Object3D }[]
   >(new Array(carsPerLane * 2));
-  for (let i = 0; i < carsPerLane * 2; i++) {
-    carRecord.current[i] = {
-      speed: 0,
-      deployTime: null,
-      carObject: new THREE.Object3D(),
-    };
-  }
 
   useEffect(() => {
+    for (let i = 0; i < carsPerLane * 2; i++) {
+      carRecord.current[i] = {
+        speed: 0,
+        deployTime: null,
+        carObject: new THREE.Object3D(),
+      };
+    }
     // Move first cars
     carRecord.current[0].speed = carSpeedMin + Math.random() * carSpeedRange;
     carRecord.current[carsPerLane].speed = -(
@@ -122,6 +122,7 @@ export default function Cars() {
     for (let i = 0; i < carsPerLane * 2; i++) {
       const carSpeed = carRecord.current[i].speed;
       if (carSpeed === 0) continue;
+
       const carObject = carRecord.current[i].carObject;
       carObject.position.x += carSpeed * delta;
       if (carObject.position.x > travelDistFromOrigin) {
