@@ -70,8 +70,8 @@ export default class CameraHandler {
     newLookAtPoint.x += this.pointer.x * 1.5;
 
     // Transition to sky
-    const upAmount = multiplier * position * 7;
-    const lookUpAmount = multiplier * position * 14;
+    const upAmount = multiplier * position * 35;
+    const lookUpAmount = multiplier * position * 40;
     newPosition.y += upAmount;
     newLookAtPoint.y += lookUpAmount;
 

@@ -17,16 +17,15 @@ export default function Experience() {
   const cameraHandler = new CameraHandler(camera, size);
   const visibilityHandler = new VisibilityHandler(sceneRefs);
 
-  // cameraHandler.handleResize();
-  // cameraHandler.handleCameraMove();
+  cameraHandler.handleResize();
+  cameraHandler.handleCameraMove();
 
-  // visibilityHandler.handleVisibility();
+  visibilityHandler.handleVisibility();
 
   return (
     <>
-      <OrbitControls />
       <Sky sunPosition={[10, 5, 10]} rayleigh={1.5} />
-      {/* <LandingPhase ref={landingRef} /> */}
+      <LandingPhase ref={landingRef} />
       <Clouds />
     </>
   );
