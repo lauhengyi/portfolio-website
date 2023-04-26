@@ -16,7 +16,7 @@ export default class VisibilityHandler {
     const phases = getPhasePositions();
     useFrame(() => {
       const progress =
-        phases.landing.get() + phases.sky.get() + phases.space.get();
+        phases.land.get() + phases.sky.get() + phases.space.get();
       if (progress < 1) {
         this.sceneRefs.landing.current.visible = true;
       } else if (progress < 2) {

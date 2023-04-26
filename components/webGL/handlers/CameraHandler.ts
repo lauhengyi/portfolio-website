@@ -10,10 +10,14 @@ export default class CameraHandler {
   size: Size;
   aspect: number;
   pointer: { x: number; y: number };
-  neutralDistanceFromOrigin: number;
-  lookAtPoint: THREE.Vector3;
-  oldLookAtPoint: THREE.Vector3;
-  quadCurve: QuadraticBezierCurve3;
+
+  // Land variables
+  landNeutalDistFromOrigin: number;
+  landLookAtPoint: THREE.Vector3;
+  landOldLookAtPoint: THREE.Vector3;
+  landQuadCurve: QuadraticBezierCurve3;
+
+  // Sky variables
 
   constructor(camera: THREE.Camera, size: Size) {
     this.camera = camera;
@@ -22,10 +26,10 @@ export default class CameraHandler {
 
     // Setting up default camera position and orientation
     this.pointer = { x: 0, y: 0 };
-    this.lookAtPoint = new THREE.Vector3(0, 0, 0);
-    this.oldLookAtPoint = new THREE.Vector3(0, 0, 0);
-    this.neutralDistanceFromOrigin = 5;
-    this.quadCurve = new QuadraticBezierCurve3(
+    this.landLookAtPoint = new THREE.Vector3(0, 0, 0);
+    this.landOldLookAtPoint = new THREE.Vector3(0, 0, 0);
+    this.landNeutalDistFromOrigin = 5;
+    this.landQuadCurve = new QuadraticBezierCurve3(
       new THREE.Vector3(0, 0, 0),
       new THREE.Vector3(0, 0, 0),
       new THREE.Vector3(0, 0, 0),
@@ -41,26 +45,26 @@ export default class CameraHandler {
     const normLeft = new THREE.Vector3(-normRight.x, normRight.y, normRight.z);
 
     // As the aspect ratio gets bigger, the camera needs to be moved closer to the origin
-    this.neutralDistanceFromOrigin = Math.max(multiplier / this.aspect, 7);
+    this.landNeutalDistFromOrigin = Math.max(multiplier / this.aspect, 7);
 
-    const center = normCenter.multiplyScalar(this.neutralDistanceFromOrigin);
-    const right = normRight.multiplyScalar(this.neutralDistanceFromOrigin);
-    const left = normLeft.multiplyScalar(this.neutralDistanceFromOrigin);
+    const center = normCenter.multiplyScalar(this.landNeutalDistFromOrigin);
+    const right = normRight.multiplyScalar(this.landNeutalDistFromOrigin);
+    const left = normLeft.multiplyScalar(this.landNeutalDistFromOrigin);
 
-    this.quadCurve.v0 = left;
-    this.quadCurve.v1 = center;
-    this.quadCurve.v2 = right;
+    this.landQuadCurve.v0 = left;
+    this.landQuadCurve.v1 = center;
+    this.landQuadCurve.v2 = right;
 
     // this.lookAtPoint.set(this.aspect * 0.2, 0, 0);
   }
 
   private handleLandingPhase(delta: number, position: number) {
-    const newLookAtPoint = this.lookAtPoint.clone();
+    const newLookAtPoint = this.landLookAtPoint.clone();
 
-    const multiplier = this.neutralDistanceFromOrigin * 0.1;
+    const multiplier = this.landNeutalDistFromOrigin * 0.1;
 
     // For pointerX
-    const newPosition = this.quadCurve.getPoint(this.pointer.x / 2 + 0.5);
+    const newPosition = this.landQuadCurve.getPoint(this.pointer.x / 2 + 0.5);
 
     // For pointerY
     newPosition.y += this.pointer.y * multiplier * 2;
@@ -79,7 +83,7 @@ export default class CameraHandler {
     this.camera.position.lerp(newPosition, delta * 3);
 
     // Update looking location
-    this.camera.lookAt(this.oldLookAtPoint.lerp(newLookAtPoint, delta * 3));
+    this.camera.lookAt(this.landOldLookAtPoint.lerp(newLookAtPoint, delta * 3));
   }
 
   handleCameraMove() {
@@ -93,7 +97,7 @@ export default class CameraHandler {
     useFrame((_, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-      this.handleLandingPhase(clampDelta, phases.landing.get());
+      this.handleLandingPhase(clampDelta, phases.land.get());
     });
   }
 }
