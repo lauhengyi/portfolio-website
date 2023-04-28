@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
   materials: {};
 };
 
-export default function Buildings() {
+export default function LandStatic() {
   const { nodes } = useGLTF('/models/buildings.glb') as GLTFResult;
   const bakedBuildings = useTexture('/textures/bakedBuildings.jpg');
   const waterTexture = useTexture('/textures/bakedWater.png');
