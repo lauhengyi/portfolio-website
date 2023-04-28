@@ -1,6 +1,7 @@
 import { RefObject, forwardRef } from 'react';
 import Cars from './landingPhase/Cars';
-import LandStatic from './landingPhase/LandStatic';
+import Floor from './landingPhase/Floor';
+import Buildings from './landingPhase/Buildings';
 
 const LandingPhase = forwardRef<THREE.Group>(
   (props: JSX.IntrinsicElements['group'], ref) => {
@@ -8,7 +9,7 @@ const LandingPhase = forwardRef<THREE.Group>(
       <>
         <fog attach={'fog'} near={30} far={50} color="#f3fdff" />
         <group {...props} ref={ref}>
-          <LandStatic />
+          <Buildings />
           <Cars />
         </group>
       </>
