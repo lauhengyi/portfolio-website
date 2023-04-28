@@ -1,4 +1,4 @@
-import { RefObject, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import Cars from './landingPhase/Cars';
 import Floor from './landingPhase/Floor';
 import Buildings from './landingPhase/Buildings';
@@ -11,6 +11,7 @@ const LandingPhase = forwardRef<THREE.Group>(
         <group {...props} ref={ref}>
           <Buildings />
           <Cars />
+          <Floor />
         </group>
       </>
     );

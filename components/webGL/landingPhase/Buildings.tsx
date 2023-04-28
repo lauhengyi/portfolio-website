@@ -41,7 +41,6 @@ export default function Buildings() {
       <mesh geometry={nodes.buildings.geometry}>
         <meshBasicMaterial map={bakedBuildings} />
       </mesh>
-      <Floor />
     </group>
   );
 }
