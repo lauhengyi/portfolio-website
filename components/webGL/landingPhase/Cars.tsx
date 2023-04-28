@@ -79,6 +79,7 @@ export default function Cars() {
         carObject: new THREE.Object3D(),
       };
     }
+
     // Move first cars
     carRecord.current[0].speed = carSpeedMin + Math.random() * carSpeedRange;
     carRecord.current[carsPerLane].speed = -(
@@ -115,8 +116,9 @@ export default function Cars() {
   }, []);
 
   useFrame(({ clock }, delta) => {
-    // Check if carRef is initialized
+    // Check if carRef and carRecord is initialized
     if (!carRef.current) return;
+    if (!carRecord.current[0]) return;
 
     // Move cars
     for (let i = 0; i < carsPerLane * 2; i++) {
