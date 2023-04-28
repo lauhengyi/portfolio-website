@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import React from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import Floor from './Floor';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -16,8 +17,8 @@ type GLTFResult = GLTF & {
   materials: {};
 };
 
-export default function Name3D() {
-  const { nodes } = useGLTF('/name3D.glb') as GLTFResult;
+export default function Buildings() {
+  const { nodes } = useGLTF('/buildings.glb') as GLTFResult;
   const bakedTexture = useTexture('/bakedTexture.jpg');
   const waterTexture = useTexture('/bakedWater.png');
   const windowTexture = useTexture('/matcap.jpg');
@@ -40,8 +41,9 @@ export default function Name3D() {
       <mesh geometry={nodes.buildings.geometry}>
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
+      <Floor />
     </group>
   );
 }
 
-useGLTF.preload('/name3D.glb');
+useGLTF.preload('/buildings.glb');
