@@ -20,8 +20,8 @@ type iUv = THREE.InstancedBufferAttribute & {
 };
 
 export default function Cars() {
-  const { nodes } = useGLTF('/car.glb') as GLTFResult;
-  const bakedCarAtlas = useTexture('/bakedCarAtlas.jpg');
+  const { nodes } = useGLTF('/models/car.glb') as GLTFResult;
+  const bakedCarAtlas = useTexture('/textures/bakedCarAtlas.jpg');
   bakedCarAtlas.flipY = false;
 
   const atlasSize = 4;
@@ -240,4 +240,4 @@ export default function Cars() {
   );
 }
 
-useGLTF.preload('/car.glb');
+useGLTF.preload('/models/car.glb');
