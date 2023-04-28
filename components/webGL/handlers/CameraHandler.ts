@@ -6,10 +6,6 @@ import { MutableRefObject } from 'react';
 import getPhasePositions from '../utils/getPhasePositions';
 
 export default class CameraHandler {
-  camera: THREE.Camera;
-  size: Size;
-  aspect: number;
-
   // Camera position variables
   pointer: { x: number; y: number };
   oldLookAtPoint: THREE.Vector3;
@@ -29,11 +25,7 @@ export default class CameraHandler {
   skyNeutralPosition: THREE.Vector3;
   skyNeutralLookAtPoint: THREE.Vector3;
 
-  constructor(camera: THREE.Camera, size: Size) {
-    this.camera = camera;
-    this.size = size;
-    this.aspect = size.width / size.height;
-
+  constructor() {
     // Setting up camera position variables
     this.pointer = { x: 0, y: 0 };
     this.cameraPosition = new THREE.Vector3(0, 0, 0);
@@ -59,7 +51,7 @@ export default class CameraHandler {
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
-  handleResize() {
+  private handleResize() {
     const multiplier = 13;
     // The vector that the default camera is from the origin with length 1
     const normCenter = new THREE.Vector3(0.183, 0.485, 1.5);
@@ -67,7 +59,8 @@ export default class CameraHandler {
     const normLeft = new THREE.Vector3(-normRight.x, normRight.y, normRight.z);
 
     // As the aspect ratio gets bigger, the camera needs to be moved closer to the origin
-    this.landNeutalDistFromOrigin = Math.max(multiplier / this.aspect, 7);
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    this.landNeutalDistFromOrigin = Math.max(multiplier / aspectRatio, 7);
 
     const center = normCenter.multiplyScalar(this.landNeutalDistFromOrigin);
     const right = normRight.multiplyScalar(this.landNeutalDistFromOrigin);
@@ -76,8 +69,6 @@ export default class CameraHandler {
     this.landQuadCurve.v0 = left;
     this.landQuadCurve.v1 = center;
     this.landQuadCurve.v2 = right;
-
-    // this.lookAtPoint.set(this.aspect * 0.2, 0, 0);
   }
 
   private handleLandingPhase() {
@@ -138,14 +129,21 @@ export default class CameraHandler {
   }
 
   handleCameraMove() {
+    // Initialize camera position
+    this.handleResize();
+
     addEventListener('mousemove', (e) => {
-      this.pointer.x = (e.clientX / this.size.width - 0.5) * 2;
-      this.pointer.y = -(e.clientY / this.size.height - 0.5) * 2;
+      this.pointer.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      this.pointer.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    addEventListener('resize', () => {
+      this.handleResize();
     });
 
     const phases = getPhasePositions();
 
-    useFrame((_, delta) => {
+    useFrame(({ camera }, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
       this.handleLandingPhase();
@@ -161,10 +159,10 @@ export default class CameraHandler {
       );
 
       // Update camera position
-      this.camera.position.lerp(this.cameraPosition, clampDelta * 3);
+      camera.position.lerp(this.cameraPosition, clampDelta * 3);
 
       // Update looking location
-      this.camera.lookAt(
+      camera.lookAt(
         this.oldLookAtPoint.lerp(this.cameraLookAtPoint, clampDelta * 3),
       );
     });
