@@ -45,9 +45,9 @@ export default class CameraHandler {
 
     // Setting up sky variables
     this.skyPosition = new THREE.Vector3(0, 35, 15);
-    this.skyLookAtPoint = new THREE.Vector3(0, 35, 0);
+    this.skyLookAtPoint = new THREE.Vector3(0, 35, -10);
     this.skyNeutralPosition = new THREE.Vector3(0, 35, 15);
-    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, 0);
+    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -10);
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -71,7 +71,7 @@ export default class CameraHandler {
     this.landQuadCurve.v2 = right;
   }
 
-  private handleLandingPhase() {
+  private handleLandPhase() {
     const newLookAtPoint = this.landNeutralLookAtPoint.clone();
 
     const multiplier = this.landNeutalDistFromOrigin * 0.1;
@@ -92,6 +92,19 @@ export default class CameraHandler {
       newLookAtPoint.y,
       newLookAtPoint.z,
     );
+  }
+
+  private handleSkyPhase() {
+    const newPosition = this.skyNeutralPosition.clone();
+
+    const multiplier = 5;
+
+    // For pointerX
+    newPosition.x += this.pointer.x * multiplier;
+    // For pointerY
+    newPosition.y += this.pointer.y * multiplier;
+
+    this.skyPosition.set(newPosition.x, newPosition.y, newPosition.z);
   }
 
   private mixCameraPositionVariables(
@@ -146,7 +159,8 @@ export default class CameraHandler {
     useFrame(({ camera }, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-      this.handleLandingPhase();
+      this.handleLandPhase();
+      this.handleSkyPhase();
 
       const mix = phases.land.get();
 

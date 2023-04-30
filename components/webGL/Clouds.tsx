@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 export default function Clouds() {
   const cloudsRef = useRef<THREE.InstancedMesh>(null!);
-  const texture = useTexture('/cloud10.png');
+  const texture = useTexture('/textures/cloud10.png');
   var fog = new THREE.Fog(0x4584b4, -10, 300);
 
   const uniforms = {
@@ -39,7 +39,7 @@ export default function Clouds() {
     <instancedMesh
       ref={cloudsRef}
       args={[undefined, undefined, count]}
-      position={[0, 30, -count / 10]}
+      position={[0, 30, -count / 10 + 5]}
     >
       <shaderMaterial
         uniforms={uniforms}
