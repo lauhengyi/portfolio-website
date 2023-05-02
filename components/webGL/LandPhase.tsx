@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
-import Cars from './landingPhase/Cars';
-import Floor from './landingPhase/Floor';
-import Buildings from './landingPhase/Buildings';
+import Cars from './landPhase/Cars';
+import Floor from './landPhase/Floor';
+import Buildings from './landPhase/Buildings';
 
-const LandingPhase = forwardRef<THREE.Group>(
+const LandPhase = forwardRef<THREE.Group>(
   (props: JSX.IntrinsicElements['group'], ref) => {
     return (
       <>
@@ -18,4 +18,4 @@ const LandingPhase = forwardRef<THREE.Group>(
   },
 );
 
-export default LandingPhase;
+export default LandPhase;
