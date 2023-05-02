@@ -49,6 +49,7 @@ export default function Clouds() {
         // depthTest={false}
         transparent
       />
+      {/* <meshBasicMaterial color="blue" /> */}
       <planeGeometry args={[6.4, 6.4]} />
     </instancedMesh>
   );

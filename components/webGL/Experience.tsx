@@ -1,14 +1,16 @@
-import { OrbitControls, Sky } from '@react-three/drei';
+import { OrbitControls, Sky, Text } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import CameraHandler from './handlers/CameraHandler';
 import VisibilityHandler from './handlers/VisibilityHandler';
 import LandingPhase from './LandingPhase';
+import SkyPhase from './SkyPhase';
 import Clouds from './Clouds';
 
 export default function Experience() {
-  const landingRef = useRef<THREE.Group>(null!);
+  const landRef = useRef<THREE.Group>(null!);
+  const skyRef = useRef<THREE.Group>(null!);
   const sceneRefs = {
-    landing: landingRef,
+    land: landRef,
   };
 
   const cameraHandler = new CameraHandler();
@@ -21,8 +23,17 @@ export default function Experience() {
   return (
     <>
       <Sky sunPosition={[10, 5, 10]} rayleigh={1.5} />
-      <LandingPhase ref={landingRef} />
+      <LandingPhase ref={landRef} />
       <Clouds />
+      <SkyPhase ref={skyRef} />
+      {/* <Text
+        fontSize={10}
+        position={[0, 32, -30]}
+        fillOpacity={0.6}
+        color={'#CFE6F1'}
+      >
+        About
+      </Text> */}
     </>
   );
 }

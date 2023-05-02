@@ -5,7 +5,7 @@ import WebGL from '../components/webGL/WebGL';
 const Home: NextPage = () => {
   return (
     <>
-      {/* <HTML /> */}
+      <HTML />
       <WebGL />
     </>
   );
