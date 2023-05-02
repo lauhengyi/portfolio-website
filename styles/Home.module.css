@@ -8,7 +8,7 @@
 .title {
   margin: 0;
   margin-bottom: 2rem;
-  color: white;
+  color: #414239;
   font-family: 'Rampart One', cursive;
   font-weight: 100;
   line-height: 1ch;
@@ -17,7 +17,7 @@
 
 .caption {
   margin: 0;
-  color: white;
+  color: #414239;
   font-family: 'Oswald';
   font-size: clamp(2rem, 5vw, 5rem);
   margin-bottom: 5rem;
