@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
 export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
   const { nodes } = useGLTF('/models/aboutMe.glb') as GLTFResult;
   return (
-    <Center position={[0, 33, -10]} rotation-x={Math.PI * 0.5} scale={10}>
+    <Center position={[0, 35, -30]} rotation-x={Math.PI * 0.5} scale={20}>
       <group {...props} dispose={null}>
         <mesh geometry={nodes.Text.geometry}>
           <meshBasicMaterial color="#ffffff" />
