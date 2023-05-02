@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import getPhasePositions from '../utils/getPhasePositions';
 
 interface ISceneRefs {
-  landing: MutableRefObject<THREE.Group>;
+  land: MutableRefObject<THREE.Group>;
 }
 
 export default class VisibilityHandler {
@@ -18,9 +18,9 @@ export default class VisibilityHandler {
       const progress =
         phases.land.get() + phases.sky.get() + phases.space.get();
       if (progress < 1) {
-        this.sceneRefs.landing.current.visible = true;
+        this.sceneRefs.land.current.visible = true;
       } else if (progress < 2) {
-        this.sceneRefs.landing.current.visible = false;
+        this.sceneRefs.land.current.visible = false;
       }
     });
   }
