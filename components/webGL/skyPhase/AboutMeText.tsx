@@ -29,7 +29,7 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
   return (
     <Center
       ref={textRef}
-      position={[0, 35, -30]}
+      position={[0, 35, -30.05]}
       rotation-x={Math.PI * 0.5}
       scale={20}
     >
