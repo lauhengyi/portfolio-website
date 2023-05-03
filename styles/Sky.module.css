@@ -3,7 +3,7 @@
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  column-gap: 1.5rem;
+  column-gap: clamp(1rem, 2vw, 1.5rem);
   align-content: flex-start;
 }
 
@@ -12,7 +12,7 @@
   position: relative;
   margin: 0 0;
   font-family: 'NoirPro';
-  font-size: 5rem;
+  font-size: clamp(3.5rem, 7vw, 5rem);
   color: var(--primary-black-faded);
   opacity: 1;
 }

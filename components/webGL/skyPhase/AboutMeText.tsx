@@ -35,7 +35,7 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
     >
       <group {...props} dispose={null}>
         <mesh geometry={nodes.Text.geometry}>
-          <meshBasicMaterial color="#ffffff" />
+          <meshBasicMaterial color="#EEF1F5" />
         </mesh>
       </group>
     </Center>
