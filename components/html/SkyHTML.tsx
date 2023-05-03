@@ -1,10 +1,11 @@
 import styles from '../../styles/Sky.module.css';
-import { motion, useSpring, useTransform, useScroll } from 'framer-motion';
+import { motion, useSpring, useTransform } from 'framer-motion';
+import getPhaseProgress from '../webGL/utils/getPhaseProgress';
 import SkyText from './sky/SkyText';
 
 export default function SkyHTML() {
-  const { scrollY } = useScroll();
-  const opacity = useSpring(useTransform(scrollY, [1000, 1500], [0, 1]), {
+  const { landToSky } = getPhaseProgress();
+  const opacity = useSpring(useTransform(landToSky, [0.8, 1], [0, 1]), {
     bounce: 0,
   });
   return (

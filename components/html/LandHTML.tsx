@@ -1,9 +1,10 @@
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useTransform, useSpring } from 'framer-motion';
 import styles from '../../styles/Land.module.css';
+import getPhaseProgress from '../webGL/utils/getPhaseProgress';
 
 export default function LandHTML() {
-  const { scrollY } = useScroll();
-  const opacity = useSpring(useTransform(scrollY, [0, 400], [1, 0]), {
+  const { landToSky } = getPhaseProgress();
+  const opacity = useSpring(useTransform(landToSky, [0, 0.2], [1, 0]), {
     bounce: 0,
   });
   return (
