@@ -44,10 +44,10 @@ export default class CameraHandler {
     );
 
     // Setting up sky variables
-    this.skyPosition = new THREE.Vector3(0, 35, 15);
-    this.skyLookAtPoint = new THREE.Vector3(0, 35, -20);
-    this.skyNeutralPosition = new THREE.Vector3(0, 35, 15);
-    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -20);
+    this.skyPosition = new THREE.Vector3(0, 30, 15);
+    this.skyLookAtPoint = new THREE.Vector3(0, 35, -30);
+    this.skyNeutralPosition = new THREE.Vector3(0, 30, 15);
+    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -30);
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
