@@ -5,6 +5,7 @@ import getPhaseProgress from '../utils/getPhaseProgress';
 
 export default class CameraHandler {
   // Camera position variables
+  aspect: number;
   pointer: { x: number; y: number };
   oldLookAtPoint: THREE.Vector3;
   cameraPosition: THREE.Vector3;
@@ -25,6 +26,7 @@ export default class CameraHandler {
 
   constructor() {
     // Setting up camera position variables
+    this.aspect = window.innerWidth / window.innerHeight;
     this.pointer = { x: 0, y: 0 };
     this.cameraPosition = new THREE.Vector3(0, 0, 0);
     this.cameraLookAtPoint = new THREE.Vector3(0, 0, 0);
@@ -43,9 +45,9 @@ export default class CameraHandler {
 
     // Setting up sky variables
     this.skyPosition = new THREE.Vector3(0, 35, 15);
-    this.skyLookAtPoint = new THREE.Vector3(0, 35, -10);
+    this.skyLookAtPoint = new THREE.Vector3(0, 35, -20);
     this.skyNeutralPosition = new THREE.Vector3(0, 35, 15);
-    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -10);
+    this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -20);
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -57,8 +59,8 @@ export default class CameraHandler {
     const normLeft = new THREE.Vector3(-normRight.x, normRight.y, normRight.z);
 
     // As the aspect ratio gets bigger, the camera needs to be moved closer to the origin
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    this.landNeutalDistFromOrigin = Math.max(multiplier / aspectRatio, 7);
+    this.aspect = window.innerWidth / window.innerHeight;
+    this.landNeutalDistFromOrigin = Math.max(multiplier / this.aspect, 7);
 
     const center = normCenter.multiplyScalar(this.landNeutalDistFromOrigin);
     const right = normRight.multiplyScalar(this.landNeutalDistFromOrigin);
@@ -92,7 +94,7 @@ export default class CameraHandler {
     );
   }
 
-  private handleSkyPhase() {
+  private handleSkyPhase(progress: number) {
     const newPosition = this.skyNeutralPosition.clone();
 
     const multiplier = 5;
@@ -101,6 +103,9 @@ export default class CameraHandler {
     newPosition.x += this.pointer.x * multiplier;
     // For pointerY
     newPosition.y += this.pointer.y * multiplier;
+
+    // Slowly pan up based on progress
+    newPosition.y += progress * 8 * Math.min(this.aspect, 1.8);
 
     this.skyPosition.set(newPosition.x, newPosition.y, newPosition.z);
   }
@@ -158,7 +163,7 @@ export default class CameraHandler {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
       this.handleLandPhase();
-      this.handleSkyPhase();
+      this.handleSkyPhase(phases.sky.get());
 
       const mix = phases.landToSky.get();
 
