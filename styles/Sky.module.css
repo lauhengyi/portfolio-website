@@ -2,14 +2,28 @@
   margin-top: 5rem;
   height: 100vh;
   display: flex;
-  position: relative;
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+  align-content: flex-start;
 }
 
 .text {
+  --progress: 10%;
+  position: relative;
+  margin: 0 0;
   font-family: 'NoirPro';
   font-size: 5rem;
+  color: var(--primary-black-faded);
+  opacity: 1;
+}
+
+.text::before {
+  content: attr(data-text);
   color: var(--primary-black);
-  opacity: 0.1;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: aliceblue;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--progress);
+  overflow: hidden;
 }

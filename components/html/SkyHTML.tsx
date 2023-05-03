@@ -16,7 +16,11 @@ export default function SkyHTML() {
           about building amazing web applications that inspire. On the side, I
           like to make music.
         </SkyText>
-        {/* <p className={styles.text}>{text}</p> */}
+        {/* <p className={styles.text}>
+          Hi, I am currently a undergraduate in NUS Com Sci, and I am passionate
+          about building amazing web applications that inspire. On the side, I
+          like to make music.
+        </p> */}
       </motion.article>
     </div>
   );

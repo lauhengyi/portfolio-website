@@ -15,6 +15,7 @@ body {
   height: 500vh;
   /* Color Scheme */
   --primary-black: #414239;
+  --primary-black-faded: #4142391a;
 }
 
 a {
