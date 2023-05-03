@@ -30,8 +30,9 @@ a {
   justify-content: center;
 }
 
-.wrapper {
-  width: min(90vw, 180vh);
+.article-wrapper {
+  width: min(85vw, 180vh);
+  position: fixed;
 }
 
 * {

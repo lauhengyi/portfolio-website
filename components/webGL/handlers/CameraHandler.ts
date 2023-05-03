@@ -1,9 +1,7 @@
 import * as THREE from 'three';
-import { Size, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { QuadraticBezierCurve3 } from 'three';
-import { useScroll, useTransform } from 'framer-motion';
-import { MutableRefObject } from 'react';
-import getPhasePositions from '../utils/getPhasePositions';
+import getPhaseProgress from '../utils/getPhaseProgress';
 
 export default class CameraHandler {
   // Camera position variables
@@ -154,7 +152,7 @@ export default class CameraHandler {
       this.handleResize();
     });
 
-    const phases = getPhasePositions();
+    const phases = getPhaseProgress();
 
     useFrame(({ camera }, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
@@ -162,7 +160,7 @@ export default class CameraHandler {
       this.handleLandPhase();
       this.handleSkyPhase();
 
-      const mix = phases.land.get();
+      const mix = phases.landToSky.get();
 
       this.updateCameraVariables(
         this.landPosition,

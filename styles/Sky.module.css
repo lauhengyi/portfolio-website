@@ -1,0 +1,15 @@
+.sky {
+  margin-top: 5rem;
+  height: 100vh;
+  display: flex;
+  position: relative;
+}
+
+.text {
+  font-family: 'NoirPro';
+  font-size: 5rem;
+  color: var(--primary-black);
+  opacity: 0.1;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: aliceblue;
+}

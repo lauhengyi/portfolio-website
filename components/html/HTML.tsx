@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
+import LandHTML from './LandHTML';
+import SkyHTML from './SkyHTML';
 
 export default function HTML() {
   return (
@@ -17,12 +18,8 @@ export default function HTML() {
       </Head>
       <main className="container">
         {/* <NavBar /> */}
-        <div className="wrapper">
-          <article className={styles.landing}>
-            <h1 className={styles.title}>Web Developer</h1>
-            <p className={styles.caption}>I like to build nice things.</p>
-          </article>
-        </div>
+        <LandHTML />
+        <SkyHTML />
       </main>
     </div>
   );
