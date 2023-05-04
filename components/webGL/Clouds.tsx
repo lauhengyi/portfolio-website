@@ -32,6 +32,7 @@ export default function Clouds() {
       dummy.scale.set(scale, scale, 1);
       dummy.updateMatrix();
       cloudsRef.current.setMatrixAt(i, dummy.matrix);
+      cloudsRef.current.instanceMatrix.needsUpdate = true;
     }
   }, []);
 
