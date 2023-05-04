@@ -21,7 +21,7 @@ export default function Clouds() {
     const dummy = new THREE.Object3D();
 
     for (let i = 0; i < count; i++) {
-      const x = Math.random() * 100 - 50;
+      const x = (Math.random() - 0.5) * 150;
       const y = -Math.random() * Math.random() * 20 - 1.5;
       const z = i / 10;
       const rot = Math.random() * Math.PI;
