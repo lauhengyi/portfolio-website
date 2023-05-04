@@ -15,10 +15,11 @@ type GLTFResult = GLTF & {
 
 export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
   const { nodes } = useGLTF('/models/aboutMe.glb') as GLTFResult;
-  const textRef = React.useRef<THREE.Group>(null!);
+  const textRef = React.useRef<THREE.Group>(null);
 
   useEffect(() => {
     addEventListener('resize', () => {
+      if (!textRef.current) return;
       const aspect = window.innerWidth / window.innerHeight;
       const clampedAspect = Math.min(aspect, 1.8);
       const multiplier = 18;
