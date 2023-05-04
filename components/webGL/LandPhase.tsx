@@ -7,7 +7,7 @@ const LandPhase = forwardRef<THREE.Group>(
   (props: JSX.IntrinsicElements['group'], ref) => {
     return (
       <>
-        <fog attach={'fog'} near={30} far={50} color="#f3fdff" />
+        {/* <fog attach={'fog'} near={30} far={50} color="#f3fdff" /> */}
         <group {...props} ref={ref}>
           <Buildings />
           <Cars />
