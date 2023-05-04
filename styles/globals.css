@@ -12,7 +12,7 @@ body {
 }
 
 :root {
-  height: 500vh;
+  height: 1000vh;
   /* Color Scheme */
   --primary-black: #414239;
   --primary-black-faded: #4142391a;

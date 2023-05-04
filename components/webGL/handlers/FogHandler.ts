@@ -15,11 +15,11 @@ export default class FogHandler {
       far: 50,
     };
     const skyFog = {
-      near: 60,
-      far: 100,
+      near: 45,
+      far: 75,
     };
     const phases = getPhaseProgress();
-    const progress = useTransform(phases.landToSky, [0.8, 1], [0, 1]);
+    const progress = useTransform(phases.landToSky, [0.6, 1], [0, 1]);
     useFrame(() => {
       const mix = progress.get();
       this.fog.current.near = landFog.near * (1 - mix) + skyFog.near * mix;

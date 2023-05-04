@@ -7,7 +7,7 @@ type props = {
 };
 export default function SkyText({ children }: props) {
   const { sky } = getPhaseProgress();
-  const totalProgress = useSpring(sky, {
+  const totalProgress = useSpring(useTransform(sky, [0.2, 0.8], [0, 1]), {
     damping: 10,
     stiffness: 100,
     restSpeed: 0.001,
