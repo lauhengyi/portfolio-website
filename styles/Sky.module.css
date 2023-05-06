@@ -1,6 +1,9 @@
 .sky {
-  margin-top: 5rem;
+  margin-top: 8rem;
   height: 100vh;
+}
+
+.textContainer {
   display: flex;
   flex-wrap: wrap;
   column-gap: clamp(1rem, 2vw, 1.5rem);
@@ -11,8 +14,8 @@
   --progress: 10%;
   position: relative;
   margin: 0 0;
-  font-family: 'NoirPro';
-  font-size: clamp(3.5rem, 7vw, 5rem);
+  font-family: 'NoirPro SemiBold';
+  font-size: clamp(4.5vh, 6.5vw, 5rem);
   -webkit-text-stroke-color: var(--primary-black);
   -webkit-text-stroke-width: 1px;
   color: transparent;
@@ -27,4 +30,16 @@
   left: 0;
   width: var(--progress);
   overflow: hidden;
+}
+
+.captionContainer {
+  margin-top: 4vh;
+  display: flex;
+  justify-content: center;
+}
+
+.caption {
+  font-family: 'NoirPro Light';
+  font-size: clamp(1.5rem, 4vw, 4rem);
+  color: var(--primary-black);
 }

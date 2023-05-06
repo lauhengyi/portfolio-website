@@ -1,6 +1,10 @@
 @font-face {
-  font-family: 'NoirPro';
+  font-family: 'NoirPro SemiBold';
   src: url('/fonts/NoirPro-SemiBold.otf');
+}
+@font-face {
+  font-family: 'NoirPro Light';
+  src: url('/fonts/NoirPro-LightItalic.otf');
 }
 
 html,

@@ -1,18 +1,20 @@
 import SkyWord from './SkyWord';
-import { useTransform, useSpring } from 'framer-motion';
-import getPhaseProgress from '../../webGL/utils/getPhaseProgress';
+import { useTransform, useSpring, MotionValue } from 'framer-motion';
 
 type props = {
   children: string;
+  skyProgress: MotionValue<number>;
 };
-export default function SkyText({ children }: props) {
-  const { sky } = getPhaseProgress();
-  const totalProgress = useSpring(useTransform(sky, [0.2, 0.8], [0, 1]), {
-    damping: 10,
-    stiffness: 100,
-    restSpeed: 0.001,
-    mass: 0.5,
-  });
+export default function SkyText({ children, skyProgress }: props) {
+  const totalProgress = useSpring(
+    useTransform(skyProgress, [0.1, 0.7], [0, 1]),
+    {
+      damping: 10,
+      stiffness: 100,
+      restSpeed: 0.001,
+      mass: 0.5,
+    },
+  );
   const text = children;
 
   // Calculating appropriate intervals for each word
