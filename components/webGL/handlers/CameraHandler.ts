@@ -24,6 +24,12 @@ export default class CameraHandler {
   skyNeutralPosition: THREE.Vector3;
   skyNeutralLookAtPoint: THREE.Vector3;
 
+  // Space variables
+  spacePosition: THREE.Vector3;
+  spaceLookAtPoint: THREE.Vector3;
+  spaceNeutralPosition: THREE.Vector3;
+  spaceNeutralLookAtPoint: THREE.Vector3;
+
   constructor() {
     // Setting up camera position variables
     this.aspect = window.innerWidth / window.innerHeight;
@@ -48,6 +54,12 @@ export default class CameraHandler {
     this.skyLookAtPoint = new THREE.Vector3(0, 35, -30);
     this.skyNeutralPosition = new THREE.Vector3(0, 30, 15);
     this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -30);
+
+    // Setting up space variables
+    this.spacePosition = new THREE.Vector3(0, 100, 0);
+    this.spaceLookAtPoint = new THREE.Vector3(0, 105, -30);
+    this.spaceNeutralPosition = new THREE.Vector3(0, 100, 0);
+    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 105, -30);
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -110,6 +122,8 @@ export default class CameraHandler {
     this.skyPosition.set(newPosition.x, newPosition.y, newPosition.z);
   }
 
+  private handleSpacePhase(progress: number) {}
+
   private mixCameraPositionVariables(
     target: THREE.Vector3,
     start: THREE.Vector3,
@@ -157,23 +171,45 @@ export default class CameraHandler {
       this.handleResize();
     });
 
-    const phases = getPhaseProgress();
+    const { landToSky, sky, skyToSpace, space } = getPhaseProgress();
 
     useFrame(({ camera }, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
-      this.handleLandPhase();
-      this.handleSkyPhase(phases.sky.get());
 
-      const mix = phases.landToSky.get();
+      if (sky.get() === 0) {
+        // When transitioning from land to sky
+        this.handleLandPhase();
+        this.handleSkyPhase(sky.get());
 
-      this.updateCameraVariables(
-        this.landPosition,
-        this.landLookAtPoint,
-        this.skyPosition,
-        this.skyLookAtPoint,
-        mix,
-      );
+        const mix = landToSky.get();
+        this.updateCameraVariables(
+          this.landPosition,
+          this.landLookAtPoint,
+          this.skyPosition,
+          this.skyLookAtPoint,
+          mix,
+        );
+      } else if (skyToSpace.get() === 0) {
+        // When just in sky
+        this.handleSkyPhase(sky.get());
+        // Handle sky
+        this.cameraPosition = this.skyPosition.clone();
+        this.cameraLookAtPoint = this.skyLookAtPoint.clone();
+      } else if (space.get() === 0) {
+        // When transitioning from sky to space
+        this.handleSkyPhase(sky.get());
+        this.handleSpacePhase(space.get());
+
+        const mix = skyToSpace.get();
+        this.updateCameraVariables(
+          this.skyPosition,
+          this.skyLookAtPoint,
+          this.spacePosition,
+          this.spaceLookAtPoint,
+          mix,
+        );
+      }
 
       // Update camera position
       camera.position.lerp(this.cameraPosition, clampDelta * 3);
