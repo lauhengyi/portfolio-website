@@ -6,7 +6,7 @@ import LandPhase from './LandPhase';
 import SkyPhase from './SkyPhase';
 import TempSky from './TempSky';
 import FogHandler from './handlers/FogHandler';
-import SpacePhase from './spacePhase';
+import SpacePhase from './SpacePhase';
 
 export default function Experience() {
   const fogRef = useRef<THREE.Fog>(null!);
