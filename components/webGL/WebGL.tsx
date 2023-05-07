@@ -13,6 +13,7 @@ export default function WebGL() {
         top: 0,
         left: 0,
         overflow: 'hidden',
+        background: 'black',
       }}
     >
       <Perf position={'top-right'} />

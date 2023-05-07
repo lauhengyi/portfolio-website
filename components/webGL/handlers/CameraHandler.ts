@@ -57,9 +57,9 @@ export default class CameraHandler {
 
     // Setting up space variables
     this.spacePosition = new THREE.Vector3(0, 100, 0);
-    this.spaceLookAtPoint = new THREE.Vector3(0, 105, -30);
+    this.spaceLookAtPoint = new THREE.Vector3(0, 150, -1);
     this.spaceNeutralPosition = new THREE.Vector3(0, 100, 0);
-    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 105, -30);
+    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 150, -1);
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
