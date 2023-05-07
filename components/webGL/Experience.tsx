@@ -1,18 +1,27 @@
-import { OrbitControls, Sky, Text } from '@react-three/drei';
+import { OrbitControls, Plane, Sky, Stars, Text } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import CameraHandler from './handlers/CameraHandler';
 import VisibilityHandler from './handlers/VisibilityHandler';
 import LandPhase from './LandPhase';
 import SkyPhase from './SkyPhase';
-import Clouds from './Clouds';
+import TempSky from './TempSky';
 import FogHandler from './handlers/FogHandler';
+import SpacePhase from './spacePhase';
 
 export default function Experience() {
   const fogRef = useRef<THREE.Fog>(null!);
+  const skyBackgroundRef = useRef<THREE.Group>(null!);
   const landRef = useRef<THREE.Group>(null!);
   const skyRef = useRef<THREE.Group>(null!);
+  const tempSkyRef = useRef<THREE.Sprite>(null!);
+  const spaceRef = useRef<THREE.Group>(null!);
+
   const sceneRefs = {
+    skyBackground: skyBackgroundRef,
     land: landRef,
+    sky: skyRef,
+    tempSky: tempSkyRef,
+    space: spaceRef,
   };
 
   const cameraHandler = new CameraHandler();
@@ -27,10 +36,11 @@ export default function Experience() {
     <>
       {/* <OrbitControls /> */}
       <fog ref={fogRef} attach={'fog'} near={30} far={50} color="#f3fdff" />
-      <Sky sunPosition={[10, 5, 10]} rayleigh={1.5} />
+      <Sky ref={skyBackgroundRef} sunPosition={[10, 5, 10]} rayleigh={1.5} />
       <LandPhase ref={landRef} />
-      <Clouds />
       <SkyPhase ref={skyRef} />
+      <TempSky ref={tempSkyRef} />
+      <SpacePhase ref={spaceRef} />
     </>
   );
 }

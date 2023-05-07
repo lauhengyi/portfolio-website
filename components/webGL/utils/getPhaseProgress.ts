@@ -8,7 +8,7 @@ interface IPhases {
 }
 
 export default function getPhaseProgress(): IPhases {
-  const phasePos = [0, 1500, 4000, 5000, 8000];
+  const phasePos = [0, 1500, 4000, 5500, 8000];
   const { scrollY } = useScroll();
 
   const landToSky = useTransform(scrollY, [phasePos[0], phasePos[1]], [0, 1]);

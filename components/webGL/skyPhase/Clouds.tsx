@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
-import { cloudVertexShader, cloudFragmentShader } from './shaders/cloudShaders';
+import {
+  cloudVertexShader,
+  cloudFragmentShader,
+} from '../shaders/cloudShaders';
 import * as THREE from 'three';
 
 export default function Clouds() {
