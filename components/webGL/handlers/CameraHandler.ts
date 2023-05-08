@@ -12,23 +12,29 @@ export default class CameraHandler {
   cameraLookAtPoint: THREE.Vector3;
 
   // Land variables
+  landNeutralLookAtPoint: THREE.Vector3;
   landPosition: THREE.Vector3;
   landLookAtPoint: THREE.Vector3;
-  landNeutralLookAtPoint: THREE.Vector3;
   landNeutalDistFromOrigin: number;
   landQuadCurve: QuadraticBezierCurve3;
 
   // Sky variables
-  skyPosition: THREE.Vector3;
-  skyLookAtPoint: THREE.Vector3;
   skyNeutralPosition: THREE.Vector3;
   skyNeutralLookAtPoint: THREE.Vector3;
+  skyPosition: THREE.Vector3;
+  skyLookAtPoint: THREE.Vector3;
+
+  // Space transition variables
+  spacePosition1: THREE.Vector3;
+  spaceLookAtPoint1: THREE.Vector3;
+  spacePosition2: THREE.Vector3;
+  spaceLookAtPoint2: THREE.Vector3;
 
   // Space variables
-  spacePosition: THREE.Vector3;
-  spaceLookAtPoint: THREE.Vector3;
   spaceNeutralPosition: THREE.Vector3;
   spaceNeutralLookAtPoint: THREE.Vector3;
+  spacePosition: THREE.Vector3;
+  spaceLookAtPoint: THREE.Vector3;
 
   constructor() {
     // Setting up camera position variables
@@ -39,9 +45,9 @@ export default class CameraHandler {
     this.oldLookAtPoint = new THREE.Vector3(0, 0, 0);
 
     // Setting up land variables
-    this.landPosition = new THREE.Vector3(0, 0, 0);
-    this.landLookAtPoint = new THREE.Vector3(0, 0, 0);
     this.landNeutralLookAtPoint = new THREE.Vector3(0, 0, 0);
+    this.landPosition = new THREE.Vector3(0, 0, 0);
+    this.landLookAtPoint = this.landNeutralLookAtPoint.clone();
     this.landNeutalDistFromOrigin = 5;
     this.landQuadCurve = new QuadraticBezierCurve3(
       new THREE.Vector3(0, 0, 0),
@@ -50,16 +56,22 @@ export default class CameraHandler {
     );
 
     // Setting up sky variables
-    this.skyPosition = new THREE.Vector3(0, 30, 15);
-    this.skyLookAtPoint = new THREE.Vector3(0, 35, -30);
     this.skyNeutralPosition = new THREE.Vector3(0, 30, 15);
     this.skyNeutralLookAtPoint = new THREE.Vector3(0, 35, -30);
+    this.skyPosition = this.skyNeutralPosition.clone();
+    this.skyLookAtPoint = this.skyNeutralLookAtPoint.clone();
+
+    // Setting up Space transition variables
+    this.spacePosition1 = new THREE.Vector3(0, 60, 0);
+    this.spaceLookAtPoint1 = new THREE.Vector3(0, 90, -1);
+    this.spacePosition2 = new THREE.Vector3(0, -15, 0);
+    this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -1);
 
     // Setting up space variables
-    this.spacePosition = new THREE.Vector3(0, 100, 0);
-    this.spaceLookAtPoint = new THREE.Vector3(0, 150, -1);
-    this.spaceNeutralPosition = new THREE.Vector3(0, 100, 0);
-    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 150, -1);
+    this.spaceNeutralPosition = new THREE.Vector3(0, 0, 0);
+    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -1);
+    this.spacePosition = this.spacePosition1;
+    this.spaceLookAtPoint = this.spaceLookAtPoint1;
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -120,6 +132,46 @@ export default class CameraHandler {
     newPosition.y += progress * 8 * Math.min(this.aspect, 1.8);
 
     this.skyPosition.set(newPosition.x, newPosition.y, newPosition.z);
+  }
+
+  private handleSpaceTransition(progress: number, camera: THREE.Camera) {
+    const points = [0.5, 0.55, 0.6, 1];
+    if (progress < points[0]) {
+      // Move camera upwards to tempSky
+      const mix = progress / points[0];
+      this.updateCameraVariables(
+        this.skyPosition,
+        this.skyLookAtPoint,
+        this.spacePosition1,
+        this.spaceLookAtPoint1,
+        mix,
+      );
+    } else if (progress < points[1]) {
+      // Lock camera to first space position
+      camera.position.set(
+        this.spacePosition1.x,
+        this.spacePosition1.y,
+        this.spacePosition1.z,
+      );
+      camera.lookAt(this.spaceLookAtPoint1);
+    } else if (progress < points[2]) {
+      // lock camera to second space position
+      camera.position.set(
+        this.spacePosition2.x,
+        this.spacePosition2.y,
+        this.spacePosition2.z,
+      );
+      camera.lookAt(this.spaceLookAtPoint2);
+    } else {
+      const mix = (progress - points[2]) / (points[3] - points[2]);
+      this.updateCameraVariables(
+        this.spacePosition2,
+        this.spaceLookAtPoint2,
+        this.spacePosition,
+        this.spaceLookAtPoint,
+        mix,
+      );
+    }
   }
 
   private handleSpacePhase(progress: number) {}
@@ -200,15 +252,7 @@ export default class CameraHandler {
         // When transitioning from sky to space
         this.handleSkyPhase(sky.get());
         this.handleSpacePhase(space.get());
-
-        const mix = skyToSpace.get();
-        this.updateCameraVariables(
-          this.skyPosition,
-          this.skyLookAtPoint,
-          this.spacePosition,
-          this.spaceLookAtPoint,
-          mix,
-        );
+        this.handleSpaceTransition(skyToSpace.get(), camera);
       }
 
       // Update camera position
