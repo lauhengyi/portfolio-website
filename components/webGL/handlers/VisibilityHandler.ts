@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTransform, useSpring } from 'framer-motion';
+import { useTransform } from 'framer-motion';
 import getPhaseProgress from '../utils/getPhaseProgress';
 import * as THREE from 'three';
 
@@ -32,12 +32,7 @@ export default class VisibilityHandler {
   }
 
   handleVisibility() {
-    const phases = getPhaseProgress();
-
-    const landToSky = useSpring(phases.landToSky, { bounce: 0 });
-    const sky = useSpring(phases.sky, { bounce: 0 });
-    const skyToSpace = useSpring(phases.skyToSpace, { bounce: 0 });
-    const space = useSpring(phases.space, { bounce: 0 });
+    const { landToSky, sky, skyToSpace, space } = getPhaseProgress();
 
     const tempSkyOpacity = useTransform(
       skyToSpace,

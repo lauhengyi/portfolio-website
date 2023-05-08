@@ -1,12 +1,11 @@
-import { motion, useTransform, useSpring } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import styles from '../../styles/Land.module.css';
 import getPhaseProgress from '../webGL/utils/getPhaseProgress';
 
 export default function LandHTML() {
   const { landToSky } = getPhaseProgress();
-  const opacity = useSpring(useTransform(landToSky, [0, 0.2], [1, 0]), {
-    bounce: 0,
-  });
+  const opacity = useTransform(landToSky, [0, 0.2], [1, 0]);
+
   return (
     <div className="article-wrapper">
       <motion.article style={{ opacity: opacity }} className={styles.land}>

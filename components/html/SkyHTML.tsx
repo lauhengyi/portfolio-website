@@ -1,20 +1,13 @@
 import styles from '../../styles/Sky.module.css';
-import { motion, useSpring, useTransform } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import getPhaseProgress from '../webGL/utils/getPhaseProgress';
 import SkyText from './sky/SkyText';
 import SkyCaption from './sky/SkyCaption';
 
 export default function SkyHTML() {
   const { landToSky, sky, skyToSpace } = getPhaseProgress();
-  const entranceOpacity = useSpring(useTransform(landToSky, [0.8, 1], [0, 1]), {
-    bounce: 0,
-  });
-  const exitOpacityText = useSpring(
-    useTransform(skyToSpace, [0, 0.2], [1, 0]),
-    {
-      bounce: 0,
-    },
-  );
+  const entranceOpacity = useTransform(landToSky, [0.8, 1], [0, 1]);
+  const exitOpacityText = useTransform(skyToSpace, [0, 0.2], [1, 0]);
 
   return (
     <div className="article-wrapper">

@@ -1,4 +1,4 @@
-import { useScroll, useTransform, MotionValue } from 'framer-motion';
+import { useScroll, useTransform, MotionValue, useSpring } from 'framer-motion';
 
 interface IPhases {
   landToSky: MotionValue<number>;
@@ -8,13 +8,26 @@ interface IPhases {
 }
 
 export default function getPhaseProgress(): IPhases {
-  const phasePos = [0, 1500, 4000, 5500, 8000];
-  const { scrollY } = useScroll();
+  const phasePos = [0, 0.16, 0.45, 0.6, 1];
+  const { scrollYProgress } = useScroll();
 
-  const landToSky = useTransform(scrollY, [phasePos[0], phasePos[1]], [0, 1]);
-  const sky = useTransform(scrollY, [phasePos[1], phasePos[2]], [0, 1]);
-  const skyToSpace = useTransform(scrollY, [phasePos[2], phasePos[3]], [0, 1]);
-  const space = useTransform(scrollY, [phasePos[3], phasePos[4]], [0, 1]);
+  const dampedScroll = useSpring(scrollYProgress, {
+    damping: 100,
+    stiffness: 600,
+    restDelta: 0.001,
+  });
+  const landToSky = useTransform(
+    dampedScroll,
+    [phasePos[0], phasePos[1]],
+    [0, 1],
+  );
+  const sky = useTransform(dampedScroll, [phasePos[1], phasePos[2]], [0, 1]);
+  const skyToSpace = useTransform(
+    dampedScroll,
+    [phasePos[2], phasePos[3]],
+    [0, 1],
+  );
+  const space = useTransform(dampedScroll, [phasePos[3], phasePos[4]], [0, 1]);
 
   return { landToSky, sky, skyToSpace, space };
 }
