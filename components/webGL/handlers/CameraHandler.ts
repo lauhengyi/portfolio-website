@@ -148,19 +148,15 @@ export default class CameraHandler {
       );
     } else if (progress < points[1]) {
       // Lock camera to first space position
-      camera.position.set(
-        this.spacePosition1.x,
-        this.spacePosition1.y,
-        this.spacePosition1.z,
-      );
+      this.cameraPosition.copy(this.spacePosition1);
+      this.cameraLookAtPoint.copy(this.spaceLookAtPoint1);
+      camera.position.copy(this.spacePosition1);
       camera.lookAt(this.spaceLookAtPoint1);
     } else if (progress < points[2]) {
       // lock camera to second space position
-      camera.position.set(
-        this.spacePosition2.x,
-        this.spacePosition2.y,
-        this.spacePosition2.z,
-      );
+      this.cameraPosition.copy(this.spacePosition2);
+      this.cameraLookAtPoint.copy(this.spaceLookAtPoint2);
+      camera.position.copy(this.spacePosition2);
       camera.lookAt(this.spaceLookAtPoint2);
     } else {
       const mix = (progress - points[2]) / (points[3] - points[2]);
@@ -246,8 +242,8 @@ export default class CameraHandler {
         // When just in sky
         this.handleSkyPhase(sky.get());
         // Handle sky
-        this.cameraPosition = this.skyPosition.clone();
-        this.cameraLookAtPoint = this.skyLookAtPoint.clone();
+        this.cameraPosition.copy(this.skyPosition);
+        this.cameraLookAtPoint.copy(this.skyLookAtPoint);
       } else if (space.get() === 0) {
         // When transitioning from sky to space
         this.handleSkyPhase(sky.get());
