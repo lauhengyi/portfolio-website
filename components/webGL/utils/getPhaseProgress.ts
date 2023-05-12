@@ -8,7 +8,7 @@ interface IPhases {
 }
 
 export default function getPhaseProgress(): IPhases {
-  const phasePos = [0, 0.16, 0.45, 0.6, 1];
+  const phasePos = [0, 0.16, 0.45, 0.7, 1];
   const { scrollYProgress } = useScroll();
 
   const dampedScroll = useSpring(scrollYProgress, {

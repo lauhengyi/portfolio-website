@@ -62,16 +62,16 @@ export default class CameraHandler {
     this.skyLookAtPoint = this.skyNeutralLookAtPoint.clone();
 
     // Setting up Space transition variables
-    this.spacePosition1 = new THREE.Vector3(0, 60, 0);
-    this.spaceLookAtPoint1 = new THREE.Vector3(0, 90, -1);
+    this.spacePosition1 = new THREE.Vector3(0, 60, 15);
+    this.spaceLookAtPoint1 = new THREE.Vector3(0, 90, 14);
     this.spacePosition2 = new THREE.Vector3(0, -15, 0);
-    this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -1);
+    this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -10);
 
     // Setting up space variables
     this.spaceNeutralPosition = new THREE.Vector3(0, 0, 0);
-    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -1);
-    this.spacePosition = this.spacePosition1;
-    this.spaceLookAtPoint = this.spaceLookAtPoint1;
+    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -10);
+    this.spacePosition = this.spaceNeutralPosition.clone();
+    this.spaceLookAtPoint = this.spaceNeutralLookAtPoint.clone();
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -150,12 +150,14 @@ export default class CameraHandler {
       // Lock camera to first space position
       this.cameraPosition.copy(this.spacePosition1);
       this.cameraLookAtPoint.copy(this.spaceLookAtPoint1);
+      this.oldLookAtPoint.copy(this.spaceLookAtPoint1);
       camera.position.copy(this.spacePosition1);
       camera.lookAt(this.spaceLookAtPoint1);
     } else if (progress < points[2]) {
       // lock camera to second space position
       this.cameraPosition.copy(this.spacePosition2);
       this.cameraLookAtPoint.copy(this.spaceLookAtPoint2);
+      this.oldLookAtPoint.copy(this.spaceLookAtPoint2);
       camera.position.copy(this.spacePosition2);
       camera.lookAt(this.spaceLookAtPoint2);
     } else {
