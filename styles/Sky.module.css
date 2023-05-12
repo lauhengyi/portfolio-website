@@ -1,5 +1,5 @@
 .sky {
-  margin-top: 8rem;
+  margin-top: 100px;
   height: 100vh;
 }
 
@@ -15,7 +15,7 @@
   position: relative;
   margin: 0 0;
   font-family: 'NoirPro SemiBold';
-  font-size: clamp(4.5vh, 6.5vw, 5rem);
+  font-size: clamp(4.5vh, 5vw, 60px);
   -webkit-text-stroke-color: var(--primary-black);
   -webkit-text-stroke-width: 1px;
   color: transparent;
@@ -33,13 +33,13 @@
 }
 
 .captionContainer {
-  margin-top: 4vh;
+  margin-top: 2vh;
   display: flex;
   justify-content: center;
 }
 
 .caption {
   font-family: 'NoirPro Light';
-  font-size: clamp(1.5rem, 4vw, 4rem);
+  font-size: clamp(1.5rem, 4vw, 50px);
   color: var(--primary-black);
 }

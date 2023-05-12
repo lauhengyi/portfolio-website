@@ -12,7 +12,7 @@
   font-family: 'Rampart One', cursive;
   font-weight: 100;
   line-height: 1ch;
-  font-size: clamp(4rem, 10vw, 10rem);
+  font-size: clamp(4rem, 10vw, 80px);
 }
 
 .caption {
