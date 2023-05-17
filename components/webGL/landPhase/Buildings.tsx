@@ -36,7 +36,7 @@ export default function Buildings() {
         <meshMatcapMaterial matcap={windowTexture} />
       </mesh>
       <mesh geometry={nodes.waters.geometry}>
-        <meshBasicMaterial map={waterTexture} transparent />
+        <meshBasicMaterial map={waterTexture} transparent opacity={0.8} />
       </mesh>
       <mesh geometry={nodes.buildings.geometry}>
         <meshBasicMaterial map={bakedBuildings} />
