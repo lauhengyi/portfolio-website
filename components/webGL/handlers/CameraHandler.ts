@@ -110,12 +110,8 @@ export default class CameraHandler {
     // Update look at point
     newLookAtPoint.x += this.pointer.x * 1.5;
 
-    this.landPosition.set(newPosition.x, newPosition.y, newPosition.z);
-    this.landLookAtPoint.set(
-      newLookAtPoint.x,
-      newLookAtPoint.y,
-      newLookAtPoint.z,
-    );
+    this.landPosition.copy(newPosition);
+    this.landLookAtPoint.copy(newLookAtPoint);
   }
 
   private handleSkyPhase(progress: number) {
@@ -129,9 +125,9 @@ export default class CameraHandler {
     newPosition.y += this.pointer.y * multiplier;
 
     // Slowly pan up based on progress
-    newPosition.y += progress * 8 * Math.min(this.aspect, 1.8);
+    newPosition.y += progress * 12 * Math.min(this.aspect, 1.8);
 
-    this.skyPosition.set(newPosition.x, newPosition.y, newPosition.z);
+    this.skyPosition.copy(newPosition);
   }
 
   private handleSpaceTransition(progress: number, camera: THREE.Camera) {
