@@ -17,16 +17,20 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
   const { nodes } = useGLTF('/models/aboutMe.glb') as GLTFResult;
   const textRef = React.useRef<THREE.Group>(null);
 
+  function resizeText() {
+    if (!textRef.current) return;
+    const aspect = window.innerWidth / window.innerHeight;
+    const clampedAspect = Math.min(aspect, 1.8);
+    const multiplier = 18;
+    const scale = clampedAspect * multiplier;
+    textRef.current.scale.set(scale, 1, scale);
+  }
   useEffect(() => {
+    resizeText();
     addEventListener('resize', () => {
-      if (!textRef.current) return;
-      const aspect = window.innerWidth / window.innerHeight;
-      const clampedAspect = Math.min(aspect, 1.8);
-      const multiplier = 18;
-      const scale = clampedAspect * multiplier;
-      textRef.current.scale.set(scale, 1, scale);
+      resizeText();
     });
-  });
+  }, []);
   return (
     <Center
       ref={textRef}
