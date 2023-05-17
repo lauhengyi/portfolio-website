@@ -168,7 +168,18 @@ export default class CameraHandler {
     }
   }
 
-  private handleSpacePhase(progress: number) {}
+  private handleSpacePhase(progress: number) {
+    const newPosition = this.spaceNeutralPosition.clone();
+
+    const multiplier = 2;
+
+    // For pointerX
+    newPosition.x += this.pointer.x * multiplier;
+    // For pointerY
+    newPosition.y += this.pointer.y * multiplier;
+
+    this.spacePosition.copy(newPosition);
+  }
 
   private mixCameraPositionVariables(
     target: THREE.Vector3,
@@ -223,7 +234,7 @@ export default class CameraHandler {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
       const clampDelta = Math.min(delta, 0.1);
 
-      if (sky.get() === 0) {
+      if (landToSky.get() !== 1) {
         // When transitioning from land to sky
         this.handleLandPhase();
         this.handleSkyPhase(sky.get());
@@ -236,17 +247,19 @@ export default class CameraHandler {
           this.skyLookAtPoint,
           mix,
         );
-      } else if (skyToSpace.get() === 0) {
+      } else if (sky.get() !== 1) {
         // When just in sky
         this.handleSkyPhase(sky.get());
         // Handle sky
         this.cameraPosition.copy(this.skyPosition);
         this.cameraLookAtPoint.copy(this.skyLookAtPoint);
-      } else if (space.get() === 0) {
+      } else if (skyToSpace.get() !== 0) {
         // When transitioning from sky to space
         this.handleSkyPhase(sky.get());
         this.handleSpacePhase(space.get());
         this.handleSpaceTransition(skyToSpace.get(), camera);
+      } else if (space.get() !== 1) {
+        this.handleSpacePhase(space.get());
       }
 
       // Update camera position
