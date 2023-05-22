@@ -86,4 +86,4 @@ export default function Planes(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/plane.glb');
+useGLTF.preload('/models/plane.glb');

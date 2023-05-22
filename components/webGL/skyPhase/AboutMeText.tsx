@@ -47,4 +47,4 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/aboutMe.glb');
+useGLTF.preload('/models/aboutMe.glb');
