@@ -60,12 +60,12 @@ export default function Cars() {
   / Animating cars
   */
   const carRef = useRef<THREE.InstancedMesh>(null!);
-  const carsPerLane = 3;
+  const carsPerLane = 4;
   const carSpeedMin = 1;
   const carSpeedRange = 1;
   const carDurationMin = 2;
-  const carDurationRange = 3;
-  const travelDistFromOrigin = 7;
+  const carDurationRange = 4;
+  const travelDistFromOrigin = 9.5;
   // Initialize car speeds as 0;
   const carRecord = useRef<
     { speed: number; deployTime: number | null; carObject: THREE.Object3D }[]
