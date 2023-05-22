@@ -69,7 +69,7 @@ export default class CameraHandler {
 
     // Setting up space variables
     this.spaceNeutralPosition = new THREE.Vector3(0, 0, 0);
-    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -10);
+    this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -20);
     this.spacePosition = this.spaceNeutralPosition.clone();
     this.spaceLookAtPoint = this.spaceNeutralLookAtPoint.clone();
   }

@@ -10,12 +10,13 @@ import resizeText from '../utils/resizeText';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Text: THREE.Mesh;
+    my: THREE.Mesh;
+    work: THREE.Mesh;
   };
 };
 
-export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
-  const { nodes } = useGLTF('/models/aboutMe.glb') as GLTFResult;
+export default function MyWorkText(props: JSX.IntrinsicElements['group']) {
+  const { nodes } = useGLTF('/models/myWork.glb') as GLTFResult;
   const textRef = React.useRef<THREE.Group>(null);
 
   useEffect(() => {
@@ -24,15 +25,19 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
       resizeText(textRef);
     });
   }, []);
+
   return (
     <Center
       ref={textRef}
-      position={[0, 35, -30.05]}
+      position={[0, 0, -50]}
       rotation-x={Math.PI * 0.5}
       scale={20}
     >
       <group {...props} dispose={null}>
-        <mesh geometry={nodes.Text.geometry}>
+        <mesh geometry={nodes.my.geometry}>
+          <meshBasicMaterial color="#ffffff" />
+        </mesh>
+        <mesh geometry={nodes.work.geometry}>
           <meshBasicMaterial color="#ffffff" />
         </mesh>
       </group>
@@ -40,4 +45,4 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/models/aboutMe.glb');
+useGLTF.preload('/models/myWork.glb');
