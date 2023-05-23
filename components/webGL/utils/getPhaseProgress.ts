@@ -14,7 +14,7 @@ export default function getPhaseProgress(): IPhases {
   const dampedScroll = useSpring(scrollYProgress, {
     damping: 100,
     stiffness: 600,
-    restDelta: 0.001,
+    restDelta: 0.00001,
   });
   const landToSky = useTransform(
     dampedScroll,

@@ -1,6 +1,18 @@
 @font-face {
+  font-family: 'NoirPro Bold';
+  src: url('/fonts/NoirPro-Bold.otf');
+}
+@font-face {
   font-family: 'NoirPro SemiBold';
   src: url('/fonts/NoirPro-SemiBold.otf');
+}
+@font-face {
+  font-family: 'NoirPro Medium';
+  src: url('/fonts/NoirPro-Medium.otf');
+}
+@font-face {
+  font-family: 'NoirPro Regular';
+  src: url('/fonts/NoirPro-Regular.otf');
 }
 @font-face {
   font-family: 'NoirPro Light';

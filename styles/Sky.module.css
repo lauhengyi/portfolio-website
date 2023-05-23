@@ -14,7 +14,7 @@
   --progress: 10%;
   position: relative;
   margin: 0 0;
-  font-family: 'NoirPro SemiBold';
+  font-family: 'NoirPro Medium';
   font-size: clamp(5vh, 5vw, 60px);
   -webkit-text-stroke-color: var(--primary-black);
   -webkit-text-stroke-width: 1px;

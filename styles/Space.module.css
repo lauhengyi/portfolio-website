@@ -1,13 +1,59 @@
-.card {
-  margin: 0 0 1rem 0;
-  border: none;
-  border-radius: 0;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  overflow: hidden;
-  transition: all 0.2s ease-in-out;
+.cardHolder {
+  display: flex;
+  height: 100vh;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
 }
 
-.card:hover {
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.4);
+.card {
+  height: 50vh;
+  width: min(70vw, 1000px);
+  border-radius: 40px;
+  background-color: rgba(50, 50, 50, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 20px;
+  /* border-style: solid;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.095); */
+  color: white;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  margin: 0;
+  font-family: 'NoirPro Bold';
+  font-size: clamp(2rem, 5vw, 5rem);
+}
+
+.card h3 {
+  margin: 0;
+  font-family: 'NoirPro SemiBold';
+  font-size: clamp(1.5rem, 3vw, 3rem);
+}
+
+.card h4 {
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: 'NoirPro Medium';
+  font-size: clamp(1rem, 2vw, 2rem);
+}
+
+.card p {
+  margin: 0;
+  font-family: 'NoirPro regular';
+  font-size: clamp(1rem, 2vw, 20px);
+}
+
+.card hr {
+  color: white;
+  opacity: 0.5;
 }
