@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import LandHTML from './LandHTML';
 import SkyHTML from './SkyHTML';
+import SpaceHTML from './SpaceHTML';
 
 export default function HTML() {
   return (
@@ -20,6 +21,7 @@ export default function HTML() {
         {/* <NavBar /> */}
         <LandHTML />
         <SkyHTML />
+        <SpaceHTML />
       </main>
     </div>
   );

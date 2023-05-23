@@ -35,7 +35,7 @@ a {
   justify-content: center;
 }
 
-.article-wrapper {
+.section-wrapper {
   width: min(85vw, 180vh);
   position: fixed;
 }

@@ -7,11 +7,11 @@ export default function LandHTML() {
   const opacity = useTransform(landToSky, [0, 0.2], [1, 0]);
 
   return (
-    <div className="article-wrapper">
-      <motion.article style={{ opacity: opacity }} className={styles.land}>
+    <div className="section-wrapper">
+      <motion.section style={{ opacity: opacity }} className={styles.land}>
         <h1 className={styles.title}>Web Developer</h1>
         <p className={styles.caption}>I like to build nice things.</p>
-      </motion.article>
+      </motion.section>
     </div>
   );
 }

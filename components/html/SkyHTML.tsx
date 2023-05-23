@@ -10,8 +10,8 @@ export default function SkyHTML() {
   const exitOpacityText = useTransform(skyToSpace, [0, 0.2], [1, 0]);
 
   return (
-    <div className="article-wrapper">
-      <motion.article
+    <div className="section-wrapper">
+      <motion.section
         style={{ opacity: entranceOpacity }}
         className={styles.sky}
       >
@@ -30,7 +30,7 @@ export default function SkyHTML() {
             Who says that 'The sky's the limit'?
           </SkyCaption>
         </div>
-      </motion.article>
+      </motion.section>
     </div>
   );
 }
