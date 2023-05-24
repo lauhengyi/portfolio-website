@@ -8,6 +8,7 @@ export default function SkyHTML() {
   const { landToSky, sky, skyToSpace } = getPhaseProgress();
   const entranceOpacity = useTransform(landToSky, [0.8, 1], [0, 1]);
   const exitOpacityText = useTransform(skyToSpace, [0, 0.2], [1, 0]);
+  const exitOpacityCaption = useTransform(skyToSpace, [0.8, 1], [1, 0]);
 
   return (
     <div className="section-wrapper">
@@ -25,11 +26,14 @@ export default function SkyHTML() {
             like to make music.
           </SkyText>
         </motion.div>
-        <div className={styles.captionContainer}>
+        <motion.div
+          style={{ opacity: exitOpacityCaption }}
+          className={styles.captionContainer}
+        >
           <SkyCaption skyProgress={sky}>
             Who says that 'The sky's the limit'?
           </SkyCaption>
-        </div>
+        </motion.div>
       </motion.section>
     </div>
   );

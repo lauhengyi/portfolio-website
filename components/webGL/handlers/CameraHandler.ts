@@ -178,6 +178,9 @@ export default class CameraHandler {
     // For pointerY
     newPosition.y += this.pointer.y * multiplier;
 
+    // Zoom out based on progress
+    newPosition.z += progress * 100;
+
     this.spacePosition.copy(newPosition);
   }
 

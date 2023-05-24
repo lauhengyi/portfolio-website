@@ -5,10 +5,11 @@ interface IPhases {
   sky: MotionValue<number>;
   skyToSpace: MotionValue<number>;
   space: MotionValue<number>;
+  spaceToGalaxy: MotionValue<number>;
 }
 
 export default function getPhaseProgress(): IPhases {
-  const phasePos = [0, 0.16, 0.45, 0.7, 1];
+  const phasePos = [0, 0.16, 0.35, 0.45, 0.85, 1];
   const { scrollYProgress } = useScroll();
 
   const dampedScroll = useSpring(scrollYProgress, {
@@ -29,5 +30,11 @@ export default function getPhaseProgress(): IPhases {
   );
   const space = useTransform(dampedScroll, [phasePos[3], phasePos[4]], [0, 1]);
 
-  return { landToSky, sky, skyToSpace, space };
+  const spaceToGalaxy = useTransform(
+    dampedScroll,
+    [phasePos[4], phasePos[5]],
+    [0, 1],
+  );
+
+  return { landToSky, sky, skyToSpace, space, spaceToGalaxy };
 }

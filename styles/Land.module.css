@@ -9,16 +9,16 @@
   margin: 0;
   margin-bottom: 2rem;
   color: var(--primary-black);
-  font-family: 'Rampart One', cursive;
+  font-family: 'NoirPro SemiBold', cursive;
   font-weight: 100;
   line-height: 1ch;
-  font-size: clamp(4rem, 10vw, 80px);
+  font-size: clamp(4rem, 10vw, 100px);
 }
 
 .caption {
   margin: 0;
   color: var(--primary-black);
-  font-family: 'NoirPro SemiBold';
-  font-size: clamp(2rem, 5vw, 5rem);
+  font-family: 'NoirPro Medium';
+  font-size: clamp(2rem, 5vw, 50px);
   margin-bottom: 5rem;
 }

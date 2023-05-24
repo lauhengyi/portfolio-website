@@ -16,7 +16,7 @@ export default function WorkCard(props: props) {
       </div>
       <hr />
       <h4>{props.position}</h4>
-      {props.children}
+      <ul className={styles.list}>{props.children}</ul>
     </article>
   );
 }
