@@ -11,7 +11,6 @@
   color: var(--primary-black);
   font-family: 'NoirPro SemiBold', cursive;
   font-weight: 100;
-  line-height: 1ch;
   font-size: clamp(4rem, 10vw, 100px);
 }
 
