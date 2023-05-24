@@ -19,10 +19,10 @@ type GLTFResult = GLTF & {
 
 export default function Buildings() {
   const { nodes } = useGLTF('/models/buildings.glb') as GLTFResult;
-  const bakedBuildings = useTexture('/textures/bakedBuildings.jpg');
+  const buildingTexture = useTexture('/textures/bakedBuildings.jpg');
   const waterTexture = useTexture('/textures/bakedWater.png');
   const windowTexture = useTexture('/textures/matcap.jpg');
-  bakedBuildings.flipY = false;
+  buildingTexture.flipY = false;
   waterTexture.flipY = false;
 
   // useFrame((state) => {
@@ -39,7 +39,7 @@ export default function Buildings() {
         <meshBasicMaterial map={waterTexture} transparent />
       </mesh>
       <mesh geometry={nodes.buildings.geometry}>
-        <meshBasicMaterial map={bakedBuildings} />
+        <meshBasicMaterial map={buildingTexture} />
       </mesh>
     </group>
   );
