@@ -5,7 +5,7 @@ import getPhaseProgress from '../../webGL/utils/getPhaseProgress';
 
 export default function Works() {
   const { space } = getPhaseProgress();
-  const x = useTransform(space, [0, 1], ['50%', '-110%']);
+  const x = useTransform(space, [0, 1], ['60%', '-110%']);
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
