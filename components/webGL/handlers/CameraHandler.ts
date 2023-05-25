@@ -172,7 +172,7 @@ export default class CameraHandler {
     const newPosition = this.spaceNeutralPosition.clone();
     const newLookAtPoint = this.spaceNeutralLookAtPoint.clone();
 
-    const multiplier = 2;
+    const multiplier = 2 + Math.pow(progress, 2) * 20;
 
     // For pointerX
     newPosition.x += this.pointer.x * multiplier;
