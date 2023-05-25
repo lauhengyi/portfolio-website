@@ -7,6 +7,7 @@ import React, { useEffect, useRef } from 'react';
 import { useGLTF, useAnimations, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { AnimationClip } from 'three';
+import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -27,10 +28,12 @@ export default function Astronaut(props: JSX.IntrinsicElements['group']) {
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
-    actions?.struggling?.play();
+    actions[
+      'Armature|Armature|Armature|Armature|Armature|mixamo.com|Lay'
+    ]?.play();
   }, []);
   return (
-    <group position={[0, 0, -20]} rotation={[Math.PI + 2, 0, 0]} dispose={null}>
+    <group position={[0, -2, -20]} rotation={[0.3, 0, 0]}>
       <group ref={group} rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
         <primitive object={nodes.bones} />
         <skinnedMesh
