@@ -65,7 +65,7 @@ export default class CameraHandler {
     this.spacePosition1 = new THREE.Vector3(0, 60, 15);
     this.spaceLookAtPoint1 = new THREE.Vector3(0, 90, 14);
     this.spacePosition2 = new THREE.Vector3(0, -15, 0);
-    this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -10);
+    this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -30);
 
     // Setting up space variables
     this.spaceNeutralPosition = new THREE.Vector3(0, 0, 0);
@@ -170,6 +170,7 @@ export default class CameraHandler {
 
   private handleSpacePhase(progress: number) {
     const newPosition = this.spaceNeutralPosition.clone();
+    const newLookAtPoint = this.spaceNeutralLookAtPoint.clone();
 
     const multiplier = 2;
 
@@ -179,9 +180,12 @@ export default class CameraHandler {
     newPosition.y += this.pointer.y * multiplier;
 
     // Zoom out based on progress
-    newPosition.z += progress * 100;
+    newPosition.z += Math.pow(progress, 2) * 500;
+    newPosition.y += Math.pow(progress, 3) * 200;
+    newLookAtPoint.y -= Math.pow(progress, 3) * 250;
 
     this.spacePosition.copy(newPosition);
+    this.spaceLookAtPoint.copy(newLookAtPoint);
   }
 
   private mixCameraPositionVariables(

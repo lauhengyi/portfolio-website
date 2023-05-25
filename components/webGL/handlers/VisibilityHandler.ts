@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTransform } from 'framer-motion';
+import { useTransform, easeInOut } from 'framer-motion';
 import getPhaseProgress from '../utils/getPhaseProgress';
 import * as THREE from 'three';
 
@@ -38,6 +38,7 @@ export default class VisibilityHandler {
       skyToSpace,
       [0.3, 0.5, 0.6, 1],
       [0, 1, 1, 0],
+      { ease: easeInOut },
     );
 
     useFrame(({ camera }) => {

@@ -10,8 +10,6 @@ export default class FogHandler {
   }
 
   handleFog() {
-    const atmosphereColor = '#f3fdff';
-    const spaceColor = '#000000';
     const landFog = {
       near: 30,
       far: 50,
@@ -21,18 +19,16 @@ export default class FogHandler {
       far: 75,
     };
     const spaceFog = {
-      near: 100,
-      far: 300,
+      near: 10000,
+      far: 300000,
     };
     const { landToSky, skyToSpace } = getPhaseProgress();
     const progress = useTransform(landToSky, [0.6, 1], [0, 1]);
     useFrame(() => {
       const mix = progress.get();
-      this.fog.current.color.set(atmosphereColor);
       this.fog.current.near = landFog.near * (1 - mix) + skyFog.near * mix;
       this.fog.current.far = landFog.far * (1 - mix) + skyFog.far * mix;
       if (skyToSpace.get() > 0.6) {
-        this.fog.current.color.set(spaceColor);
         this.fog.current.near = spaceFog.near;
         this.fog.current.far = spaceFog.far;
       }

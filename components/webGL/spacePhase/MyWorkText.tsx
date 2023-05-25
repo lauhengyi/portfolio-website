@@ -33,13 +33,13 @@ export default function MyWorkText(props: JSX.IntrinsicElements['group']) {
   }, []);
 
   const { space } = getPhaseProgress();
-  const progress = useTransform(space, [0.1, 1], [0, 1], { ease: easeIn });
+  const progress = useTransform(space, [0, 1], [0, 1], { ease: easeIn });
   const myRotation = useTransform(progress, [0, 1], [0, Math.PI * 0.5]);
   const workRotation = useTransform(progress, [0, 1], [0, -Math.PI * 0.2]);
   const myInitPosition = new THREE.Vector3(0.28, 0, -0.34);
   const myFinalPosition = new THREE.Vector3(-1, 0, -2);
   const workInitPosition = new THREE.Vector3(1.24, 0, -0.32);
-  const workFinalPosition = new THREE.Vector3(3, 0, -1);
+  const workFinalPosition = new THREE.Vector3(5, 0, -2);
 
   useFrame(() => {
     if (myRef.current === null || workRef.current === null) return;
