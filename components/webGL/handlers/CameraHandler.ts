@@ -267,7 +267,7 @@ export default class CameraHandler {
         // When transitioning from space to galaxy
         this.handleSpacePhase(space.get());
         this.handleGalaxyPhase(spaceToGalaxy.get());
-        const mix = spaceToGalaxy.get();
+        const mix = Math.pow(spaceToGalaxy.get(), 7);
         this.updateCameraVariables(
           this.spacePosition,
           this.spaceLookAtPoint,
