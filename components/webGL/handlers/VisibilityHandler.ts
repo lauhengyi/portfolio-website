@@ -10,6 +10,7 @@ interface ISceneRefs {
   sky: MutableRefObject<THREE.Group>;
   tempSky: MutableRefObject<THREE.Sprite>;
   space: MutableRefObject<THREE.Group>;
+  galaxy: MutableRefObject<THREE.Group>;
 }
 
 export default class VisibilityHandler {
@@ -32,7 +33,8 @@ export default class VisibilityHandler {
   }
 
   handleVisibility() {
-    const { landToSky, sky, skyToSpace, space } = getPhaseProgress();
+    const { landToSky, sky, skyToSpace, space, spaceToGalaxy } =
+      getPhaseProgress();
 
     const tempSkyOpacity = useTransform(
       skyToSpace,
@@ -48,12 +50,14 @@ export default class VisibilityHandler {
         this.sceneRefs.sky.current.visible = true;
         this.sceneRefs.tempSky.current.visible = false;
         this.sceneRefs.space.current.visible = false;
+        this.sceneRefs.galaxy.current.visible = false;
       } else if (sky.get() !== 1) {
         this.sceneRefs.skyBackground.current.visible = true;
         this.sceneRefs.land.current.visible = false;
         this.sceneRefs.sky.current.visible = true;
         this.sceneRefs.tempSky.current.visible = false;
         this.sceneRefs.space.current.visible = false;
+        this.sceneRefs.galaxy.current.visible = false;
       } else if (skyToSpace.get() !== 1) {
         this.sceneRefs.land.current.visible = false;
         this.sceneRefs.tempSky.current.visible = true;
@@ -65,17 +69,27 @@ export default class VisibilityHandler {
           this.sceneRefs.skyBackground.current.visible = false;
           this.sceneRefs.sky.current.visible = false;
           this.sceneRefs.space.current.visible = true;
+          this.sceneRefs.galaxy.current.visible = true;
         } else {
           this.sceneRefs.skyBackground.current.visible = true;
           this.sceneRefs.sky.current.visible = true;
           this.sceneRefs.space.current.visible = false;
+          this.sceneRefs.galaxy.current.visible = false;
         }
-      } else if (space.get() !== 1) {
+      } else if (spaceToGalaxy.get() !== 1) {
         this.sceneRefs.skyBackground.current.visible = false;
         this.sceneRefs.land.current.visible = false;
         this.sceneRefs.sky.current.visible = false;
         this.sceneRefs.tempSky.current.visible = false;
         this.sceneRefs.space.current.visible = true;
+        this.sceneRefs.galaxy.current.visible = true;
+      } else {
+        this.sceneRefs.skyBackground.current.visible = false;
+        this.sceneRefs.land.current.visible = false;
+        this.sceneRefs.sky.current.visible = false;
+        this.sceneRefs.tempSky.current.visible = false;
+        this.sceneRefs.space.current.visible = false;
+        this.sceneRefs.galaxy.current.visible = true;
       }
     });
   }

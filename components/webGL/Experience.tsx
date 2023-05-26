@@ -7,6 +7,7 @@ import SkyPhase from './SkyPhase';
 import TempSky from './TempSky';
 import FogHandler from './handlers/FogHandler';
 import SpacePhase from './SpacePhase';
+import GalaxyPhase from './GalaxyPhase';
 
 export default function Experience() {
   const fogRef = useRef<THREE.Fog>(null!);
@@ -15,6 +16,7 @@ export default function Experience() {
   const skyRef = useRef<THREE.Group>(null!);
   const tempSkyRef = useRef<THREE.Sprite>(null!);
   const spaceRef = useRef<THREE.Group>(null!);
+  const galaxyRef = useRef<THREE.Group>(null!);
 
   const sceneRefs = {
     skyBackground: skyBackgroundRef,
@@ -22,6 +24,7 @@ export default function Experience() {
     sky: skyRef,
     tempSky: tempSkyRef,
     space: spaceRef,
+    galaxy: galaxyRef,
   };
 
   const cameraHandler = new CameraHandler();
@@ -41,6 +44,7 @@ export default function Experience() {
       <SkyPhase ref={skyRef} />
       <TempSky ref={tempSkyRef} />
       <SpacePhase ref={spaceRef} />
+      <GalaxyPhase ref={galaxyRef} />
     </>
   );
 }
