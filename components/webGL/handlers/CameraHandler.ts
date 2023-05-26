@@ -36,6 +36,12 @@ export default class CameraHandler {
   spacePosition: THREE.Vector3;
   spaceLookAtPoint: THREE.Vector3;
 
+  // Galaxy variables
+  galaxyNeutralPosition: THREE.Vector3;
+  galaxyNeutralLookAtPoint: THREE.Vector3;
+  galaxyPosition: THREE.Vector3;
+  galaxyLookAtPoint: THREE.Vector3;
+
   constructor() {
     // Setting up camera position variables
     this.aspect = window.innerWidth / window.innerHeight;
@@ -72,6 +78,12 @@ export default class CameraHandler {
     this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -20);
     this.spacePosition = this.spaceNeutralPosition.clone();
     this.spaceLookAtPoint = this.spaceNeutralLookAtPoint.clone();
+
+    // Setting up galaxy variables
+    this.galaxyNeutralPosition = new THREE.Vector3(0, 150000, 400000);
+    this.galaxyNeutralLookAtPoint = new THREE.Vector3(0, -250, -20);
+    this.galaxyPosition = this.galaxyNeutralPosition.clone();
+    this.galaxyLookAtPoint = this.galaxyNeutralLookAtPoint.clone();
   }
 
   // Update neutral camera position and orientation to ensure that the whole scene is in view
@@ -188,18 +200,7 @@ export default class CameraHandler {
     this.spaceLookAtPoint.copy(newLookAtPoint);
   }
 
-  private mixCameraPositionVariables(
-    target: THREE.Vector3,
-    start: THREE.Vector3,
-    end: THREE.Vector3,
-    mix: number,
-  ) {
-    target.set(
-      start.x * (1 - mix) + end.x * mix,
-      start.y * (1 - mix) + end.y * mix,
-      start.z * (1 - mix) + end.z * mix,
-    );
-  }
+  private handleGalaxyPhase(progress: number) {}
 
   private updateCameraVariables(
     startPosition: THREE.Vector3,
@@ -208,18 +209,8 @@ export default class CameraHandler {
     endLookAt: THREE.Vector3,
     mix: number,
   ) {
-    this.mixCameraPositionVariables(
-      this.cameraPosition,
-      startPosition,
-      endPosition,
-      mix,
-    );
-    this.mixCameraPositionVariables(
-      this.cameraLookAtPoint,
-      startLookAt,
-      endLookAt,
-      mix,
-    );
+    this.cameraLookAtPoint.lerpVectors(startLookAt, endLookAt, mix);
+    this.cameraPosition.lerpVectors(startPosition, endPosition, mix);
   }
 
   handleCameraMove() {
@@ -235,7 +226,8 @@ export default class CameraHandler {
       this.handleResize();
     });
 
-    const { landToSky, sky, skyToSpace, space } = getPhaseProgress();
+    const { landToSky, sky, skyToSpace, space, spaceToGalaxy } =
+      getPhaseProgress();
 
     useFrame(({ camera }, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
@@ -260,13 +252,29 @@ export default class CameraHandler {
         // Handle sky
         this.cameraPosition.copy(this.skyPosition);
         this.cameraLookAtPoint.copy(this.skyLookAtPoint);
-      } else if (skyToSpace.get() !== 0) {
+      } else if (skyToSpace.get() !== 1) {
         // When transitioning from sky to space
         this.handleSkyPhase(sky.get());
         this.handleSpacePhase(space.get());
         this.handleSpaceTransition(skyToSpace.get(), camera);
       } else if (space.get() !== 1) {
+        // When just in space
         this.handleSpacePhase(space.get());
+        // Handle space
+        this.cameraPosition.copy(this.spacePosition);
+        this.cameraLookAtPoint.copy(this.spaceLookAtPoint);
+      } else {
+        // When transitioning from space to galaxy
+        this.handleSpacePhase(space.get());
+        this.handleGalaxyPhase(spaceToGalaxy.get());
+        const mix = spaceToGalaxy.get();
+        this.updateCameraVariables(
+          this.spacePosition,
+          this.spaceLookAtPoint,
+          this.galaxyPosition,
+          this.galaxyLookAtPoint,
+          mix,
+        );
       }
 
       // Update camera position

@@ -6,7 +6,7 @@ export default function WebGL() {
     <Canvas
       camera={{
         fov: 45,
-        far: 10000,
+        far: 1000000,
       }}
       flat
       style={{
