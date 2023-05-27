@@ -1,8 +1,11 @@
 export const galaxyVertexShader = /* glsl */ `
     uniform float uTime;
     uniform float uSize;
+    uniform vec3 uOrigin;
 
     attribute vec3 aRandomness;
+    attribute vec3 aFrequency;
+    attribute vec3 aAmplitude;
     attribute float aScale;
 
     varying vec3 vColor;
@@ -15,12 +18,18 @@ export const galaxyVertexShader = /* glsl */ `
         vec4 modelPosition = modelMatrix * vec4(position, 1.0);
                     
         // Rotate
-        // float angle = atan(modelPosition.x, modelPosition.z);
-        // float distanceToCenter = length(modelPosition.xz);
-        // float angleOffset = (1.0 / distanceToCenter) * uTime;
-        // angle += angleOffset;
-        // modelPosition.x = cos(angle) * distanceToCenter;
-        // modelPosition.z = sin(angle) * distanceToCenter;
+        vec3 relativePos = modelPosition.xyz - uOrigin;
+        float angle = atan(relativePos.x, relativePos.z);
+        float distanceToCenter = length(relativePos.xyz);
+        float angleOffset = (5000.0 / distanceToCenter) * uTime;
+        angle += angleOffset;
+        modelPosition.x = cos(angle) * distanceToCenter + uOrigin.x;
+        modelPosition.z = sin(angle) * distanceToCenter + uOrigin.z;
+
+        // Wave
+        modelPosition.x += sin(uTime * aFrequency.x) * aAmplitude.x * 2000.0;
+        modelPosition.y += sin(uTime * aFrequency.y) * aAmplitude.y * 2000.0;
+        modelPosition.z += sin(uTime * aFrequency.z) * aAmplitude.z * 2000.0;
 
         // Randomness
         // modelPosition.xyz += aRandomness;
