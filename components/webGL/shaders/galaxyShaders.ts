@@ -1,9 +1,7 @@
 export const galaxyVertexShader = /* glsl */ `
     uniform float uTime;
     uniform float uSize;
-    uniform vec3 uOrigin;
 
-    attribute vec3 aRandomness;
     attribute vec3 aFrequency;
     attribute vec3 aAmplitude;
     attribute float aScale;
@@ -15,25 +13,25 @@ export const galaxyVertexShader = /* glsl */ `
         /**
          * Position
          */
-        vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+        vec3 newPosition = position;
                     
         // Rotate
-        vec3 relativePos = modelPosition.xyz - uOrigin;
-        float angle = atan(relativePos.x, relativePos.z);
-        float distanceToCenter = length(relativePos.xyz);
-        float angleOffset = (5000.0 / distanceToCenter) * uTime;
+        float angle = atan(newPosition.x, newPosition.z);
+        float distanceToCenter = length(newPosition.xyz);
+        float angleOffset = (0.07 / distanceToCenter) * uTime;
         angle += angleOffset;
-        modelPosition.x = cos(angle) * distanceToCenter + uOrigin.x;
-        modelPosition.z = sin(angle) * distanceToCenter + uOrigin.z;
+        newPosition.x = cos(angle) * distanceToCenter;
+        newPosition.z = sin(angle) * distanceToCenter;
 
         // Wave
-        modelPosition.x += sin(uTime * aFrequency.x) * aAmplitude.x * 2000.0;
-        modelPosition.y += sin(uTime * aFrequency.y) * aAmplitude.y * 2000.0;
-        modelPosition.z += sin(uTime * aFrequency.z) * aAmplitude.z * 2000.0;
+        newPosition.x += sin(uTime * aFrequency.x) * aAmplitude.x * 0.05;
+        newPosition.y += sin(uTime * aFrequency.y) * aAmplitude.y * 0.05;
+        newPosition.z += sin(uTime * aFrequency.z) * aAmplitude.z * 0.05;
 
         // Randomness
         // modelPosition.xyz += aRandomness;
 
+        vec4 modelPosition = modelMatrix * vec4(newPosition, 1.0);
         vec4 viewPosition = viewMatrix * modelPosition;
         vec4 projectedPosition = projectionMatrix * viewPosition;
         gl_Position = projectedPosition;

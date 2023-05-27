@@ -11,9 +11,8 @@ export default function Galaxy() {
   const galaxyRef =
     useRef<THREE.Points<THREE.BufferGeometry, THREE.ShaderMaterial>>(null);
   const uniforms = {
-    uTime: { value: 50 },
+    uTime: { value: 40 },
     uSize: { value: 30.0 },
-    uOrigin: { value: new THREE.Vector3(50000, -5000, 0) },
   };
 
   // Parameters
@@ -79,7 +78,8 @@ export default function Galaxy() {
       ref={galaxyRef}
       geometry={geometry}
       scale={[100000, 100000, 100000]}
-      position={uniforms.uOrigin.value}
+      position={[50000, -5000, 0]}
+      rotation={[0.1, 0, 0.1]}
     >
       <shaderMaterial
         uniforms={uniforms}
