@@ -6,8 +6,6 @@ import * as THREE from 'three';
 import React, { useEffect, useRef } from 'react';
 import { useGLTF, useAnimations, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import { AnimationClip } from 'three';
-import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {

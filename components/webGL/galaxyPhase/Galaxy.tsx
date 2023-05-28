@@ -6,6 +6,14 @@ import * as THREE from 'three';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import getPhaseProgress from '../utils/getPhaseProgress';
+import { useGLTF } from '@react-three/drei';
+import { GLTF } from 'three-stdlib';
+
+type GLTFResult = GLTF & {
+  nodes: {
+    head: THREE.Mesh;
+  };
+};
 
 export default function Galaxy() {
   const galaxyRef =
@@ -13,6 +21,7 @@ export default function Galaxy() {
   const uniforms = {
     uTime: { value: 40 },
     uSize: { value: 30.0 },
+    uProgress: { value: 0 },
   };
 
   // Parameters
@@ -26,9 +35,9 @@ export default function Galaxy() {
   // Attributes
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
-  const scale = new Float32Array(count);
-  const frequency = new Float32Array(count * 3);
-  const amplitude = new Float32Array(count * 3);
+  const scales = new Float32Array(count);
+  const frequencies = new Float32Array(count * 3);
+  const amplitudes = new Float32Array(count * 3);
 
   // Populate attributes
   for (let i = 0; i < count; i++) {
@@ -53,16 +62,43 @@ export default function Galaxy() {
     const color = new THREE.Color(colorPalette[Math.floor(Math.random() * 3)]);
     colors.set([color.r, color.g, color.b], i3);
 
-    scale[i] = Math.random();
-    frequency.set([Math.random(), Math.random(), Math.random()], i3);
-    amplitude.set([Math.random(), Math.random(), Math.random()], i3);
+    scales[i] = Math.random();
+    frequencies.set([Math.random(), Math.random(), Math.random()], i3);
+    amplitudes.set([Math.random(), Math.random(), Math.random()], i3);
+  }
+
+  /*
+   * Creating head positions
+   */
+  // Import head
+  const { nodes } = useGLTF('/models/head.glb') as GLTFResult;
+  const headPositionAttribute = nodes.head.geometry.attributes
+    .position as THREE.BufferAttribute;
+  const headPoints = headPositionAttribute.array;
+
+  const headPositions = new Float32Array(count * 3);
+  const headSize = 10;
+  for (let i = 0; i < count; i++) {
+    const i3 = i * 3;
+    const headIndex = i3 % headPoints.length;
+    const positionX = headPoints[headIndex] * headSize;
+    const positionY = headPoints[headIndex + 1] * headSize;
+    const positionZ = headPoints[headIndex + 2] * headSize;
+    headPositions.set([positionX, positionY, positionZ], i3);
   }
 
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  geometry.setAttribute('aScale', new THREE.BufferAttribute(scale, 1));
-  geometry.setAttribute('aFrequency', new THREE.BufferAttribute(frequency, 3));
-  geometry.setAttribute('aAmplitude', new THREE.BufferAttribute(amplitude, 3));
+  geometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
+  geometry.setAttribute(
+    'aFrequency',
+    new THREE.BufferAttribute(frequencies, 3),
+  );
+  geometry.setAttribute('aAmplitude', new THREE.BufferAttribute(amplitudes, 3));
+  geometry.setAttribute(
+    'aHeadPosition',
+    new THREE.BufferAttribute(headPositions, 3),
+  );
 
   const { spaceToGalaxy } = getPhaseProgress();
   useFrame((_, delta) => {
@@ -70,6 +106,12 @@ export default function Galaxy() {
     if (galaxyRef.current) {
       galaxyRef.current.material.uniforms.uTime.value +=
         delta * Math.pow(spaceToGalaxy.get(), 3);
+      if (galaxyRef.current.material.uniforms.uTime.value > 45) {
+        galaxyRef.current.material.uniforms.uProgress.value += 0.001;
+        console.log(
+          (galaxyRef.current.material.uniforms.uProgress.value += 0.002),
+        );
+      }
     }
   });
 
@@ -93,3 +135,5 @@ export default function Galaxy() {
     </points>
   );
 }
+
+useGLTF.preload('/models/head.glb');
