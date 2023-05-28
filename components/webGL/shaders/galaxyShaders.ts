@@ -70,6 +70,7 @@ export const galaxyVertexShader = /* glsl */ `
     }
 
     uniform float uTime;
+    uniform float uGalaxyTime;
     uniform float uTimeOffset;
     uniform float uSize;
     uniform float uProgress;
@@ -79,48 +80,57 @@ export const galaxyVertexShader = /* glsl */ `
     attribute float aScale;
     attribute vec3 aHeadPosition;
 
+    #define PI 3.14159265359
+
     varying vec3 vColor;
 
     void main()
     {
-        float time = uTime + uTimeOffset;
+        float galaxyTime = uGalaxyTime + uTimeOffset;
         /**
          * Galaxy
          */
         vec3 newPosition = position;
                     
         // Rotate
-        float angle = atan(newPosition.x, newPosition.z);
-        float distanceToCenter = length(newPosition.xyz);
-        float angleOffset = (0.05 / distanceToCenter) * time;
-        angle += angleOffset;
-        newPosition.x = cos(angle) * distanceToCenter;
-        newPosition.z = sin(angle) * distanceToCenter;
+        float galaxyAngle = atan(newPosition.x, newPosition.z);
+        float galaxyDistanceToCenter = length(newPosition.xyz);
+        float galaxyAngleOffset = (0.05 / galaxyDistanceToCenter) * galaxyTime;
+        galaxyAngle += galaxyAngleOffset;
+        newPosition.x = cos(galaxyAngle) * galaxyDistanceToCenter;
+        newPosition.z = sin(galaxyAngle) * galaxyDistanceToCenter;
 
 
         /**
          * Head
          */
         vec3 headPosition = aHeadPosition;
+        float headAngle = atan(headPosition.x, headPosition.z);
+        float headDistanceToCenter = length(headPosition.xz);
+        float headAngleOffset = uTime * 0.1;
+        headAngle += headAngleOffset;
+        headPosition.x = cos(headAngle) * headDistanceToCenter;
+        headPosition.z = sin(headAngle) * headDistanceToCenter;
+
 
         /**
          * Transition
          */
         // Distort
-        float noiseAmt = -pow((2.0*(uProgress) - 1.0), 2.0) + 1.0;
+        float noiseAmt = cos(2.0 * PI * (smoothstep(0.0, 1.0, uProgress) + 0.5)) + 1.0;
 
         vec3 galaxyNoise = curlNoise(newPosition * 0.5);
-        newPosition += galaxyNoise * noiseAmt * 2.0;
+        newPosition += galaxyNoise * noiseAmt;
 
         vec3 headNoise = curlNoise(vec3(headPosition.x * 0.5, headPosition.y * 0.4, headPosition.z * 0.3));
-        headPosition += headNoise * noiseAmt * 2.0;
+        headPosition += headNoise * noiseAmt;
 
         newPosition = mix(newPosition, headPosition, uProgress);
 
         // Wave
-        newPosition.x += sin(time * aFrequency.x) * aAmplitude.x * 0.05;
-        newPosition.y += sin(time * aFrequency.y) * aAmplitude.y * 0.05;
-        newPosition.z += sin(time * aFrequency.z) * aAmplitude.z * 0.05;
+        newPosition.x += sin(uTime * aFrequency.x) * aAmplitude.x * 0.05;
+        newPosition.y += sin(uTime * aFrequency.y) * aAmplitude.y * 0.05;
+        newPosition.z += sin(uTime * aFrequency.z) * aAmplitude.z * 0.05;
 
         vec4 modelPosition = modelMatrix * vec4(newPosition, 1.0);
         vec4 viewPosition = viewMatrix * modelPosition;

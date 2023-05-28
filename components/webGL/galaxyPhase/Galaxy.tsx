@@ -32,6 +32,7 @@ export default function Galaxy() {
 
   const uniforms = {
     uTime: { value: 0 },
+    uGalaxyTime: { value: 0 },
     uTimeOffset: { value: timeOffset },
     uSize: { value: 30 },
     uProgress: { value: 0 },
@@ -109,35 +110,37 @@ export default function Galaxy() {
 
   const { spaceToGalaxy } = getPhaseProgress();
 
-  let totalTime = 0;
   useFrame((_, delta) => {
     // Time speeds up as we zoom out to whole galaxy
     if (galaxyRef.current) {
       const uTime = galaxyRef.current?.material.uniforms.uTime;
+      const uGalaxyTime = galaxyRef.current?.material.uniforms.uGalaxyTime;
       const uProgress = galaxyRef.current?.material.uniforms.uProgress;
 
       // Update time
       const timeSpeed = Math.pow(spaceToGalaxy.get(), 3);
-      totalTime += delta * timeSpeed;
       uTime.value += delta * timeSpeed;
+      uGalaxyTime.value += delta * timeSpeed;
 
       // Animate cycle
       const cycleDuration =
         galaxyDuration + headDuration + transitionDuration * 2;
-      const cycleTime = totalTime % cycleDuration;
+      const cycleTime = uTime.value % cycleDuration;
       uProgress.value = clamp(uProgress.value, 0, 1);
 
       if (
         cycleTime > galaxyDuration &&
         cycleTime < galaxyDuration + transitionDuration
       ) {
+        // Transition to head
         uProgress.value += (delta / transitionDuration) * timeSpeed;
       } else if (
         cycleTime >
         galaxyDuration + headDuration + transitionDuration
       ) {
+        // Transition to galaxy
         uProgress.value -= (delta / transitionDuration) * timeSpeed;
-        uTime.value = 0;
+        uGalaxyTime.value = 0;
       }
     }
   });
