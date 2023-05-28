@@ -70,6 +70,7 @@ export const galaxyVertexShader = /* glsl */ `
     }
 
     uniform float uTime;
+    uniform float uTimeOffset;
     uniform float uSize;
     uniform float uProgress;
 
@@ -82,6 +83,7 @@ export const galaxyVertexShader = /* glsl */ `
 
     void main()
     {
+        float time = uTime + uTimeOffset;
         /**
          * Galaxy
          */
@@ -90,11 +92,10 @@ export const galaxyVertexShader = /* glsl */ `
         // Rotate
         float angle = atan(newPosition.x, newPosition.z);
         float distanceToCenter = length(newPosition.xyz);
-        float angleOffset = (0.05 / distanceToCenter) * uTime;
+        float angleOffset = (0.05 / distanceToCenter) * time;
         angle += angleOffset;
         newPosition.x = cos(angle) * distanceToCenter;
         newPosition.z = sin(angle) * distanceToCenter;
-
 
 
         /**
@@ -105,10 +106,8 @@ export const galaxyVertexShader = /* glsl */ `
         /**
          * Transition
          */
-        float progress = min(uProgress, 1.0);
-
         // Distort
-        float noiseAmt = -pow((2.0*(progress) - 1.0), 2.0) + 1.0;
+        float noiseAmt = -pow((2.0*(uProgress) - 1.0), 2.0) + 1.0;
 
         vec3 galaxyNoise = curlNoise(newPosition * 0.5);
         newPosition += galaxyNoise * noiseAmt * 2.0;
@@ -116,12 +115,12 @@ export const galaxyVertexShader = /* glsl */ `
         vec3 headNoise = curlNoise(vec3(headPosition.x * 0.5, headPosition.y * 0.4, headPosition.z * 0.3));
         headPosition += headNoise * noiseAmt * 2.0;
 
-        newPosition = mix(newPosition, headPosition, progress);
+        newPosition = mix(newPosition, headPosition, uProgress);
 
         // Wave
-        newPosition.x += sin(uTime * aFrequency.x) * aAmplitude.x * 0.05;
-        newPosition.y += sin(uTime * aFrequency.y) * aAmplitude.y * 0.05;
-        newPosition.z += sin(uTime * aFrequency.z) * aAmplitude.z * 0.05;
+        newPosition.x += sin(time * aFrequency.x) * aAmplitude.x * 0.05;
+        newPosition.y += sin(time * aFrequency.y) * aAmplitude.y * 0.05;
+        newPosition.z += sin(time * aFrequency.z) * aAmplitude.z * 0.05;
 
         vec4 modelPosition = modelMatrix * vec4(newPosition, 1.0);
         vec4 viewPosition = viewMatrix * modelPosition;
