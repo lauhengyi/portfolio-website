@@ -200,7 +200,18 @@ export default class CameraHandler {
     this.spaceLookAtPoint.copy(newLookAtPoint);
   }
 
-  private handleGalaxyPhase(progress: number) {}
+  private handleGalaxyPhase(progress: number) {
+    const newPosition = this.galaxyNeutralPosition.clone();
+
+    const multiplier = 2 + Math.pow(progress, 2) * 100000;
+
+    // For pointerX
+    newPosition.x += this.pointer.x * multiplier;
+    // For pointerY
+    newPosition.y += this.pointer.y * multiplier;
+
+    this.galaxyPosition.copy(newPosition);
+  }
 
   private updateCameraVariables(
     startPosition: THREE.Vector3,
