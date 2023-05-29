@@ -19,7 +19,7 @@ export default function SocialCard(props: SocialCardProps) {
           alt={props.name}
         />
       </span>
-      <span>{props.name}</span>
+      <span className={styles.socialTitle}>{props.name}</span>
     </motion.a>
   );
 }
