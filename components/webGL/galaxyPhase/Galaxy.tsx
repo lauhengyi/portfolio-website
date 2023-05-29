@@ -26,8 +26,8 @@ export default function Galaxy() {
   const radius = 1.5;
   const colorPalette = ['#eab8ff', '#cac6f7', '#fcedbb'];
   const timeOffset = 40;
-  const galaxyDuration = 10;
-  const headDuration = 7;
+  const galaxyDuration = 12;
+  const headDuration = 10;
   const transitionDuration = 3;
 
   const uniforms = {
@@ -90,7 +90,7 @@ export default function Galaxy() {
     const i3 = i * 3;
     const headIndex = i3 % headPoints.length;
     const positionX = headPoints[headIndex] * headSize;
-    const positionY = headPoints[headIndex + 1] * headSize;
+    const positionY = headPoints[headIndex + 1] * headSize + 0.5;
     const positionZ = headPoints[headIndex + 2] * headSize;
     headPositions.set([positionX, positionY, positionZ], i3);
   }
@@ -153,6 +153,9 @@ export default function Galaxy() {
       scale={[100000, 100000, 100000]}
       position={[50000, -5000, 0]}
       rotation={[0, 0, 0]}
+      onClick={(e) => {
+        console.log(e);
+      }}
     >
       <shaderMaterial
         uniforms={uniforms}
