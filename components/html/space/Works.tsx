@@ -11,7 +11,7 @@ export default function Works() {
       <WorkCard
         company="Techno Innovators Inc"
         duration="Jan 2023 - present"
-        position="Senior Software Engineerr"
+        position="Senior Software Engineer"
       >
         <li>
           Developed scalable web applications using Python, Django, and
