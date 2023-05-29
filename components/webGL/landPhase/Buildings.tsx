@@ -6,7 +6,6 @@ import * as THREE from 'three';
 import React from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import Floor from './Floor';
 
 type GLTFResult = GLTF & {
   nodes: {

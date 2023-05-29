@@ -231,7 +231,7 @@ export default class CameraHandler {
 
     useFrame(({ camera }, delta) => {
       // This is to prevent delta from becoming enormous when useFrame is paused when client is on a different tab
-      const clampDelta = Math.min(delta, 0.1);
+      const clampDelta = Math.min(delta, 1 / 30);
 
       if (landToSky.get() !== 1) {
         // When transitioning from land to sky
