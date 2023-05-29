@@ -7,11 +7,10 @@
 
 .title {
   margin: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--primary-black);
-  font-family: 'NoirPro SemiBold', cursive;
-  font-weight: 100;
-  font-size: clamp(4rem, 10vw, 100px);
+  font-family: 'Humane Bold', cursive;
+  font-size: clamp(8rem, 15vw, 14rem);
 }
 
 .caption {

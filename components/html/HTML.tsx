@@ -2,6 +2,7 @@ import Head from 'next/head';
 import LandHTML from './LandHTML';
 import SkyHTML from './SkyHTML';
 import SpaceHTML from './SpaceHTML';
+import GalaxyHTML from './GalaxyHTML';
 
 export default function HTML() {
   return (
@@ -22,6 +23,7 @@ export default function HTML() {
         <LandHTML />
         <SkyHTML />
         <SpaceHTML />
+        <GalaxyHTML />
       </main>
     </div>
   );
