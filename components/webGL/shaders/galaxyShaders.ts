@@ -72,6 +72,7 @@ export const galaxyVertexShader = /* glsl */ `
     uniform float uTime;
     uniform float uGalaxyTime;
     uniform float uTimeOffset;
+    uniform float uGalaxyAngle;
     uniform float uSize;
     uniform float uProgress;
 
@@ -107,7 +108,7 @@ export const galaxyVertexShader = /* glsl */ `
         vec3 headPosition = aHeadPosition;
         float headAngle = atan(headPosition.x, headPosition.z);
         float headDistanceToCenter = length(headPosition.xz);
-        float headAngleOffset = uTime * 0.1;
+        float headAngleOffset = uTime * 0.05;
         headAngle += headAngleOffset;
         headPosition.x = cos(headAngle) * headDistanceToCenter;
         headPosition.z = sin(headAngle) * headDistanceToCenter;
