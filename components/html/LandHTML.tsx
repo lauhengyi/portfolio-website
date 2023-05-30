@@ -1,6 +1,7 @@
 import { motion, useTransform } from 'framer-motion';
 import styles from '../../styles/Land.module.css';
 import getPhaseProgress from '../utils/getPhaseProgress';
+import HeaderAnimated from './utilComponents/HeaderAnimated';
 
 export default function LandHTML() {
   const { landToSky } = getPhaseProgress();
@@ -8,10 +9,14 @@ export default function LandHTML() {
 
   return (
     <div className="section-wrapper">
-      <motion.section style={{ opacity: opacity }} className={styles.land}>
-        <h1 className={styles.title}>Web Developer</h1>
-        <p className={styles.caption}>I like to build nice things.</p>
-      </motion.section>
+      <section className={styles.land}>
+        <h1 className={styles.title}>
+          <HeaderAnimated progress={opacity}>Web Developer</HeaderAnimated>
+        </h1>
+        <motion.p className={styles.caption} style={{ opacity }}>
+          I like to build nice things.
+        </motion.p>
+      </section>
     </div>
   );
 }
