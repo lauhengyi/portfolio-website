@@ -32,7 +32,7 @@ body {
 }
 
 :root {
-  height: 1000vh;
+  height: 8000px;
   /* Color Scheme */
   --primary-black: #414239;
   --primary-black-faded: #4142391a;
