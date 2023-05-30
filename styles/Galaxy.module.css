@@ -14,6 +14,12 @@
   font-size: clamp(6rem, 13vw, 12rem);
 }
 
+.title span {
+  display: block;
+  overflow: hidden;
+  transform-origin: bottom left;
+}
+
 .socialsContainer {
   display: flex;
   gap: 20px;

@@ -1,14 +1,12 @@
 import styles from '../../styles/Galaxy.module.css';
+import GalaxyTitle from './galaxy/GalaxyTitle';
 import SocialCard from './galaxy/SocialCard';
 
 export default function GalaxyHTML() {
   return (
     <div className="section-wrapper">
       <section className={styles.galaxy}>
-        <h2 className={styles.title}>
-          Lets make something
-          <br /> out of this world!
-        </h2>
+        <GalaxyTitle />
         <div className={styles.socialsContainer}>
           <SocialCard
             order={0}
