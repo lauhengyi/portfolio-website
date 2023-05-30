@@ -6,7 +6,7 @@ import {
   atmosVertexShader,
 } from '../shaders/atmosphereShaders';
 import * as THREE from 'three';
-import getPhaseProgress from '../utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 
 export default function Earth() {
   const earthTexture = useTexture('/textures/earth.jpg');

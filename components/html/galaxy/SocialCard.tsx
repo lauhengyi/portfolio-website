@@ -1,6 +1,6 @@
 import styles from '../../../styles/Galaxy.module.css';
 import Image from 'next/image';
-import getPhaseProgress from '../../webGL/utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 import { motion, useTransform, easeOut } from 'framer-motion';
 
 type SocialCardProps = {

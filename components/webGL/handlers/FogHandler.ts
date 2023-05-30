@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
-import getPhaseProgress from '../utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 import { useTransform } from 'framer-motion';
 
 export default class FogHandler {

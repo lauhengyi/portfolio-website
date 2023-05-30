@@ -1,7 +1,7 @@
 import styles from '../../../styles/Space.module.css';
 import { motion, useTransform } from 'framer-motion';
 import WorkCard from './WorkCard';
-import getPhaseProgress from '../../webGL/utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 
 export default function Works() {
   const { space } = getPhaseProgress();

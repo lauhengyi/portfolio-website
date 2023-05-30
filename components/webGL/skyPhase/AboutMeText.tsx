@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import React, { useEffect } from 'react';
 import { Center, useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import resizeText from '../utils/resizeText';
+import resizeText from '../../utils/resizeText';
 
 type GLTFResult = GLTF & {
   nodes: {

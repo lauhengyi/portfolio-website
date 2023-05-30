@@ -1,6 +1,6 @@
 import { motion, useTransform } from 'framer-motion';
 import styles from '../../styles/Land.module.css';
-import getPhaseProgress from '../webGL/utils/getPhaseProgress';
+import getPhaseProgress from '../utils/getPhaseProgress';
 
 export default function LandHTML() {
   const { landToSky } = getPhaseProgress();

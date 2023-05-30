@@ -5,7 +5,7 @@ import {
 import * as THREE from 'three';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import getPhaseProgress from '../utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { clamp } from 'three/src/math/MathUtils';

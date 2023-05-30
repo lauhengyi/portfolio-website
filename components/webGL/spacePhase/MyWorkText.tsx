@@ -9,8 +9,8 @@ import { GLTF } from 'three-stdlib';
 import { easeIn, useTransform } from 'framer-motion';
 import { useFrame } from '@react-three/fiber';
 
-import resizeText from '../utils/resizeText';
-import getPhaseProgress from '../utils/getPhaseProgress';
+import resizeText from '../../utils/resizeText';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 
 type GLTFResult = GLTF & {
   nodes: {

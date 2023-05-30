@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { QuadraticBezierCurve3 } from 'three';
-import getPhaseProgress from '../utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 
 export default class CameraHandler {
   // Camera position variables

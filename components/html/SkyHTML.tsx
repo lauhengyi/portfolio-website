@@ -1,6 +1,6 @@
 import styles from '../../styles/Sky.module.css';
 import { motion, useTransform } from 'framer-motion';
-import getPhaseProgress from '../webGL/utils/getPhaseProgress';
+import getPhaseProgress from '../utils/getPhaseProgress';
 import SkyText from './sky/SkyText';
 import SkyCaption from './sky/SkyCaption';
 

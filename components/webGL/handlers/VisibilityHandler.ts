@@ -1,7 +1,7 @@
 import { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useTransform, easeInOut } from 'framer-motion';
-import getPhaseProgress from '../utils/getPhaseProgress';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 import * as THREE from 'three';
 
 interface ISceneRefs {

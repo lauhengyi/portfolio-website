@@ -7,7 +7,7 @@ import React, { useRef, useEffect } from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
-import getRandomAtlasUV from '../utils/getRandomAtlasUV';
+import getRandomAtlasUV from '../../utils/getRandomAtlasUV';
 
 type GLTFResult = GLTF & {
   nodes: {
