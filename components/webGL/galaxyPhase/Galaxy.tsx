@@ -151,7 +151,7 @@ export default function Galaxy() {
       ref={galaxyRef}
       geometry={geometry}
       scale={[100000, 100000, 100000]}
-      position={[50000, -5000, 0]}
+      position={[60000, -5000, 0]}
       rotation={[0, 0, 0]}
       onClick={(e) => {
         console.log(e);
