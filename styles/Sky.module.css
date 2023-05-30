@@ -39,7 +39,7 @@
 }
 
 .caption {
-  font-family: 'NoirPro Light';
+  font-family: 'NoirPro Regular';
   font-size: clamp(1.5rem, 4vw, 50px);
   color: var(--primary-black);
 }
