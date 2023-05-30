@@ -1,22 +1,23 @@
+import styles from '../../../styles/Sky.module.css';
 import SkyWord from './SkyWord';
-import { useTransform, useSpring, MotionValue } from 'framer-motion';
+import { useTransform, useSpring } from 'framer-motion';
+import getPhaseProgress from '../../utils/getPhaseProgress';
 
 type props = {
   children: string;
-  skyProgress: MotionValue<number>;
 };
-export default function SkyText({ children, skyProgress }: props) {
-  const totalProgress = useSpring(
-    useTransform(skyProgress, [0.1, 0.7], [0, 1]),
-    {
-      damping: 10,
-      stiffness: 100,
-      restSpeed: 0.001,
-      mass: 0.5,
-    },
-  );
-  const text = children;
+export default function SkyText({ children }: props) {
+  const { landToSky, sky, skyToSpace } = getPhaseProgress();
+  const entranceProgress = useTransform(landToSky, [0.8, 1], [0, 1]);
+  const readProgress = useSpring(useTransform(sky, [0.1, 0.7], [0, 1]), {
+    damping: 10,
+    stiffness: 100,
+    restSpeed: 0.001,
+    mass: 0.5,
+  });
+  const exitProgress = useTransform(skyToSpace, [0, 0.2], [0, 1]);
 
+  const text = children;
   // Calculating appropriate intervals for each word
   const textIntervals: [number, number][] = [];
   let currentCount = 0;
@@ -38,16 +39,18 @@ export default function SkyText({ children, skyProgress }: props) {
   textIntervals.push([start, start + gap]);
 
   return (
-    <>
+    <p className={styles.textContainer}>
       {text.split(' ').map((word, i) => (
         <SkyWord
           key={i}
           interval={textIntervals[i]}
-          totalProgress={totalProgress}
+          entranceProgress={entranceProgress}
+          readProgress={readProgress}
+          exitProgress={exitProgress}
         >
           {word}
         </SkyWord>
       ))}
-    </>
+    </p>
   );
 }
