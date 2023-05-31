@@ -1,6 +1,6 @@
 import styles from '../../../styles/Sky.module.css';
 import SkyWord from './SkyWord';
-import { useTransform, useSpring } from 'framer-motion';
+import { useTransform, useSpring, easeOut } from 'framer-motion';
 import getPhaseProgress from '../../utils/getPhaseProgress';
 
 type props = {
@@ -8,7 +8,9 @@ type props = {
 };
 export default function SkyText({ children }: props) {
   const { landToSky, sky, skyToSpace } = getPhaseProgress();
-  const entranceProgress = useTransform(landToSky, [0.8, 1], [0, 1]);
+  const entranceProgress = useTransform(landToSky, [0.7, 1], [0, 1], {
+    ease: easeOut,
+  });
   const readProgress = useSpring(useTransform(sky, [0.1, 0.7], [0, 1]), {
     damping: 10,
     stiffness: 100,

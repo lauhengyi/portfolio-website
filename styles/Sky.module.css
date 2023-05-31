@@ -10,18 +10,25 @@
   align-content: flex-start;
 }
 
+.textMask {
+  overflow: hidden;
+}
+
 .text {
   --progress: 10%;
+  display: inline-block;
   position: relative;
   margin: 0 0;
+  height: 2ch;
   font-family: 'NoirPro Medium';
-  font-size: clamp(5vh, 5vw, 60px);
-  -webkit-text-stroke-color: var(--primary-black);
+  font-size: clamp(4rem, 5.5vw, 100px);
+  -webkit-text-stroke-color: var(--primary-black-faded);
   -webkit-text-stroke-width: 1px;
   color: transparent;
 }
 
 .text::before {
+  height: 2ch;
   content: attr(data-text);
   color: var(--primary-black);
   opacity: 1;

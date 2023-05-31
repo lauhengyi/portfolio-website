@@ -11,10 +11,7 @@ export default function SkyHTML() {
 
   return (
     <div className="section-wrapper">
-      <motion.section
-        style={{ opacity: entranceOpacity }}
-        className={styles.sky}
-      >
+      <motion.section className={styles.sky}>
         <SkyText>
           Hi, I am currently a undergrad in NUS Com Sci, and I have a passion
           for building amazing web applications that inspire. On the side, I
