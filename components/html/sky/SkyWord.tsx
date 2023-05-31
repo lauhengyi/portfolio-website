@@ -56,7 +56,7 @@ export default function SkyWord(props: props) {
   );
 
   return (
-    <span style={{ overflow: 'hidden' }}>
+    <span className="mask">
       <motion.span
         style={{ y: yExit, rotateX: rotateXExit }}
         className={styles.textWrapper}
