@@ -1,26 +1,22 @@
 @font-face {
   font-family: 'Humane Bold';
-  src: url('/fonts/Humane-Bold.otf');
+  src: url('/fonts/Humane-Bold.woff2');
 }
 @font-face {
   font-family: 'NoirPro Bold';
-  src: url('/fonts/NoirPro-Bold.otf');
+  src: url('/fonts/NoirPro-Bold.woff2');
 }
 @font-face {
   font-family: 'NoirPro SemiBold';
-  src: url('/fonts/NoirPro-SemiBold.otf');
+  src: url('/fonts/NoirPro-SemiBold.woff2');
 }
 @font-face {
   font-family: 'NoirPro Medium';
-  src: url('/fonts/NoirPro-Medium.otf');
+  src: url('/fonts/NoirPro-Medium.woff2');
 }
 @font-face {
   font-family: 'NoirPro Regular';
-  src: url('/fonts/NoirPro-Regular.otf');
-}
-@font-face {
-  font-family: 'NoirPro Light';
-  src: url('/fonts/NoirPro-LightItalic.otf');
+  src: url('/fonts/NoirPro-Regular.woff2');
 }
 
 html,
