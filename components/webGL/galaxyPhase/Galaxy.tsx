@@ -33,6 +33,9 @@ export default function Galaxy() {
   const uniforms = {
     uTime: { value: 0 },
     uGalaxyTime: { value: 0 },
+    uGalaxyRotation: {
+      value: new THREE.Vector3(-Math.PI * 0.05, 0, -Math.PI * 0.05),
+    },
     uTimeOffset: { value: timeOffset },
     uSize: { value: 30 },
     uProgress: { value: 0 },

@@ -68,9 +68,17 @@ export const galaxyVertexShader = /* glsl */ `
         const float divisor = 1.0 / ( 2.0 * e );
         return normalize( vec3( x , y , z ) * divisor );
     }
+    
+    vec2 rotate(vec2 v, float a) {
+        float s = sin(a);
+        float c = cos(a);
+        mat2 m = mat2(c, -s, s, c);
+        return m * v;
+    }
 
     uniform float uTime;
     uniform float uGalaxyTime;
+    uniform vec3 uGalaxyRotation;
     uniform float uTimeOffset;
     uniform float uGalaxyAngle;
     uniform float uSize;
@@ -93,13 +101,19 @@ export const galaxyVertexShader = /* glsl */ `
          */
         vec3 newPosition = position;
                     
-        // Rotate
+        // Rotating Animation
         float galaxyAngle = atan(newPosition.x, newPosition.z);
         float galaxyDistanceToCenter = length(newPosition.xyz);
         float galaxyAngleOffset = (0.05 / galaxyDistanceToCenter) * galaxyTime;
         galaxyAngle += galaxyAngleOffset;
         newPosition.x = cos(galaxyAngle) * galaxyDistanceToCenter;
         newPosition.z = sin(galaxyAngle) * galaxyDistanceToCenter;
+
+        // Rotate Fixed
+        // Rotate around x axis
+        newPosition.yz = rotate(newPosition.yz, uGalaxyRotation.x);
+        // Rotate around z axis
+        newPosition.xy = rotate(newPosition.xy, uGalaxyRotation.z);
 
 
         /**
