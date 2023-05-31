@@ -30,6 +30,12 @@ export default function MyWorkText(props: JSX.IntrinsicElements['group']) {
     addEventListener('resize', () => {
       resizeText(textRef);
     });
+
+    return () => {
+      removeEventListener('resize', () => {
+        resizeText(textRef);
+      });
+    };
   }, []);
 
   const { space } = getPhaseProgress();

@@ -23,6 +23,12 @@ export default function AboutMeText(props: JSX.IntrinsicElements['group']) {
     addEventListener('resize', () => {
       resizeText(textRef);
     });
+
+    return () => {
+      removeEventListener('resize', () => {
+        resizeText(textRef);
+      });
+    };
   }, []);
   return (
     <Center
