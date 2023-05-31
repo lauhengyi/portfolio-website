@@ -4,8 +4,17 @@ import SkyHTML from './SkyHTML';
 import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
+import { useProgress } from '@react-three/drei';
+import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 export default function HTML() {
+  const { progress } = useProgress();
+  const [currentProgress, setProgress] = useState(0);
+  useEffect(() => {
+    setProgress(progress);
+  }, [progress]);
+  console.log(currentProgress);
   return (
     <div>
       <Head>
@@ -20,12 +29,19 @@ export default function HTML() {
         />
       </Head>
       <main className="container">
-        {/* <NavBar /> */}
-        <LandHTML />
-        <SkyHTML />
-        <SpaceHTML />
-        <GalaxyHTML />
-        <Loading />
+        <AnimatePresence>
+          {currentProgress !== 100 ? (
+            <Loading key="Loading" progress={currentProgress} />
+          ) : (
+            <>
+              {/* <NavBar /> */}
+              <LandHTML />
+              <SkyHTML />
+              <SpaceHTML />
+              <GalaxyHTML />
+            </>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );

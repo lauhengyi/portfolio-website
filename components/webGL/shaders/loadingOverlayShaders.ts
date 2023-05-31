@@ -22,7 +22,7 @@ export const loadingOverlayFragmentShader = /* glsl */ `
         float originLength = length(fromOrigin / vec2(1.0, uAspect));
         float calibratedProgress = max(uProgress, uProgress / uAspect);
         float alpha = step( calibratedProgress, originLength);
-        gl_FragColor = vec4( uColor, alpha);
+        gl_FragColor = vec4( uColor, 1.0);
 
     }
 `;

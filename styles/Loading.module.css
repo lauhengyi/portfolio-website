@@ -5,7 +5,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  /* background-color: rgb(232, 230, 212); */
+  background-color: #e4e3d0;
 }
 
 .stats {
@@ -26,11 +26,14 @@
   font-family: 'Humane Bold';
   font-size: clamp(10rem, 15vw, 300px);
   color: var(--primary-black);
+  transform-origin: top left;
 }
 
 .title {
-  margin-top: 2rem;
+  margin: 0;
+  padding-top: 2rem;
   font-family: 'Humane Bold';
   font-size: clamp(5rem, 7.5vw, 150px);
   color: var(--primary-black);
+  transform-origin: bottom right;
 }

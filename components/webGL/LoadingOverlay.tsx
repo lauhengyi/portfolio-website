@@ -8,8 +8,8 @@ import {
 const LoadingOverlay = () => {
   const ref = useRef<THREE.Mesh>(null!);
   const uniforms = {
-    uColor: { value: new THREE.Color('#A7D1F6') },
-    uProgress: { value: 0.5 },
+    uColor: { value: new THREE.Color('#e4e3d0').convertLinearToSRGB() },
+    uProgress: { value: 0 },
     uAspect: { value: window.innerWidth / window.innerHeight },
   };
 
