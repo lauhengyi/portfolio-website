@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import Experience from './Experience';
 import { Perf } from 'r3f-perf';
+
 export default function WebGL() {
   return (
     <Canvas

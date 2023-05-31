@@ -3,6 +3,7 @@ import LandHTML from './LandHTML';
 import SkyHTML from './SkyHTML';
 import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
+import Loading from './Loading';
 
 export default function HTML() {
   return (
@@ -24,6 +25,7 @@ export default function HTML() {
         <SkyHTML />
         <SpaceHTML />
         <GalaxyHTML />
+        <Loading />
       </main>
     </div>
   );

@@ -1,0 +1,36 @@
+.background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  /* background-color: rgb(232, 230, 212); */
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  height: 8px;
+  width: clamp(15rem, 25vw, 600px);
+  background-color: var(--primary-black);
+}
+
+.progress {
+  margin: 0;
+  font-family: 'Humane Bold';
+  font-size: clamp(10rem, 15vw, 300px);
+  color: var(--primary-black);
+}
+
+.title {
+  margin-top: 2rem;
+  font-family: 'Humane Bold';
+  font-size: clamp(5rem, 7.5vw, 150px);
+  color: var(--primary-black);
+}
