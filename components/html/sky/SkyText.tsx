@@ -1,6 +1,6 @@
 import styles from '../../../styles/Sky.module.css';
 import SkyWord from './SkyWord';
-import { useTransform, useSpring, easeOut } from 'framer-motion';
+import { useTransform, useSpring, easeOut, easeIn } from 'framer-motion';
 import getPhaseProgress from '../../utils/getPhaseProgress';
 
 type props = {
@@ -17,8 +17,9 @@ export default function SkyText({ children }: props) {
     restSpeed: 0.001,
     mass: 0.5,
   });
-  const exitProgress = useTransform(skyToSpace, [0, 0.2], [0, 1]);
-
+  const exitProgress = useTransform(skyToSpace, [0, 0.3], [0, 1], {
+    ease: easeIn,
+  });
   const text = children;
   // Calculating appropriate intervals for each word
   const textIntervals: [number, number][] = [];

@@ -10,21 +10,26 @@
   align-content: flex-start;
 }
 
-.textMask {
-  overflow: hidden;
+.textWrapper {
+  display: inline-block;
+  transform-origin: bottom;
 }
 
 .text {
-  --progress: 10%;
+  /* Formatting */
   display: inline-block;
   position: relative;
   margin: 0 0;
   height: 2ch;
   font-family: 'NoirPro Medium';
-  font-size: clamp(4rem, 5.5vw, 100px);
-  -webkit-text-stroke-color: var(--primary-black-faded);
+  font-size: clamp(3.5rem, 5.5vw, 100px);
+
+  /* Animation */
+  --progress: 10%;
+  -webkit-text-stroke-color: var(--primary-black);
   -webkit-text-stroke-width: 1px;
   color: transparent;
+  transform-origin: top;
 }
 
 .text::before {
