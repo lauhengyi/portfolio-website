@@ -3,7 +3,7 @@ import {
   galaxyVertexShader,
 } from '../shaders/galaxyShaders';
 import * as THREE from 'three';
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import getPhaseProgress from '../../utils/getPhaseProgress';
 import { useGLTF } from '@react-three/drei';
@@ -30,16 +30,19 @@ export default function Galaxy() {
   const headDuration = 10;
   const transitionDuration = 3;
 
-  const uniforms = {
-    uTime: { value: 0 },
-    uGalaxyTime: { value: 0 },
-    uGalaxyRotation: {
-      value: new THREE.Vector3(-Math.PI * 0.05, 0, -Math.PI * 0.05),
-    },
-    uTimeOffset: { value: timeOffset },
-    uSize: { value: 30 },
-    uProgress: { value: 0 },
-  };
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uGalaxyTime: { value: 0 },
+      uGalaxyRotation: {
+        value: new THREE.Vector3(-Math.PI * 0.05, 0, -Math.PI * 0.05),
+      },
+      uTimeOffset: { value: timeOffset },
+      uSize: { value: 30 },
+      uProgress: { value: 0 },
+    }),
+    [],
+  );
 
   const geometry = new THREE.BufferGeometry();
 

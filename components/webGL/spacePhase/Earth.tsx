@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import {
@@ -15,6 +15,8 @@ export default function Earth() {
   const cloudsRef = useRef<THREE.Mesh>(null);
   const atmosphereRef =
     useRef<THREE.Mesh<THREE.SphereGeometry, THREE.ShaderMaterial>>(null);
+
+  const uniforms = useMemo(() => ({ progress: { value: 0.0 } }), []);
 
   const { space } = getPhaseProgress();
   useFrame((_, delta) => {
@@ -41,7 +43,7 @@ export default function Earth() {
       <mesh ref={atmosphereRef}>
         <sphereGeometry args={[550, 32, 32]} />
         <shaderMaterial
-          uniforms={{ progress: { value: 0.0 } }}
+          uniforms={uniforms}
           vertexShader={atmosVertexShader}
           fragmentShader={atmosFragmentShader}
           blending={THREE.AdditiveBlending}
