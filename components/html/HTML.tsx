@@ -4,23 +4,12 @@ import SkyHTML from './SkyHTML';
 import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
-import { useProgress } from '@react-three/drei';
-import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import useLoad from '../utils/useLoad';
 
 export default function HTML() {
-  const { progress } = useProgress();
-  const [currentProgress, setProgress] = useState(0);
-  const [isLoad, setIsLoad] = useState(false);
-  useEffect(() => {
-    setProgress(progress);
-    if (progress === 100) {
-      setTimeout(() => {
-        setIsLoad(true);
-      }, 100);
-    }
-  }, [progress]);
-  console.log(currentProgress);
+  const { isLoad, progress } = useLoad();
+
   return (
     <div>
       <Head>
@@ -45,7 +34,7 @@ export default function HTML() {
               <GalaxyHTML />
             </>
           ) : (
-            <Loading key="Loading" progress={currentProgress} />
+            <Loading key="Loading" progress={progress} />
           )}
         </AnimatePresence>
       </main>
