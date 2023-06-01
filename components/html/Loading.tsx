@@ -17,15 +17,15 @@ export default function Loading({ progress }: props) {
     rotateZ: '10deg',
   };
   const wordsTransition: Transition = {
-    duration: 0.8,
+    duration: 0.5,
   };
 
   const lineExit: TargetAndTransition = {
     width: '0%',
   };
   const lineTransition: Transition = {
-    delay: 0.5,
-    duration: 1,
+    delay: 0.2,
+    duration: 0.5,
   };
 
   return (

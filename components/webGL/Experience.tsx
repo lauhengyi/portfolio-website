@@ -1,11 +1,4 @@
-import {
-  OrbitControls,
-  Plane,
-  Sky,
-  Stars,
-  Text,
-  useProgress,
-} from '@react-three/drei';
+import { OrbitControls, Sky } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import CameraHandler from './handlers/CameraHandler';
 import VisibilityHandler from './handlers/VisibilityHandler';
