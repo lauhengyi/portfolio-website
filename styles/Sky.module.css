@@ -6,7 +6,7 @@
 .textContainer {
   display: flex;
   flex-wrap: wrap;
-  column-gap: clamp(1rem, 2vw, 1.5rem);
+  column-gap: clamp(7.5px, 0.7vw, 15px);
   align-content: flex-start;
 }
 
@@ -21,8 +21,9 @@
   position: relative;
   margin: 0 0;
   height: 2ch;
+  letter-spacing: -1px;
   font-family: 'NoirPro Medium';
-  font-size: clamp(3.5rem, 5.5vw, 100px);
+  font-size: clamp(50px, 5.5vw, 100px);
 
   /* Animation */
   --progress: 10%;
