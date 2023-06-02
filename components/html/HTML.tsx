@@ -5,10 +5,14 @@ import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
 import { AnimatePresence } from 'framer-motion';
+import { useEffect, useLayoutEffect } from 'react';
 import useLoad from '../utils/useLoad';
 
 export default function HTML() {
   const { isLoad, progress } = useLoad();
+  useLayoutEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
 
   return (
     <div>
@@ -23,7 +27,10 @@ export default function HTML() {
           rel="stylesheet"
         />
       </Head>
-      <main className="container">
+      <main
+        // style={{ height: '100%', overflow: 'hidden' }}
+        className="container"
+      >
         <AnimatePresence>
           {isLoad ? (
             <>

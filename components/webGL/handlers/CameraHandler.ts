@@ -237,7 +237,7 @@ export default class CameraHandler {
       this.handleResize();
     });
 
-    const { landToSky, sky, skyToSpace, space, spaceToGalaxy } =
+    const { totalProgress, landToSky, sky, skyToSpace, space, spaceToGalaxy } =
       getPhaseProgress();
 
     useFrame(({ camera }, delta) => {
@@ -288,12 +288,16 @@ export default class CameraHandler {
         );
       }
 
+      // Speed up lerp if scrolling is fast
+      const scrollSpeed = Math.abs(totalProgress.getVelocity());
+      const lerpAmount = scrollSpeed > 1 ? 1 : clampDelta * 3;
+
       // Update camera position
-      camera.position.lerp(this.cameraPosition, clampDelta * 3);
+      camera.position.lerp(this.cameraPosition, lerpAmount);
 
       // Update looking location
       camera.lookAt(
-        this.oldLookAtPoint.lerp(this.cameraLookAtPoint, clampDelta * 3),
+        this.oldLookAtPoint.lerp(this.cameraLookAtPoint, lerpAmount),
       );
     });
   }
