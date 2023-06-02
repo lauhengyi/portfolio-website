@@ -18,7 +18,7 @@ export default function WebGL() {
         background: 'black',
       }}
     >
-      <Perf position={'top-right'} />
+      <Perf position={'bottom-right'} />
       <Experience />
     </Canvas>
   );

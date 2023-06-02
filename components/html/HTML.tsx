@@ -1,16 +1,17 @@
 import Head from 'next/head';
+import NavBar from './NavBar';
 import LandHTML from './LandHTML';
 import SkyHTML from './SkyHTML';
 import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import useLoad from '../utils/useLoad';
 
 export default function HTML() {
   const { isLoad, progress } = useLoad();
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, [isLoad]);
 
@@ -36,7 +37,7 @@ export default function HTML() {
               transition={{ delay: 1 }}
               className="scrollContainer"
             >
-              {/* <NavBar /> */}
+              <NavBar />
               <LandHTML />
               <SkyHTML />
               <SpaceHTML />

@@ -1,0 +1,13 @@
+.navContainer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  gap: 15px;
+}
+
+.link {
+  list-style: none;
+  font-family: 'NoirPro SemiBold';
+  font-size: clamp(25px, 2.5vw, 35px);
+}
