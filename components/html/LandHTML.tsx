@@ -13,9 +13,11 @@ export default function LandHTML() {
         <h1 className={styles.title}>
           <HeaderAnimated progress={opacity}>Web Developer</HeaderAnimated>
         </h1>
-        <motion.p className={styles.caption} style={{ opacity }}>
-          I like to build nice things.
-        </motion.p>
+        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <motion.p className={styles.caption} style={{ opacity }}>
+            I like to build nice things.
+          </motion.p>
+        </motion.span>
       </section>
     </div>
   );

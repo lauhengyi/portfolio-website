@@ -28,7 +28,6 @@ body {
 }
 
 :root {
-  height: 8000px;
   /* Color Scheme */
   --primary-black: #414239;
   --primary-black-faded: #41423977;
@@ -43,7 +42,14 @@ a {
   display: flex;
   position: relative;
   z-index: 1;
-  height: 100vh;
+  justify-content: center;
+}
+
+.scrollContainer {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  height: 8000px;
   justify-content: center;
 }
 

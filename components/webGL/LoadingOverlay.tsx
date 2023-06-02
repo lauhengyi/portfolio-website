@@ -38,7 +38,7 @@ const LoadingOverlay = () => {
     if (!isLoad) return;
     const controls = animate(progress, [0, 0.25, 1], {
       times: [0, 0.2, 1],
-      delay: 0.8,
+      delay: 1,
       duration: 5,
       ease: cubicBezier(0.25, 1, 0.3, 1),
       onUpdate: (v) => {

@@ -4,15 +4,15 @@ import SkyHTML from './SkyHTML';
 import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
-import { AnimatePresence } from 'framer-motion';
-import { useEffect, useLayoutEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useLayoutEffect } from 'react';
 import useLoad from '../utils/useLoad';
 
 export default function HTML() {
   const { isLoad, progress } = useLoad();
   useLayoutEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
-  }, []);
+  }, [isLoad]);
 
   return (
     <div>
@@ -27,19 +27,21 @@ export default function HTML() {
           rel="stylesheet"
         />
       </Head>
-      <main
-        // style={{ height: '100%', overflow: 'hidden' }}
-        className="container"
-      >
+      <main className="container">
         <AnimatePresence>
           {isLoad ? (
-            <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="scrollContainer"
+            >
               {/* <NavBar /> */}
               <LandHTML />
               <SkyHTML />
               <SpaceHTML />
               <GalaxyHTML />
-            </>
+            </motion.div>
           ) : (
             <Loading key="Loading" progress={progress} />
           )}
