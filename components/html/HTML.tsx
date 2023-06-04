@@ -8,6 +8,7 @@ import Loading from './Loading';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import useLoad from '../utils/useLoad';
+import Cursor from './Cursor';
 
 export default function HTML() {
   const { isLoad, progress } = useLoad();
@@ -34,7 +35,7 @@ export default function HTML() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 2 }}
               className="scrollContainer"
             >
               <NavBar />
@@ -42,6 +43,7 @@ export default function HTML() {
               <SkyHTML />
               <SpaceHTML />
               <GalaxyHTML />
+              <Cursor />
             </motion.div>
           ) : (
             <Loading key="Loading" progress={progress} />

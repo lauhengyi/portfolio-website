@@ -6,7 +6,7 @@
 .textContainer {
   display: flex;
   flex-wrap: wrap;
-  column-gap: clamp(7.5px, 0.7vw, 15px);
+  column-gap: clamp(10px, 1vw, 20px);
   align-content: flex-start;
 }
 

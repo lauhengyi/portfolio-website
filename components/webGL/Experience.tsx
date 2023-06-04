@@ -1,5 +1,5 @@
 import { OrbitControls, Sky } from '@react-three/drei';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import CameraHandler from './handlers/CameraHandler';
 import VisibilityHandler from './handlers/VisibilityHandler';
 import LandPhase from './LandPhase';

@@ -4,10 +4,11 @@
   justify-content: center;
   width: 100vw;
   gap: 15px;
+  color: var(--primary-black);
 }
 
 .link {
   list-style: none;
-  font-family: 'NoirPro SemiBold';
-  font-size: clamp(25px, 2.5vw, 35px);
+  font-family: 'NoirPro Medium';
+  font-size: 25px;
 }
