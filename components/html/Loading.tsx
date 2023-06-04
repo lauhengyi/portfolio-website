@@ -28,6 +28,8 @@ export default function Loading({ progress }: props) {
     duration: 0.5,
   };
 
+  const formattedProgress = progress.toFixed(0).padStart(3, '0');
+
   return (
     <section className={styles.background}>
       <div className={styles.stats}>
@@ -37,7 +39,7 @@ export default function Loading({ progress }: props) {
             transition={wordsTransition}
             className={styles.progress}
           >
-            {progress}%
+            {formattedProgress}%
           </motion.h2>
         </span>
         <motion.span
