@@ -5,10 +5,12 @@
   width: 100vw;
   gap: 15px;
   color: var(--primary-black);
+  z-index: 10;
 }
 
 .link {
   list-style: none;
   font-family: 'NoirPro Medium';
   font-size: 25px;
+  cursor: pointer;
 }

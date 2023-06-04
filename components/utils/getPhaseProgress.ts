@@ -1,4 +1,5 @@
 import { useScroll, useTransform, MotionValue, useSpring } from 'framer-motion';
+import phasePos from './phasePositions';
 
 interface IPhases {
   totalProgress: MotionValue<number>;
@@ -10,7 +11,6 @@ interface IPhases {
 }
 
 export default function getPhaseProgress(): IPhases {
-  const phasePos = [0, 0.16, 0.35, 0.45, 0.85, 1];
   const { scrollYProgress } = useScroll();
   const inverseScrollYProgress = useTransform(scrollYProgress, (p) => 1 - p);
 
