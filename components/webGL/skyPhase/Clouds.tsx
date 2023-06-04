@@ -58,3 +58,5 @@ export default function Clouds() {
     </instancedMesh>
   );
 }
+
+useTexture.preload('/textures/cloud10.png');

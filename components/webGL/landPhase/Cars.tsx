@@ -243,3 +243,4 @@ export default function Cars() {
 }
 
 useGLTF.preload('/models/car.glb');
+useTexture.preload('/textures/bakedCarAtlas.jpg');

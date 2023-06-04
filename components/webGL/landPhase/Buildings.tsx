@@ -45,3 +45,6 @@ export default function Buildings() {
 }
 
 useGLTF.preload('/models/buildings.glb');
+useTexture.preload('/textures/bakedBuildings.jpg');
+useTexture.preload('/textures/bakedWater.png');
+useTexture.preload('/textures/matcap.jpg');

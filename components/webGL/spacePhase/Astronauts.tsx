@@ -47,3 +47,4 @@ export default function Astronaut(props: JSX.IntrinsicElements['group']) {
 }
 
 useGLTF.preload('/models/astronaut.glb');
+useTexture.preload('/textures/astronaut.jpg');

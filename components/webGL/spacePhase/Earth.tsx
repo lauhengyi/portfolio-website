@@ -53,3 +53,6 @@ export default function Earth() {
     </group>
   );
 }
+
+useTexture.preload('/textures/earth.jpg');
+useTexture.preload('/textures/clouds.jpg');
