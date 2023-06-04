@@ -1,4 +1,4 @@
-import { OrbitControls, Sky } from '@react-three/drei';
+import { OrbitControls, Preload, Sky } from '@react-three/drei';
 import { useRef } from 'react';
 import CameraHandler from './handlers/CameraHandler';
 import VisibilityHandler from './handlers/VisibilityHandler';
@@ -39,6 +39,7 @@ export default function Experience() {
   return (
     <>
       {/* <OrbitControls /> */}
+      <Preload all />
       <LoadingOverlay />
       <fog ref={fogRef} attach={'fog'} near={30} far={50} color="#f3fdff" />
       <Sky ref={skyBackgroundRef} sunPosition={[10, 5, 10]} rayleigh={1.5} />
