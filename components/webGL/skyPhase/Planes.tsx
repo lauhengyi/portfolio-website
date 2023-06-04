@@ -35,7 +35,7 @@ export default function Planes(props: JSX.IntrinsicElements['group']) {
     const planeObject = new THREE.Object3D();
     planeObject.position.set(
       trajectory.startX,
-      Math.random() * 10,
+      Math.random() * 11,
       trajectory.startZ,
     );
     planeObject.rotation.set(0, trajectory.rotateY, trajectory.rotateZ);
@@ -78,7 +78,7 @@ export default function Planes(props: JSX.IntrinsicElements['group']) {
         ref={planeRef}
         args={[undefined, undefined, planeCount]}
         geometry={nodes.Plane.geometry}
-        position={[0, 35, 0]}
+        position={[0, 32, 0]}
       >
         <meshBasicMaterial color="red" />
       </instancedMesh>
