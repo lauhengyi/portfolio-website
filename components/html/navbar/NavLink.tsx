@@ -1,12 +1,15 @@
 import styles from '../../../styles/NavBar.module.css';
+import useCursorStore, { CursorType } from '../cursor/useCursorStore';
 
 type props = {
   children: string;
   scrollLocation?: number;
-  href?: string;
+  type: CursorType;
 };
 
-export default function NavLink({ children, scrollLocation, href }: props) {
+export default function NavLink({ children, scrollLocation, type }: props) {
+  const setCursorType = useCursorStore((s) => s.setCursorType);
+
   const handleOnClick = () => {
     if (scrollLocation !== undefined) {
       window.scrollTo({
@@ -17,9 +20,24 @@ export default function NavLink({ children, scrollLocation, href }: props) {
       });
     }
   };
+
+  const handleOnMouseEnter = () => {
+    setCursorType(type);
+  };
+
+  const handleOnMouseLeave = () => {
+    setCursorType('default');
+  };
+
   return (
     <li className={styles.link}>
-      <a onClick={handleOnClick}>{children}</a>
+      <a
+        onClick={handleOnClick}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      >
+        {children}
+      </a>
     </li>
   );
 }

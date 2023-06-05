@@ -1,14 +1,20 @@
 .cursor {
   position: fixed;
-  height: 30px;
-  width: 30px;
   border-radius: 100px;
   top: -15px;
   left: -15px;
-  background-color: black;
-  opacity: 0.4;
   z-index: 50;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursorText {
+  font-family: 'NoirPro Bold';
+  width: 70px;
+  text-align: center;
+  font-size: 22px;
 }
 
 .cursor2 {
