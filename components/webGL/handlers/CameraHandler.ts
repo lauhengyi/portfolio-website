@@ -296,7 +296,7 @@ export default class CameraHandler {
 
       // Speed up lerp if scrolling is fast
       const scrollSpeed = Math.abs(totalProgress.getVelocity());
-      const lerpAmount = scrollSpeed > 1 ? 1 : clampDelta * 3;
+      const lerpAmount = scrollSpeed > 0.8 ? 1 : clampDelta * 3;
 
       // Update camera position
       camera.position.lerp(this.cameraPosition, lerpAmount);
