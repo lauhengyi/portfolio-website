@@ -1,13 +1,15 @@
 import styles from '../../../styles/Galaxy.module.css';
 import Image from 'next/image';
 import getPhaseProgress from '../../utils/getPhaseProgress';
+import { CursorType } from '../cursor/useCursorStore';
 import { motion, useTransform, easeOut } from 'framer-motion';
+import useHover from '../../utils/useHover';
 
 type SocialCardProps = {
   order: number;
   href: string;
   icon: string;
-  name: string;
+  name: CursorType;
 };
 
 export default function SocialCard(props: SocialCardProps) {
@@ -21,11 +23,15 @@ export default function SocialCard(props: SocialCardProps) {
     },
   );
 
+  const { handleOnMouseEnter, handleOnMouseLeave } = useHover(props.name);
+
   return (
     <motion.a
       style={{ y: transformY }}
       className={styles.socialCard}
       href={props.href}
+      onMouseEnter={handleOnMouseEnter}
+      onMouseLeave={handleOnMouseLeave}
       target="_blank"
       rel="noopener noreferrer"
     >

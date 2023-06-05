@@ -40,10 +40,15 @@ export default function Cursor() {
 
   const cursorText = {
     default: '',
-    home: 'Go back down',
-    about: 'Learn about me',
-    work: 'See my work',
-    contact: 'Get in touch!',
+    Home: 'Go back down',
+    About: 'Learn about me',
+    Work: 'See my work',
+    Contact: 'Get in touch!',
+    Email: '',
+    LinkedIn: '',
+    Github: '',
+    Resume: '',
+    External: '',
   };
 
   return (

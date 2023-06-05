@@ -1,33 +1,22 @@
 import styles from '../../../styles/NavBar.module.css';
+import useHover from '../../utils/useHover';
 import useCursorStore, { CursorType } from '../cursor/useCursorStore';
 
 type props = {
-  children: string;
-  scrollLocation?: number;
-  type: CursorType;
+  name: CursorType;
+  scrollLocation: number;
 };
 
-export default function NavLink({ children, scrollLocation, type }: props) {
-  const setCursorType = useCursorStore((s) => s.setCursorType);
-
+export default function NavLink({ name, scrollLocation }: props) {
   const handleOnClick = () => {
-    if (scrollLocation !== undefined) {
-      window.scrollTo({
-        top:
-          (1 - scrollLocation) * document.body.scrollHeight -
-          window.innerHeight,
-        behavior: 'smooth',
-      });
-    }
+    window.scrollTo({
+      top:
+        (1 - scrollLocation) * document.body.scrollHeight - window.innerHeight,
+      behavior: 'smooth',
+    });
   };
 
-  const handleOnMouseEnter = () => {
-    setCursorType(type);
-  };
-
-  const handleOnMouseLeave = () => {
-    setCursorType('default');
-  };
+  const { handleOnMouseEnter, handleOnMouseLeave } = useHover(name);
 
   return (
     <li className={styles.link}>
@@ -36,7 +25,7 @@ export default function NavLink({ children, scrollLocation, type }: props) {
         onMouseEnter={handleOnMouseEnter}
         onMouseLeave={handleOnMouseLeave}
       >
-        {children}
+        {name}
       </a>
     </li>
   );

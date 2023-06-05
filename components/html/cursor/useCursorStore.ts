@@ -1,6 +1,16 @@
 import { create } from 'zustand';
 
-type CursorType = 'default' | 'home' | 'about' | 'work' | 'contact';
+type CursorType =
+  | 'default'
+  | 'Home'
+  | 'About'
+  | 'Work'
+  | 'Contact'
+  | 'Email'
+  | 'LinkedIn'
+  | 'Github'
+  | 'Resume'
+  | 'External';
 
 type CursorState = {
   cursorType: CursorType;
