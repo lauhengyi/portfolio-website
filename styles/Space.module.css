@@ -15,7 +15,7 @@
   -webkit-backdrop-filter: blur(20px);
   padding: 20px;
   min-height: 50vh;
-  color: white;
+  color: var(--primary-white);
 }
 
 @media screen and (max-width: 600px) {
@@ -59,6 +59,6 @@
 }
 
 .card hr {
-  color: white;
+  color: var(--primary-white);
   opacity: 0.5;
 }

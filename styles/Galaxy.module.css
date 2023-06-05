@@ -9,7 +9,7 @@
 
 .title {
   margin: 0;
-  color: white;
+  color: var(--primary-white);
   font-family: 'Humane Bold';
   font-size: clamp(95px, 13vw, 180px);
 }
@@ -34,7 +34,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 20px;
-  color: white;
+  color: var(--primary-white);
 }
 
 .socialTitle {

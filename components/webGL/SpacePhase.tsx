@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import { Stars } from '@react-three/drei';
 import MyWorkText from './spacePhase/MyWorkText';
 import Astronaut from './spacePhase/Astronauts';
 import Earth from './spacePhase/Earth';

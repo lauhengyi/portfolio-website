@@ -31,6 +31,7 @@ body {
   /* Color Scheme */
   --primary-black: #414239;
   --primary-black-faded: #41423977;
+  --primary-white: #fffcea;
 }
 
 a {

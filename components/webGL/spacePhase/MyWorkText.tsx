@@ -24,6 +24,7 @@ export default function MyWorkText(props: JSX.IntrinsicElements['group']) {
   const textRef = React.useRef<THREE.Group>(null);
   const myRef = React.useRef<THREE.Mesh>(null);
   const workRef = React.useRef<THREE.Mesh>(null);
+  const color = '#fffcea';
 
   useEffect(() => {
     resizeText(textRef);
@@ -76,14 +77,14 @@ export default function MyWorkText(props: JSX.IntrinsicElements['group']) {
           geometry={nodes.my.geometry}
           position={myInitPosition}
         >
-          <meshBasicMaterial color="#ffffff" />
+          <meshBasicMaterial color={color} />
         </mesh>
         <mesh
           ref={workRef}
           geometry={nodes.work.geometry}
           position={workInitPosition}
         >
-          <meshBasicMaterial color="#ffffff" />
+          <meshBasicMaterial color={color} />
         </mesh>
       </group>
     </Center>
