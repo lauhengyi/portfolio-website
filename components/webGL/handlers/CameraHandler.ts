@@ -51,7 +51,7 @@ export default class CameraHandler {
     this.oldLookAtPoint = new THREE.Vector3(0, 0, 0);
 
     // Setting up land variables
-    this.landNeutralLookAtPoint = new THREE.Vector3(0, 0, 0);
+    this.landNeutralLookAtPoint = new THREE.Vector3(0, -0.5, 0);
     this.landPosition = new THREE.Vector3(0, 0, 0);
     this.landLookAtPoint = this.landNeutralLookAtPoint.clone();
     this.landNeutalDistFromOrigin = 5;
@@ -74,7 +74,7 @@ export default class CameraHandler {
     this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -30);
 
     // Setting up space variables
-    this.spaceNeutralPosition = new THREE.Vector3(0, -4, 0);
+    this.spaceNeutralPosition = new THREE.Vector3(0, 0, 0);
     this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -20);
     this.spacePosition = this.spaceNeutralPosition.clone();
     this.spaceLookAtPoint = this.spaceNeutralLookAtPoint.clone();
