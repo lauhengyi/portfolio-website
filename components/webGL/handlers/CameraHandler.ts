@@ -74,7 +74,7 @@ export default class CameraHandler {
     this.spaceLookAtPoint2 = new THREE.Vector3(0, -30, -30);
 
     // Setting up space variables
-    this.spaceNeutralPosition = new THREE.Vector3(0, 0, 0);
+    this.spaceNeutralPosition = new THREE.Vector3(0, -4, 0);
     this.spaceNeutralLookAtPoint = new THREE.Vector3(0, 0, -20);
     this.spacePosition = this.spaceNeutralPosition.clone();
     this.spaceLookAtPoint = this.spaceNeutralLookAtPoint.clone();
@@ -96,7 +96,7 @@ export default class CameraHandler {
 
     // As the aspect ratio gets bigger, the camera needs to be moved closer to the origin
     this.aspect = window.innerWidth / window.innerHeight;
-    this.landNeutalDistFromOrigin = Math.max(multiplier / this.aspect, 7);
+    this.landNeutalDistFromOrigin = Math.max(multiplier / this.aspect, 8);
 
     const center = normCenter.multiplyScalar(this.landNeutalDistFromOrigin);
     const right = normRight.multiplyScalar(this.landNeutalDistFromOrigin);
@@ -113,14 +113,20 @@ export default class CameraHandler {
     const multiplier = this.landNeutalDistFromOrigin * 0.1;
 
     // For pointerX
-    const newPosition = this.landQuadCurve.getPoint(this.pointer.x / 2 + 0.5);
+    // Reduce extreme pointerX values when aspect is too large
+    let curvePos = this.pointer.x / 1;
+    // Math.max(this.aspect / 1.5, 1);
+    // Map curvePos from [-1, 1] to [0, 1]
+    curvePos = curvePos / 2 + 0.5;
+    const newPosition = this.landQuadCurve.getPoint(curvePos);
 
     // For pointerY
-    newPosition.y += this.pointer.y * multiplier * 2;
+    newPosition.y += this.pointer.y * multiplier * 1.5;
     newPosition.z -= Math.abs(this.pointer.y) * multiplier * 1;
 
     // Update look at point
-    newLookAtPoint.x += this.pointer.x * 1.5;
+    const panningMultiplier = this.aspect * 1.1;
+    newLookAtPoint.x += this.pointer.x * panningMultiplier;
 
     this.landPosition.copy(newPosition);
     this.landLookAtPoint.copy(newLookAtPoint);
