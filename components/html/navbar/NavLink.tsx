@@ -1,6 +1,6 @@
 import styles from '../../../styles/NavBar.module.css';
 import useHover from '../../utils/useHover';
-import useCursorStore, { CursorType } from '../cursor/useCursorStore';
+import { CursorType } from '../cursor/useCursorStore';
 
 type props = {
   name: CursorType;
@@ -11,7 +11,8 @@ export default function NavLink({ name, scrollLocation }: props) {
   const handleOnClick = () => {
     window.scrollTo({
       top:
-        (1 - scrollLocation) * document.body.scrollHeight - window.innerHeight,
+        (1 - scrollLocation) * document.body.scrollHeight -
+        window.innerHeight * 0.85,
       behavior: 'smooth',
     });
   };
