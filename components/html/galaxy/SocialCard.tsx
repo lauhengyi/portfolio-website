@@ -22,8 +22,29 @@ export default function SocialCard(props: SocialCardProps) {
       ease: easeOut,
     },
   );
-
   const { handleOnMouseEnter, handleOnMouseLeave } = useHover(props.name);
+
+  const imageVariants = {
+    default: {
+      scale: 1,
+      rotate: 0,
+    },
+
+    hover: {
+      scale: 0.8,
+      rotate: 180,
+    },
+  };
+
+  const titleVariants = {
+    default: {
+      scale: 1,
+    },
+
+    hover: {
+      scale: 1.5,
+    },
+  };
 
   return (
     <motion.a
@@ -32,18 +53,25 @@ export default function SocialCard(props: SocialCardProps) {
       href={props.href}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={handleOnMouseLeave}
+      whileHover="hover"
+      whileTap="tap"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <motion.span
+        style={{ width: '100%', height: '100%', position: 'relative' }}
+        variants={imageVariants}
+      >
         <Image
           objectFit="contain"
           layout="fill"
           src={props.icon}
           alt={props.name}
         />
-      </span>
-      <span className={styles.socialTitle}>{props.name}</span>
+      </motion.span>
+      <motion.span variants={titleVariants} className={styles.socialTitle}>
+        {props.name}
+      </motion.span>
     </motion.a>
   );
 }
