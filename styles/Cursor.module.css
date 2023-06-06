@@ -1,3 +1,7 @@
+.cursorWrapper {
+  --cursorColor: #414239;
+}
+
 .cursor {
   position: fixed;
   border-radius: 100px;
@@ -6,6 +10,7 @@
   z-index: 50;
   pointer-events: none;
   display: flex;
+  background-color: var(--cursorColor);
   align-items: center;
   justify-content: center;
 }
@@ -26,7 +31,7 @@
   left: -30px;
   border-style: solid;
   border-width: 2px;
-  border-color: black;
+  border-color: var(--cursorColor);
   z-index: 49;
   pointer-events: none;
 }

@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/Cursor.module.css';
-import { Variants, motion } from 'framer-motion';
+import { Variants, motion, useTransform } from 'framer-motion';
+import getPhaseProgress from '../utils/getPhaseProgress';
 import useCursorStore from './cursor/useCursorStore';
 
 export default function Cursor() {
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const cursorType = useCursorStore((s) => s.cursorType);
+  const { skyToSpace } = getPhaseProgress();
+  const color = useTransform(skyToSpace, [0.8, 1], ['#414239', '#fffcea']);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -24,7 +27,7 @@ export default function Cursor() {
       y: cursor.y,
       height: 30,
       width: 30,
-      backgroundColor: '#000',
+      backgroundColor: color.get(),
       opacity: 0.4,
     },
 
@@ -51,19 +54,47 @@ export default function Cursor() {
     External: '',
   };
 
+  const secondaryCursorVariants: Variants = {
+    default: {
+      x: cursor.x,
+      y: cursor.y,
+      borderColor: color.get(),
+      scale: 1,
+      opacity: 1,
+    },
+
+    pointer: {
+      x: cursor.x,
+      y: cursor.y,
+      scale: 2,
+      opacity: 0,
+    },
+  };
+
   return (
     <>
       <motion.div
         variants={mainCursorVariants}
         animate={cursorType === 'default' ? 'default' : 'pointer'}
-        transition={{ type: 'spring', stiffness: 200, damping: 10, mass: 0.2 }}
+        transition={{
+          type: 'spring',
+          stiffness: 200,
+          damping: 10,
+          mass: 0.2,
+        }}
         className={styles.cursor}
       >
         <span className={styles.cursorText}>{cursorText[cursorType]}</span>
       </motion.div>
       <motion.div
-        animate={{ x: cursor.x, y: cursor.y }}
-        transition={{ type: 'spring', stiffness: 200, damping: 10, mass: 0.4 }}
+        variants={secondaryCursorVariants}
+        animate={cursorType === 'default' ? 'default' : 'pointer'}
+        transition={{
+          type: 'spring',
+          stiffness: 200,
+          damping: 10,
+          mass: 0.4,
+        }}
         className={styles.cursor2}
       ></motion.div>
     </>
