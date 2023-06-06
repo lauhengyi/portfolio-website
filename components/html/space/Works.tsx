@@ -9,86 +9,58 @@ export default function Works() {
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
-        company="Techno Innovators Inc"
-        duration="Jan 2023 - present"
-        position="Senior Software Engineer"
+        company="Swerve Website"
+        duration="Nov 2022 - Dec 2022"
+        position="Personal Project"
       >
+        <li>Designed a modern website for a mock start-up idea in Figma.</li>
+        <li>Implemented the design in code using Next.js.</li>
         <li>
-          Developed scalable web applications using Python, Django, and
-          JavaScript frameworks.
+          Includes complex on-scroll animations packaged in a modern UI using
+          the GSAP and CSS.
         </li>
         <li>
-          Led a team in designing and implementing a robust API architecture for
-          seamless integration.
-        </li>
-        <li>
-          Collaborated with cross-functional teams, gathering requirements and
-          proposing innovative solutions.
-        </li>
-        <li>
-          Mentored junior developers, fostering a collaborative work
-          environment.
+          This shows my ability to design and build creative front-end
+          experiences.
         </li>
       </WorkCard>
       <WorkCard
-        company="AlphaTech Solutions"
-        duration="Jan 2022 - Dec 2022"
-        position="Software Developer"
+        company="Swerve Server"
+        duration="Jun 2022 - Sept 2022"
+        position="Personal Project"
       >
+        <li>Built a back-end server for a mock start-up idea.</li>
+        <li>Implemented REST APIs with Node.js and Express.js.</li>
         <li>
-          Designed responsive user interfaces using HTML5, CSS3, and JavaScript.
+          Implemented many common features like interfacing with a MongoDB
+          database, JWT authentication, and password hashing.
         </li>
+        <li>All API endpoints are vigorously tested with Jest.js.</li>
         <li>
-          Developed custom WordPress themes and plugins to meet client
-          requirements.
-        </li>
-        <li>Integrated third-party APIs to enhance website functionality.</li>
-        <li>
-          Resolved technical issues and provided timely support to clients.
+          This shows my experience with back-end and it's relevant technologies.
         </li>
       </WorkCard>
       <WorkCard
-        company="StellarSoft Corporation"
-        duration="Apr 2021 - Sept 2021"
-        position="Full Stack Software Engineer"
+        company="21Chess app"
+        duration="Jun 2021 - Nov 2021"
+        position="Personal Project"
       >
         <li>
-          Developed and maintained scalable web applications using Java, Spring,
-          and Angular frameworks.
+          Created and published a game on the Google Play store which features
+          21 original chess variations.
         </li>
         <li>
-          Implemented RESTful APIs to facilitate seamless communication between
-          front-end and back-end systems.
+          Implemented AI opponents for each of the 21 Chess variations, using a
+          minimax algorithm.
         </li>
         <li>
-          Collaborated with UX designers to create intuitive user interfaces and
-          enhance user experience.
+          Made a UI which enabled different color themes and has extensive
+          in-game customizability eg. Game timer, rotating the game board each
+          turn.
         </li>
         <li>
-          Conducted thorough testing and debugging to ensure high-quality and
-          error-free code.
-        </li>
-      </WorkCard>
-      <WorkCard
-        company="CodeGenius Ltd"
-        duration="Jun 2020 - Dec 2020"
-        position="Software Developer"
-      >
-        <li>
-          Collaborated with a team of developers to design and implement a
-          cloud-based SaaS platform.
-        </li>
-        <li>
-          Developed and maintained microservices using Node.js, Express, and
-          MongoDB for efficient data management.
-        </li>
-        <li>
-          Integrated machine learning algorithms into the platform to provide
-          intelligent data analysis and insights.
-        </li>
-        <li>
-          Participated in code reviews and implemented best practices to ensure
-          code quality and maintainability.
+          This shows my experience in mobile development and my ability to pair
+          complex logic in a pleasant UI.
         </li>
       </WorkCard>
     </motion.section>
