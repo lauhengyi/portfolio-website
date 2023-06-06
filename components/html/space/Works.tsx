@@ -12,6 +12,7 @@ export default function Works() {
         company="Swerve Website"
         duration="Nov 2022 - Dec 2022"
         position="Personal Project"
+        href="https://theswerveapp.com/"
       >
         <li>Designed a modern website for a mock start-up idea in Figma.</li>
         <li>Implemented the design in code using Next.js.</li>
@@ -44,6 +45,7 @@ export default function Works() {
         company="21Chess app"
         duration="Jun 2021 - Nov 2021"
         position="Personal Project"
+        href="https://play.google.com/store/apps/details?id=com.hengyi.twentyonechess&hl=en&gl=US"
       >
         <li>
           Created and published a game on the Google Play store which features

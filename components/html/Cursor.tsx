@@ -97,9 +97,9 @@ export default function Cursor() {
     external: {
       x: cursor.x - 15,
       y: cursor.y - 15,
-      height: 130,
-      width: 250,
-      backgroundColor: '#333',
+      height: 100,
+      width: 100,
+      backgroundColor: 'white',
       opacity: 1,
     },
   };
