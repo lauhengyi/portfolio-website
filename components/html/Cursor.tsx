@@ -143,7 +143,7 @@ export default function Cursor() {
           type: 'spring',
           stiffness: 200,
           damping: 10,
-          mass: 0.3,
+          mass: 0.2,
         }}
         className={styles.cursor}
       >
@@ -156,7 +156,7 @@ export default function Cursor() {
           type: 'spring',
           stiffness: 200,
           damping: 10,
-          mass: 0.6,
+          mass: 0.4,
         }}
         className={styles.cursor2}
       ></motion.div>
