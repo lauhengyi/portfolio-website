@@ -5,6 +5,7 @@
   left: -15px;
   z-index: 50;
   pointer-events: none;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +13,6 @@
 
 .cursorText {
   font-family: 'NoirPro Bold';
-  width: 70px;
   text-align: center;
   font-size: 22px;
   color: var(--primary-black);

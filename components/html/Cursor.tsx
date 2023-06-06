@@ -70,9 +70,9 @@ export default function Cursor() {
     Email: {
       x: cursor.x - 15,
       y: cursor.y - 15,
-      height: 130,
-      width: 250,
-      backgroundColor: '#333',
+      height: 90,
+      width: 300,
+      backgroundColor: '#444',
       opacity: 1,
     },
 
@@ -81,7 +81,7 @@ export default function Cursor() {
       y: cursor.y - 15,
       height: 130,
       width: 250,
-      backgroundColor: '#333',
+      backgroundColor: '#0077B5',
       opacity: 1,
     },
 
@@ -90,7 +90,7 @@ export default function Cursor() {
       y: cursor.y - 15,
       height: 130,
       width: 250,
-      backgroundColor: '#333',
+      backgroundColor: '#6e5494',
       opacity: 1,
     },
 
@@ -110,11 +110,50 @@ export default function Cursor() {
     About: 'Learn about me',
     Work: 'See my work',
     Contact: 'Get in touch!',
-    Email: '',
-    LinkedIn: '',
-    Github: '',
+    Email: 'lauhengyi@gmail.com',
+    LinkedIn: 'Join my network!',
+    Github: 'Check out my code!',
     Resume: '',
-    external: '',
+    external: 'Click Me!',
+  };
+
+  const cursorTextVariants: Variants = {
+    default: {
+      opacity: 0,
+      color: 'transparent',
+    },
+    Home: {
+      opacity: 1,
+      color: '#414239',
+    },
+    About: {
+      opacity: 1,
+      color: '#414239',
+    },
+    Work: {
+      opacity: 1,
+      color: '#414239',
+    },
+    Contact: {
+      opacity: 1,
+      color: '#414239',
+    },
+    Email: {
+      opacity: 1,
+      color: '#ffffff',
+    },
+    LinkedIn: {
+      opacity: 1,
+      color: '#ffffff',
+    },
+    Github: {
+      opacity: 1,
+      color: '#ffffff',
+    },
+    Resume: {
+      opacity: 1,
+      color: '#414239',
+    },
   };
 
   const secondaryCursorVariants: Variants = {
@@ -147,7 +186,12 @@ export default function Cursor() {
         }}
         className={styles.cursor}
       >
-        <span className={styles.cursorText}>{cursorText[cursorType]}</span>
+        <motion.span
+          variants={cursorTextVariants}
+          className={styles.cursorText}
+        >
+          {cursorText[cursorType]}
+        </motion.span>
       </motion.div>
       <motion.div
         variants={secondaryCursorVariants}

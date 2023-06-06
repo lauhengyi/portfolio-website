@@ -5,7 +5,7 @@ import getPhaseProgress from '../../utils/getPhaseProgress';
 
 export default function Works() {
   const { space } = getPhaseProgress();
-  const x = useTransform(space, [0, 1], ['60%', '-110%']);
+  const x = useTransform(space, [0, 1], ['100%', '-100%']);
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard

@@ -1,10 +1,12 @@
 .cardHolder {
+  position: fixed;
   display: flex;
   height: 100vh;
   width: max-content;
   align-items: center;
   justify-content: center;
   gap: 50px;
+  z-index: 1;
 }
 
 .card {
