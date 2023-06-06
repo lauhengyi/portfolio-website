@@ -31,12 +31,75 @@ export default function Cursor() {
       opacity: 0.4,
     },
 
-    pointer: {
+    Home: {
       x: cursor.x - 15,
       y: cursor.y - 15,
-      height: 120,
-      width: 120,
-      backgroundColor: '#fff',
+      height: 130,
+      width: 130,
+      backgroundColor: '#CAE7B9',
+      opacity: 1,
+    },
+
+    About: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 130,
+      backgroundColor: '#F3DE8A',
+      opacity: 1,
+    },
+
+    Work: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 130,
+      backgroundColor: '#EB9486',
+      opacity: 1,
+    },
+
+    Contact: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 130,
+      backgroundColor: '#97A7B3',
+      opacity: 1,
+    },
+
+    Email: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 250,
+      backgroundColor: '#333',
+      opacity: 1,
+    },
+
+    LinkedIn: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 250,
+      backgroundColor: '#333',
+      opacity: 1,
+    },
+
+    Github: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 250,
+      backgroundColor: '#333',
+      opacity: 1,
+    },
+
+    external: {
+      x: cursor.x - 15,
+      y: cursor.y - 15,
+      height: 130,
+      width: 250,
+      backgroundColor: '#333',
       opacity: 1,
     },
   };
@@ -51,7 +114,7 @@ export default function Cursor() {
     LinkedIn: '',
     Github: '',
     Resume: '',
-    External: '',
+    external: '',
   };
 
   const secondaryCursorVariants: Variants = {
@@ -75,12 +138,12 @@ export default function Cursor() {
     <>
       <motion.div
         variants={mainCursorVariants}
-        animate={cursorType === 'default' ? 'default' : 'pointer'}
+        animate={cursorType}
         transition={{
           type: 'spring',
           stiffness: 200,
           damping: 10,
-          mass: 0.2,
+          mass: 0.3,
         }}
         className={styles.cursor}
       >
@@ -93,7 +156,7 @@ export default function Cursor() {
           type: 'spring',
           stiffness: 200,
           damping: 10,
-          mass: 0.4,
+          mass: 0.6,
         }}
         className={styles.cursor2}
       ></motion.div>

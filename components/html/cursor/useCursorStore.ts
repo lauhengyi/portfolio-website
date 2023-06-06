@@ -10,7 +10,7 @@ type CursorType =
   | 'LinkedIn'
   | 'Github'
   | 'Resume'
-  | 'External';
+  | 'external';
 
 type CursorState = {
   cursorType: CursorType;
