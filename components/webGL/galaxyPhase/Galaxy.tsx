@@ -159,9 +159,6 @@ export default function Galaxy() {
       scale={[100000, 100000, 100000]}
       position={[60000, -5000, 0]}
       rotation={[0, 0, 0]}
-      onClick={(e) => {
-        console.log(e);
-      }}
     >
       <shaderMaterial
         uniforms={uniforms}

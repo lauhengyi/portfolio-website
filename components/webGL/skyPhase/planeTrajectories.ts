@@ -20,7 +20,7 @@ const planeTrajectories: IPlaneTrajectory[] = [
   },
   // Outwards going up
   {
-    rotateY: Math.PI * 0.15,
+    rotateY: Math.PI * 0.1,
     rotateZ: Math.PI * 0.05,
     startX: -35,
     startZ: -20,
