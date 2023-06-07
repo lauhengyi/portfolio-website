@@ -26,12 +26,11 @@ export default function Cars() {
   bakedCarAtlas.flipY = false;
 
   const atlasSize = 4;
-  const texStep = 1 / atlasSize;
 
   /*
   / Modifying shader to use atlas
   */
-  const modifyShader = addUVOffsetBeforeCompile(texStep);
+  const modifyShader = addUVOffsetBeforeCompile(atlasSize);
 
   /*
   / Animating cars

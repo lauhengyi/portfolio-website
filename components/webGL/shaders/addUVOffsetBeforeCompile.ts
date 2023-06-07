@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 
-export default function addUVOffsetBeforeCompile(texStep: number) {
+export default function addUVOffsetBeforeCompile(atlasSize: number) {
+  const texStep = 1 / atlasSize;
   return (shader: THREE.Shader) => {
     shader.vertexShader = `
-    	attribute vec2 iUv;
+        attribute vec2 iUv;
       varying vec2 instUv;
       ${shader.vertexShader}
     `.replace(
