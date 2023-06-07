@@ -8,6 +8,7 @@ import { useGLTF, useTexture } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
 import getRandomAtlasUV from '../../utils/getRandomAtlasUV';
+import addUVOffsetBeforeCompile from '../shaders/addUVOffsetBeforeCompile';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -30,31 +31,7 @@ export default function Cars() {
   /*
   / Modifying shader to use atlas
   */
-  const modifyShader = (shader: THREE.Shader) => {
-    shader.vertexShader = `
-    	attribute vec2 iUv;
-      varying vec2 instUv;
-      ${shader.vertexShader}
-    `.replace(
-      `#include <begin_vertex>`,
-      `#include <begin_vertex>
-      	instUv = iUv;
-      `,
-    );
-    shader.fragmentShader = `
-    	varying vec2 instUv;
-    	${shader.fragmentShader}
-    `.replace(
-      `#include <map_fragment>`,
-      `
-      #ifdef USE_MAP
-        vec4 sampledDiffuseColor = texture2D( map, instUv + vUv * ${texStep} );
-
-        diffuseColor *= sampledDiffuseColor;
-      #endif
-    `,
-    );
-  };
+  const modifyShader = addUVOffsetBeforeCompile(texStep);
 
   /*
   / Animating cars
