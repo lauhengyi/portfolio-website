@@ -1,6 +1,7 @@
 .background {
   position: fixed;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -36,4 +37,15 @@
   font-size: clamp(5rem, 7.5vw, 150px);
   color: var(--primary-black);
   transform-origin: bottom right;
+}
+
+.caption {
+  margin: 40px;
+  font-family: 'NoirPro Regular';
+  font-size: clamp(25px, 4vw, 50px);
+  color: var(--primary-black);
+}
+
+.accent {
+  color: #c32e2e;
 }

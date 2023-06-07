@@ -28,6 +28,10 @@ export default function Loading({ progress }: props) {
     duration: 0.5,
   };
 
+  const captionExit: TargetAndTransition = {
+    opacity: 0,
+  };
+
   const formattedProgress = progress.toFixed(0).padStart(3, '0');
 
   return (
@@ -57,6 +61,12 @@ export default function Loading({ progress }: props) {
           </motion.h3>
         </span>
       </div>
+      <span className="mask">
+        <motion.h4 exit={captionExit} className={styles.caption}>
+          This is a website that{' '}
+          <span className={styles.accent}>scrolls up</span>.
+        </motion.h4>
+      </span>
     </section>
   );
 }
