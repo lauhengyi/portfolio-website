@@ -51,19 +51,12 @@ export default function Works() {
           Created and published a game on the Google Play store which features
           21 original chess variations.
         </li>
-        <li>
-          Implemented AI opponents for each of the 21 Chess variations, using a
-          minimax algorithm.
-        </li>
+        <li>Implemented AI opponents for each of the 21 Chess variations.</li>
         <li>
           Made a UI which enabled different color themes and has extensive
-          in-game customizability eg. Game timer, rotating the game board each
-          turn.
+          in-game customizability.
         </li>
-        <li>
-          This shows my experience in mobile development and my ability to pair
-          complex logic in a pleasant UI.
-        </li>
+        <li>This shows my experience in mobile development and UI design.</li>
       </WorkCard>
     </motion.section>
   );

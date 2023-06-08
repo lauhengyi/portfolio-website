@@ -23,7 +23,7 @@
   height: 2ch;
   letter-spacing: -1px;
   font-family: 'NoirPro Medium';
-  font-size: clamp(40px, 6vw, 100px);
+  font-size: clamp(4rem, 6vw, 6rem);
 
   /* Animation */
   --progress: 10%;
@@ -31,6 +31,12 @@
   -webkit-text-stroke-width: 1px;
   color: transparent;
   transform-origin: top;
+}
+
+@media screen and (max-width: 40rem) {
+  .text {
+    font-size: min(10vw, 4rem);
+  }
 }
 
 .text::before {
@@ -53,6 +59,6 @@
 
 .caption {
   font-family: 'NoirPro Regular';
-  font-size: clamp(1.5rem, 4vw, 50px);
+  font-size: clamp(2rem, 4vw, 5rem);
   color: var(--primary-black);
 }
