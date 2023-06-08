@@ -5,13 +5,15 @@ import {
   loadingOverlayVertexShader,
   loadingOverlayFragmentShader,
 } from './shaders/loadingOverlayShaders';
-import useLoad from '../utils/useLoad';
 
-const LoadingOverlay = () => {
+type props = {
+  isLoad: boolean;
+};
+
+const LoadingOverlay = ({ isLoad }: props) => {
   const ref = useRef<THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>>(
     null!,
   );
-  const { isLoad } = useLoad();
 
   const uniforms = useMemo(
     () => ({
