@@ -1,12 +1,5 @@
-import {
-  useScroll,
-  useTransform,
-  MotionValue,
-  useSpring,
-  useMotionValue,
-} from 'framer-motion';
+import { useScroll, useTransform, MotionValue, useSpring } from 'framer-motion';
 import phasePos from './phasePositions';
-import { isMobile } from 'react-device-detect';
 
 interface IPhases {
   totalProgress: MotionValue<number>;
@@ -28,7 +21,7 @@ export default function getPhaseProgress(): IPhases {
   dampedScroll.jump(0);
 
   // Dont use dampedScroll for mobile
-  const scroll = isMobile ? scrollYProgress : dampedScroll;
+  const scroll = dampedScroll;
 
   const landToSky = useTransform(scroll, [phasePos[0], phasePos[1]], [0, 1]);
   const sky = useTransform(scroll, [phasePos[1], phasePos[2]], [0, 1]);
