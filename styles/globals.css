@@ -50,7 +50,7 @@ a {
   display: flex;
   position: relative;
   z-index: 1;
-  height: 8000px;
+  height: 600vh;
   justify-content: center;
 }
 

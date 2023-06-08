@@ -7,6 +7,7 @@ import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 import useLoad from '../utils/useLoad';
 import Cursor from './Cursor';
 
@@ -43,7 +44,7 @@ export default function HTML() {
               <SkyHTML />
               <SpaceHTML />
               <GalaxyHTML />
-              <Cursor />
+              {isMobile ? null : <Cursor />}
             </motion.div>
           ) : (
             <Loading key="Loading" progress={progress} />

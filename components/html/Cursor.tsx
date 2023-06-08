@@ -120,7 +120,7 @@ export default function Cursor() {
   const cursorTextVariants: Variants = {
     default: {
       opacity: 0,
-      color: 'transparent',
+      color: '#ffffff',
     },
     Home: {
       opacity: 1,

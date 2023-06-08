@@ -5,8 +5,7 @@ import SkyText from './sky/SkyText';
 import SkyCaption from './sky/SkyCaption';
 
 export default function SkyHTML() {
-  const { landToSky, sky, skyToSpace } = getPhaseProgress();
-  const entranceOpacity = useTransform(landToSky, [0.8, 1], [0, 1]);
+  const { sky, skyToSpace } = getPhaseProgress();
   const exitOpacityCaption = useTransform(skyToSpace, [0.8, 1], [1, 0]);
 
   return (

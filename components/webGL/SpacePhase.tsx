@@ -7,14 +7,6 @@ const SpacePhase = forwardRef<THREE.Group>(
   (props: JSX.IntrinsicElements['group'], ref) => {
     return (
       <group {...props} ref={ref}>
-        {/* <Stars
-          speed={1}
-          factor={40}
-          saturation={1}
-          depth={40}
-          count={3000}
-          radius={1000}
-        /> */}
         <MyWorkText />
         <Astronaut />
         <Earth />
