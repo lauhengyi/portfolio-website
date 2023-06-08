@@ -10,7 +10,7 @@ export default function useLoad() {
     if (progress === 100) {
       setTimeout(() => {
         setIsLoad(true);
-      }, 500);
+      }, 10);
     }
   }, [progress]);
 
