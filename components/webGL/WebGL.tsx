@@ -18,7 +18,9 @@ export default function WebGL() {
         background: 'black',
       }}
     >
-      <Perf position={'bottom-right'} />
+      {process.env.NODE_ENV === 'development' && (
+        <Perf position={'bottom-right'} />
+      )}
       <Experience />
     </Canvas>
   );
