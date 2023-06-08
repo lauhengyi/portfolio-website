@@ -20,6 +20,7 @@ export default function getPhaseProgress(): IPhases {
     restDelta: 0.00001,
   });
 
+  dampedScroll.jump(0);
   const scroll = dampedScroll;
 
   const landToSky = useTransform(scroll, [phasePos[0], phasePos[1]], [0, 1]);
