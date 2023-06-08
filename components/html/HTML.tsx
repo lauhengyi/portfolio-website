@@ -6,16 +6,12 @@ import SpaceHTML from './SpaceHTML';
 import GalaxyHTML from './GalaxyHTML';
 import Loading from './Loading';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import useLoad from '../utils/useLoad';
 import Cursor from './Cursor';
 
 export default function HTML() {
   const { isLoad, progress } = useLoad();
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, [isLoad]);
 
   return (
     <div>

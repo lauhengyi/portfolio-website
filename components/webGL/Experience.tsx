@@ -9,6 +9,7 @@ import FogHandler from './handlers/FogHandler';
 import SpacePhase from './SpacePhase';
 import GalaxyPhase from './GalaxyPhase';
 import LoadingOverlay from './LoadingOverlay';
+import useLoad from '../utils/useLoad';
 
 export default function Experience() {
   const fogRef = useRef<THREE.Fog>(null!);
@@ -31,6 +32,7 @@ export default function Experience() {
   const cameraHandler = new CameraHandler();
   const visibilityHandler = new VisibilityHandler(sceneRefs);
   const fogHandler = new FogHandler(fogRef);
+  const { isLoad } = useLoad();
 
   cameraHandler.handleCameraMove();
   visibilityHandler.handleVisibility();
@@ -40,7 +42,7 @@ export default function Experience() {
     <>
       {/* <OrbitControls /> */}
       <Preload all />
-      <LoadingOverlay />
+      <LoadingOverlay isLoad={isLoad} />
       <fog ref={fogRef} attach={'fog'} near={30} far={50} color="#f3fdff" />
       <Sky ref={skyBackgroundRef} sunPosition={[10, 5, 10]} rayleigh={1.5} />
       <LandPhase ref={landRef} />

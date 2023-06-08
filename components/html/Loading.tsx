@@ -1,4 +1,6 @@
 import styles from '../../styles/Loading.module.css';
+import { useEffect, useState } from 'react';
+import { getSelectorsByUserAgent, isMobile } from 'react-device-detect';
 import { motion, TargetAndTransition, Transition } from 'framer-motion';
 
 type props = {
@@ -64,7 +66,7 @@ export default function Loading({ progress }: props) {
       <span className="mask">
         <motion.h4 exit={captionExit} className={styles.caption}>
           This is a website that{' '}
-          <span className={styles.accent}>scrolls up</span>.
+          <span className={styles.accent}>scrolls down</span>.
         </motion.h4>
       </span>
     </section>
