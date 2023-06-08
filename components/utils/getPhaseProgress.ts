@@ -13,14 +13,14 @@ interface IPhases {
 export default function getPhaseProgress(): IPhases {
   const { scrollYProgress } = useScroll();
 
+  scrollYProgress.jump(0);
   const dampedScroll = useSpring(scrollYProgress, {
     damping: 100,
     stiffness: 600,
     restDelta: 0.00001,
   });
-  dampedScroll.jump(0);
 
-  // Dont use dampedScroll for mobile
+  dampedScroll.jump(0);
   const scroll = dampedScroll;
 
   const landToSky = useTransform(scroll, [phasePos[0], phasePos[1]], [0, 1]);

@@ -1,6 +1,4 @@
 import styles from '../../styles/Loading.module.css';
-import { useEffect, useState } from 'react';
-import { getSelectorsByUserAgent, isMobile } from 'react-device-detect';
 import { motion, TargetAndTransition, Transition } from 'framer-motion';
 
 type props = {
