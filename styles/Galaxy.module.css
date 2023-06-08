@@ -11,7 +11,7 @@
   margin: 0;
   color: var(--primary-white);
   font-family: 'Humane Bold';
-  font-size: clamp(95px, 13vw, 180px);
+  font-size: min(20vw, 10rem);
 }
 
 .socialsContainer {

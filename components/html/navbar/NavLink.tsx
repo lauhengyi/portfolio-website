@@ -12,8 +12,7 @@ export default function NavLink({ name, scrollLocation }: props) {
   const handleOnClick = () => {
     window.scrollTo({
       top:
-        (1 - scrollLocation) * document.body.scrollHeight -
-        window.innerHeight * 0.85,
+        (1 - scrollLocation) * document.body.scrollHeight - window.innerHeight,
       behavior: 'smooth',
     });
   };
