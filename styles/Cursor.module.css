@@ -1,0 +1,32 @@
+.cursor {
+  position: fixed;
+  border-radius: 100px;
+  top: -15px;
+  left: -15px;
+  z-index: 50;
+  pointer-events: none;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursorText {
+  font-family: 'NoirPro Bold';
+  text-align: center;
+  font-size: 22px;
+  color: var(--primary-black);
+}
+
+.cursor2 {
+  position: fixed;
+  height: 60px;
+  width: 60px;
+  border-radius: 100px;
+  top: -30px;
+  left: -30px;
+  border-style: solid;
+  border-width: 2px;
+  z-index: 49;
+  pointer-events: none;
+}

@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'Humane Bold';
+  src: url('/fonts/Humane-Bold.woff2');
+}
+@font-face {
+  font-family: 'NoirPro Bold';
+  src: url('/fonts/NoirPro-Bold.woff2');
+}
+@font-face {
+  font-family: 'NoirPro SemiBold';
+  src: url('/fonts/NoirPro-SemiBold.woff2');
+}
+@font-face {
+  font-family: 'NoirPro Medium';
+  src: url('/fonts/NoirPro-Medium.woff2');
+}
+@font-face {
+  font-family: 'NoirPro Regular';
+  src: url('/fonts/NoirPro-Regular.woff2');
+}
+
 html,
 body {
   padding: 0;
@@ -6,9 +27,44 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+:root {
+  /* Color Scheme */
+  --primary-black: #414239;
+  --primary-black-faded: #41423977;
+  --primary-white: #fffcea;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.container {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+}
+
+.scrollContainer {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  height: 600vh;
+  justify-content: center;
+}
+
+.section-wrapper {
+  width: min(85vw, 180vh);
+  position: fixed;
+}
+
+.mask {
+  overflow: hidden;
+}
+
+.link {
+  text-decoration: underline;
 }
 
 * {

@@ -1,0 +1,22 @@
+.land {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 1rem;
+  color: var(--primary-black);
+  font-family: 'Humane Bold', cursive;
+  font-size: min(28vw, 14rem);
+}
+
+.caption {
+  margin: 0;
+  color: var(--primary-black);
+  font-family: 'NoirPro Medium';
+  font-size: min(7vw, 3.5rem);
+  margin-bottom: 5rem;
+}

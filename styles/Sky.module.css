@@ -1,0 +1,64 @@
+.sky {
+  margin-top: 100px;
+  height: 100vh;
+}
+
+.textContainer {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: clamp(10px, 1vw, 20px);
+  align-content: flex-start;
+}
+
+.textWrapper {
+  display: inline-block;
+  transform-origin: bottom;
+}
+
+.text {
+  /* Formatting */
+  display: inline-block;
+  position: relative;
+  margin: 0 0;
+  height: 2ch;
+  letter-spacing: -1px;
+  font-family: 'NoirPro Medium';
+  font-size: clamp(4rem, 6vw, 6rem);
+
+  /* Animation */
+  --progress: 10%;
+  -webkit-text-stroke-color: var(--primary-black);
+  -webkit-text-stroke-width: 1px;
+  color: transparent;
+  transform-origin: top;
+}
+
+@media screen and (max-width: 40rem) {
+  .text {
+    font-size: min(10vw, 4rem);
+  }
+}
+
+.text::before {
+  height: 2ch;
+  content: attr(data-text);
+  color: var(--primary-black);
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--progress);
+  overflow: hidden;
+}
+
+.captionContainer {
+  margin-top: 2vh;
+  display: flex;
+  justify-content: center;
+}
+
+.caption {
+  font-family: 'NoirPro Regular';
+  font-size: clamp(2rem, 4vw, 5rem);
+  color: var(--primary-black);
+}

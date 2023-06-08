@@ -1,0 +1,66 @@
+.cardHolder {
+  position: fixed;
+  display: flex;
+  height: 100vh;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  z-index: 1;
+}
+
+.card {
+  width: min(80vw, 1000px);
+  border-radius: 40px;
+  background-color: rgba(50, 50, 50, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 20px;
+  min-height: 35rem;
+  color: var(--primary-white);
+}
+
+@media screen and (max-width: 50rem) {
+  .card {
+    width: 95vw;
+  }
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.card h2 {
+  margin: 0;
+  font-family: 'NoirPro Bold';
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.card h3 {
+  margin: 0;
+  font-family: 'NoirPro SemiBold';
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.card h4 {
+  margin: 0;
+  margin-bottom: 10px;
+  font-family: 'NoirPro Medium';
+  font-size: clamp(1.2rem, 4vw, 2rem);
+}
+
+.card li {
+  margin-bottom: 10px;
+  font-family: 'NoirPro regular';
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+.card hr {
+  color: var(--primary-white);
+  opacity: 0.5;
+}
