@@ -32,7 +32,7 @@ export default function Galaxy() {
 
   const uniforms = useMemo(
     () => ({
-      uTime: { value: 0 },
+      uTime: { value: 6 },
       uGalaxyTime: { value: 0 },
       uGalaxyRotation: {
         value: new THREE.Vector3(-Math.PI * 0.05, 0, -Math.PI * 0.05),
