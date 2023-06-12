@@ -7,7 +7,7 @@ import useCursorStore from './cursor/useCursorStore';
 export default function Cursor() {
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const cursorType = useCursorStore((s) => s.cursorType);
-  const { skyToSpace } = getPhaseProgress();
+  const { skyToSpace } = getPhaseProgress(true);
   const color = useTransform(skyToSpace, [0.8, 1], ['#414239', '#fffcea']);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export default function Cursor() {
       y: cursor.y - 15,
       height: 100,
       width: 100,
-      backgroundColor: 'white',
+      backgroundColor: '#ffffff',
       opacity: 1,
     },
   };
