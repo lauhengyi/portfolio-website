@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/Cursor.module.css';
-import { Variants, motion, useTransform } from 'framer-motion';
+import {
+  Variants,
+  motion,
+  useMotionValueEvent,
+  useTransform,
+} from 'framer-motion';
 import getPhaseProgress from '../utils/getPhaseProgress';
 import useCursorStore from './cursor/useCursorStore';
 
 export default function Cursor() {
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const cursorType = useCursorStore((s) => s.cursorType);
-  const { skyToSpace } = getPhaseProgress();
-  const color = useTransform(skyToSpace, [0.8, 1], ['#414239', '#fffcea']);
 
+  // Changing default color
+  const landColor = '#414239';
+  const skyColor = '#fffcea';
+  const { skyToSpace } = getPhaseProgress(true);
+  const color = useTransform(skyToSpace, [0.8, 1], [landColor, skyColor]);
+  const [defaultColor, setDefaultColor] = useState(landColor);
+  useMotionValueEvent(color, 'change', (latest) => {
+    setDefaultColor(latest);
+  });
+
+  // Changing cursor position
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setCursor({ x: e.clientX, y: e.clientY });
@@ -27,7 +41,7 @@ export default function Cursor() {
       y: cursor.y,
       height: 30,
       width: 30,
-      backgroundColor: color.get(),
+      backgroundColor: defaultColor,
       opacity: 0.4,
     },
 
@@ -99,7 +113,7 @@ export default function Cursor() {
       y: cursor.y - 15,
       height: 100,
       width: 100,
-      backgroundColor: 'white',
+      backgroundColor: '#ffffff',
       opacity: 1,
     },
   };
@@ -160,7 +174,7 @@ export default function Cursor() {
     default: {
       x: cursor.x,
       y: cursor.y,
-      borderColor: color.get(),
+      borderColor: defaultColor,
       scale: 1,
       opacity: 1,
     },

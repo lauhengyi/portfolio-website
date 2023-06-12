@@ -10,17 +10,19 @@ interface IPhases {
   spaceToGalaxy: MotionValue<number>;
 }
 
-export default function getPhaseProgress(): IPhases {
+export default function getPhaseProgress(noReset?: boolean): IPhases {
   const { scrollYProgress } = useScroll();
 
-  scrollYProgress.jump(0);
   const dampedScroll = useSpring(scrollYProgress, {
     damping: 100,
     stiffness: 600,
     restDelta: 0.00001,
   });
 
-  dampedScroll.jump(0);
+  if (!noReset) {
+    scrollYProgress.jump(0);
+    dampedScroll.jump(0);
+  }
   const scroll = dampedScroll;
 
   const landToSky = useTransform(scroll, [phasePos[0], phasePos[1]], [0, 1]);
