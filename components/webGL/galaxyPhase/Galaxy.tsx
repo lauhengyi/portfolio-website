@@ -32,13 +32,13 @@ export default function Galaxy() {
 
   const uniforms = useMemo(
     () => ({
-      uTime: { value: 6 },
+      uTime: { value: 8 },
       uGalaxyTime: { value: 0 },
       uGalaxyRotation: {
         value: new THREE.Vector3(-Math.PI * 0.05, 0, -Math.PI * 0.05),
       },
       uTimeOffset: { value: timeOffset },
-      uSize: { value: 30 },
+      uSize: { value: 40.0 },
       uProgress: { value: 0 },
     }),
     [],
@@ -76,7 +76,7 @@ export default function Galaxy() {
     const color = new THREE.Color(colorPalette[Math.floor(Math.random() * 3)]);
     colors.set([color.r, color.g, color.b], i3);
 
-    scales[i] = Math.random();
+    scales[i] = Math.random() + 0.1;
     frequencies.set([Math.random(), Math.random(), Math.random()], i3);
     amplitudes.set([Math.random(), Math.random(), Math.random()], i3);
   }
@@ -115,6 +115,9 @@ export default function Galaxy() {
   );
 
   const { spaceToGalaxy } = getPhaseProgress();
+  if (galaxyRef.current) {
+    galaxyRef.current.material.needsUpdate = true;
+  }
 
   useFrame((_, delta) => {
     const clampedDelta = Math.min(delta, 1 / 30);
@@ -125,7 +128,7 @@ export default function Galaxy() {
       const uProgress = galaxyRef.current?.material.uniforms.uProgress;
 
       // Update time
-      const timeSpeed = Math.pow(spaceToGalaxy.get(), 4);
+      const timeSpeed = Math.pow(spaceToGalaxy.get(), 6);
       uTime.value += clampedDelta * timeSpeed;
       uGalaxyTime.value += clampedDelta * timeSpeed;
 
