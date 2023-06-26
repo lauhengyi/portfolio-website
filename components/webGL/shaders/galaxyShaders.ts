@@ -122,7 +122,7 @@ export const galaxyVertexShader = /* glsl */ `
         vec3 headPosition = aHeadPosition;
         float headAngle = atan(headPosition.x, headPosition.z);
         float headDistanceToCenter = length(headPosition.xz);
-        float headAngleOffset = uTime * 0.05;
+        float headAngleOffset = PI * 0.70 + sin(uTime * 0.4) * 0.20;
         headAngle += headAngleOffset;
         headPosition.x = cos(headAngle) * headDistanceToCenter;
         headPosition.z = sin(headAngle) * headDistanceToCenter;
@@ -155,8 +155,8 @@ export const galaxyVertexShader = /* glsl */ `
         /**
          * Size
          */
-        gl_PointSize = uSize * aScale;
-        // gl_PointSize *= (1.0 / - viewPosition.z);
+        float defaultSize = uSize * aScale;
+        gl_PointSize = min(defaultSize * (1.0 / - viewPosition.z) * 300000.0, defaultSize);
 
         /**
          * Color
