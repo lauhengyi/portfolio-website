@@ -16,6 +16,7 @@ export default function WebGL() {
         left: 0,
         overflow: 'hidden',
         background: 'black',
+        height: '100vh',
       }}
     >
       {process.env.NODE_ENV === 'development' && (
