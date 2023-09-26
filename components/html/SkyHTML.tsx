@@ -12,7 +12,7 @@ export default function SkyHTML() {
     <div className="section-wrapper">
       <motion.section className={styles.sky}>
         <SkyText>
-          Hi, I am currently a undergrad in NUS Com Sci, and I have a passion
+          Hi, I am currently an undergrad in NUS Com Sci, and I have a passion
           for building amazing web applications that inspire. On the side, I
           like to make music.
         </SkyText>
