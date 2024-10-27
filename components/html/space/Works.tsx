@@ -9,6 +9,25 @@ export default function Works() {
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
+        company="KairosWealth"
+        duration="Jan 2024 - Mar 2024"
+        position="Software Engineer"
+        href="https://www.kairoswealth.com/"
+      >
+        <li>
+          Designed and developed UI/UX for responsive and intuitive user
+          interfaces.
+        </li>
+        <li>
+          Refactored code for clarity, maintainability, and extensibility,
+          improving application performance.
+        </li>
+        <li>
+          Contributed to scalable and efficient software solutions, enhancing
+          overall user experience.
+        </li>
+      </WorkCard>
+      <WorkCard
         company="Spaceytales"
         duration="Jan 2024 - Mar 2024"
         position="Full Stack Freelance Developer"
@@ -42,28 +61,6 @@ export default function Works() {
         <li>
           Incorporated complex on-scroll animations packaged in a modern UI
           using the GSAP and CSS.
-        </li>
-      </WorkCard>
-      <WorkCard
-        company="Swerve Server"
-        duration="Jun 2022 - Sept 2022"
-        position="Back-end Developer"
-      >
-        <li>
-          Architected and built a back-end server for a start-up to fit business
-          requirements for 3 months.
-        </li>
-        <li>
-          Developed REST APIs with Node.js, Express.js and deployed a MongoDB
-          database.
-        </li>
-        <li>
-          Executed common features, interfacing with a MongoDB database, JWT
-          authentication, and password hashing.
-        </li>
-        <li>
-          Established a strong test-driven development process allowing for a
-          test coverage of all api endpoints of over 90%.
         </li>
       </WorkCard>
       <WorkCard
