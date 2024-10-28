@@ -10,7 +10,7 @@ export default function Works() {
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
         company="KairosWealth"
-        duration="Jan 2024 - Mar 2024"
+        duration="Jul 2024 - Present"
         position="Software Engineer"
         href="https://www.kairoswealth.com/"
       >
