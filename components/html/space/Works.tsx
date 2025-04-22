@@ -9,8 +9,33 @@ export default function Works() {
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
+        company="Razer Inc."
+        duration="Jan 2025 - Present"
+        position="Systems Development Intern"
+        href="https://www.razer.com/"
+      >
+        <li>
+          Researched and familiarised with existing private/enterprise cloud
+          management and accounting platforms.
+        </li>
+        <li>
+          Document development process, decisions and their rationales, working
+          configurations.
+        </li>
+        <li>
+          Wrote customisation to interface with APIs of different backends.
+        </li>
+        <li>
+          Developed and deployed working demos to cater to different use cases.
+        </li>
+        <li>
+          Present the demo to internal stakeholders, fixing bugs or enhancing
+          based on feedback.
+        </li>
+      </WorkCard>
+      <WorkCard
         company="KairosWealth"
-        duration="Jul 2024 - Present"
+        duration="Jul 2024 - Jan 2025"
         position="Software Engineer"
         href="https://www.kairoswealth.com/"
       >
@@ -38,6 +63,11 @@ export default function Works() {
           exhibition held by Science Centre Singapore and OSTIn.
         </li>
         <li>
+          Engineered and optimised a gamified personality quiz that attracted
+          12.8K+ respondents, achieving a 25% newsletter signup rate (vs. 1-2%
+          industry avg).
+        </li>
+        <li>
           Built the front-end of the quiz using Next.js and Framer motion.
         </li>
         <li>
@@ -46,28 +76,9 @@ export default function Works() {
         </li>
       </WorkCard>
       <WorkCard
-        company="Swerve Website"
-        duration="Nov 2022 - Dec 2022"
-        position="Front-end Developer"
-        href="https://theswerveapp.com/"
-      >
-        <li>
-          Designed a mock up for complete website UI for a start up in Figma.
-        </li>
-        <li>
-          Implemented front-end design in code using Next.js framework and GSAP
-          animations taking 1 month to build.
-        </li>
-        <li>
-          Incorporated complex on-scroll animations packaged in a modern UI
-          using the GSAP and CSS.
-        </li>
-      </WorkCard>
-      <WorkCard
         company="21Chess app"
         duration="Jun 2021 - Nov 2021"
         position="Full Stack Developer"
-        href="https://play.google.com/store/apps/details?id=com.hengyi.twentyonechess&hl=en&gl=US"
       >
         <li>
           Created and published a game on the Google Play store, taking of 5
