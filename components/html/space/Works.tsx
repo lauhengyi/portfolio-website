@@ -81,8 +81,8 @@ export default function Works() {
         position="Full Stack Developer"
       >
         <li>
-          Created and published a game on the Google Play store, taking of 5
-          months, featuring 21 original chess variations.
+          Created and published a game on the Google Play store, featuring 21
+          original chess variations.
         </li>
         <li>Implemented AI opponents for each of the 21 Chess variations.</li>
         <li>
