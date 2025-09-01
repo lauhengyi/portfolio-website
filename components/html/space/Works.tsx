@@ -9,8 +9,32 @@ export default function Works() {
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
+        company="Thales Group"
+        duration="Jul 2025 - Present"
+        position="Software Engineer Intern"
+        href="https://www.thalesgroup.com/en/"
+      >
+        <li>
+          Designed, developed, and deployed a locally hosted AI assistant
+          leveraging LLMs to support software engineers in writing test cases on
+          air-gapped development environments.
+        </li>
+        <li>
+          Drove widespread adoption across the team, significantly accelerating
+          coding and testing workflows.
+        </li>
+        <li>
+          Iterated on the solution based on feedback, improving usability,
+          reliability, and performance over time.
+        </li>
+        <li>
+          Authored comprehensive documentation to ensure smooth handover and
+          long-term maintainability.
+        </li>
+      </WorkCard>
+      <WorkCard
         company="Razer Inc."
-        duration="Jan 2025 - Present"
+        duration="Jan 2025 - May 2025"
         position="Systems Development Intern"
         href="https://www.razer.com/"
       >
@@ -73,25 +97,6 @@ export default function Works() {
         <li>
           Designed and built back-end to store quiz results, email and
           statistics.
-        </li>
-      </WorkCard>
-      <WorkCard
-        company="21Chess app"
-        duration="Jun 2021 - Nov 2021"
-        position="Full Stack Developer"
-      >
-        <li>
-          Created and published a game on the Google Play store, featuring 21
-          original chess variations.
-        </li>
-        <li>Implemented AI opponents for each of the 21 Chess variations.</li>
-        <li>
-          Made a UI, enabling different colour themes and has extensive in-game
-          customizability.
-        </li>
-        <li>
-          Leveraged React Native, Javascript, HTML, CSS and Git to develop and
-          deploy application.
         </li>
       </WorkCard>
     </motion.section>
