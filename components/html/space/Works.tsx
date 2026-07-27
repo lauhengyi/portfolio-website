@@ -9,8 +9,31 @@ export default function Works() {
   return (
     <motion.section style={{ x }} className={styles.cardHolder}>
       <WorkCard
+        company="Stripe Inc"
+        duration="May 2026 - Jul 2026"
+        position="Software Engineer Intern"
+        href="https://stripe.com/en-sg"
+      >
+        <li>
+          Delivered 2 P0 requirements for a major enterprise platform within an
+          escalated 2-month deadline.
+        </li>
+        <li>
+          Migrated dispute queries from MongoDB to Elasticsearch via a
+          200M-document backfill across 13 parallel migrations.
+        </li>
+        <li>
+          Identified and remediated an access-control issue involving restricted
+          financial data.
+        </li>
+        <li>
+          Built shadow-traffic validation that caught data-parity issues before
+          cutover, preventing user impact.
+        </li>
+      </WorkCard>
+      <WorkCard
         company="Thales Group"
-        duration="Jul 2025 - Present"
+        duration="Jul 2025 - Oct 2025"
         position="Software Engineer Intern"
         href="https://www.thalesgroup.com/en/"
       >

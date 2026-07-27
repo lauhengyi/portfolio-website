@@ -11,7 +11,7 @@ export default function LandHTML() {
     <div className="section-wrapper">
       <section className={styles.land}>
         <h1 className={styles.title}>
-          <HeaderAnimated progress={opacity}>Web Developer</HeaderAnimated>
+          <HeaderAnimated progress={opacity}>Software Engineer</HeaderAnimated>
         </h1>
         <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <motion.p className={styles.caption} style={{ opacity }}>

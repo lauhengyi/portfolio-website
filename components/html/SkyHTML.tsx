@@ -12,9 +12,9 @@ export default function SkyHTML() {
     <div className="section-wrapper">
       <motion.section className={styles.sky}>
         <SkyText>
-          Hi, I am currently an undergrad in NUS Com Sci, and I have a passion
-          for building amazing web applications that inspire. On the side, I
-          like to make music.
+          Hi! I’m a final-year Com Sci student at NUS. I'm passionate about
+          building thoughtful, high-impact software. On the side, I like to make
+          music.
         </SkyText>
         <motion.div
           style={{ opacity: exitOpacityCaption }}
