@@ -15,16 +15,17 @@ export default function Works() {
         href="https://stripe.com/en-sg"
       >
         <li>
+          Shipped 5 production features across React, Ruby, GraphQL, and
+          Elasticsearch, cutting dispute-list p99 latency by 65% and export
+          times by 30%.
+        </li>
+        <li>
           Delivered 2 P0 requirements for a major enterprise platform within an
           escalated 2-month deadline.
         </li>
         <li>
           Migrated dispute queries from MongoDB to Elasticsearch via a
           200M-document backfill across 13 parallel migrations.
-        </li>
-        <li>
-          Identified and remediated an access-control issue involving restricted
-          financial data.
         </li>
         <li>
           Built shadow-traffic validation that caught data-parity issues before
